@@ -10,7 +10,11 @@
 using namespace std;
 
 namespace utilityFunctions {
-    const string getInput();
+    const string getStringInput();
+
+    const unsigned int getNumInput();
+
+    void exit();
 }
 
 #endif //MOBILE_BANKING_APP_UTILITYFUNCTIONS_H

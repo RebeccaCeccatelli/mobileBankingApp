@@ -2,7 +2,9 @@
 // Created by Rebecca on 28/09/2020.
 //
 
+
 #include "WelcomePage.h"
+
 #include <iostream>
 #include <string>
 
@@ -14,7 +16,7 @@ using namespace utilityFunctions;
 const int MAX_ATTEMPTS = 5;
 
 void WelcomePage::displayScreen() {
-    cout << "Dear " << accessManager.getName() << ", Welcome!" << endl;
+    cout << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
     manageInput();
 }
@@ -24,7 +26,7 @@ void WelcomePage::manageInput() {
 
     if (!isCorrectInput()) {
         if (attempts <= MAX_ATTEMPTS) {
-            cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. ";
+            cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. " << endl;
             attempts++;
             displayScreen();
         } else {
@@ -38,11 +40,12 @@ void WelcomePage::manageInput() {
 
 bool WelcomePage::isCorrectInput() {
     bool correct = false;
-    string input = getInput();
+    string input = getStringInput();
 
     if (input == "login") {
         correct = true;
-        accessManager.login();
+        if (!accessManager.login())
+            displayScreen();
     } else if (input == "exit") {
         correct = true;
         exit();

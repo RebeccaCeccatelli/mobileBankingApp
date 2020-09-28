@@ -4,13 +4,21 @@
 
 #include "utilityFunctions.h"
 
-#include "utilityFunctions.h"
-
 #include <iostream>
 #include <string>
 
-const string utilityFunctions::getInput() {
+const string utilityFunctions::getStringInput() {
     string input;
     cin >> input;
     return input;
+}
+
+const unsigned int utilityFunctions::getNumInput() {
+    unsigned int num;
+    cin >> num;
+    return num;
+}
+
+void utilityFunctions::exit() {
+    cout << "You're being redirected to our welcome page. " << endl;
 }

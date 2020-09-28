@@ -4,40 +4,47 @@
 
 #ifndef MOBILE_BANKING_APP_ACCESSMANAGER_H
 #define MOBILE_BANKING_APP_ACCESSMANAGER_H
+
 #include <iostream>
 #include <string>
+#include <list>
 
 using namespace std;
 
 class AccessManager {
 public:
-    void login();
+    AccessManager();
 
-    void logout();
-
-    void returnToPreviousPage();
-
+    bool login();  // per adesso niente logout (callback?)
     const string &getName() const;
 
 private:
+
     void askToRemember();
+
+    bool checkCredentials();
+
+    bool areCorrectCredentials();
+
+    void setTitolarCode();
 
     void setRemembered(bool rem);
 
-    bool isRemembered(string answer);
+    void setClientName();
 
-    void setTitolarCode(unsigned long int titCode);
+    void setPIN();
 
-    void setPIN(int pin);
+    void setFirstLogin(bool l);
 
-    void setClientName(string cName);
+    void resetInfo();
 
+    unsigned int titolarCode;
+    unsigned int PIN;
+    string clientName{"client"};
+    bool remembered{false};
+    bool firstLogin{true};     //TODO rivedere nome
 
-    unsigned long int titolarCode;
-    int PIN;
-    string clientName = "client";
-    bool remembered;
-
+    list<pair<unsigned int, unsigned int>> acceptableCredentials;
 };
 
 #endif //MOBILE_BANKING_APP_ACCESSMANAGER_H
