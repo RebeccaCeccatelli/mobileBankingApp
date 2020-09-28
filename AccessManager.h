@@ -9,6 +9,8 @@
 #include <list>
 
 #include "Account.h"
+#include "AccountsManager.h"
+#include "SmartLock.h"
 #include "InputManager.h"
 
 using namespace std;
@@ -17,14 +19,17 @@ class AccessManager : public InputManager {
 public:
     AccessManager();
 
-    void login();  // per adesso niente logout (callback?)
+    void login();    // per il momento no metodi di logout
     const string &getName() const;
 
+protected:
+    bool isCorrectInput() override;
+
+    void tryAgain() override;
+
+    void enableFailureRoutine() override;
+
 private:
-
-    void askToRemember();
-
-    bool wantToSwitchAccount();
 
     void checkCredentials();
 
@@ -40,19 +45,16 @@ private:
 
     void resetInfo();
 
-public:
-    bool isCorrectInput() override;
-
-    void tryAgain() override;
-
-    void enableFailureRoutine() override;
-
 private:
     unsigned int titolarCode;
     unsigned int PIN;
     string clientName{"client"};
+
     bool remembered{false};
-    bool firstLogin{true};     //TODO rivedere nome
+    bool firstLogin{true};
+    char purpose{1};
+    AccountsManager accountsManager;
+    SmartLock smartLock;
 
     list<Account> accounts;
 

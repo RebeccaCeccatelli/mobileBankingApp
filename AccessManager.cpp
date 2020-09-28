@@ -24,19 +24,19 @@ void AccessManager::login() {
     cout << "*** Login page ***" << endl;
     if (!firstLogin) {
         if (remembered) {
-            if (!wantToSwitchAccount())
+            if (!accountsManager.wantToSwitchAccount())
                 cout << clientName << ", your titolar code is already setted. " << endl;
             else {
                 cout << "Removing previous info." << endl;
                 setFirstLogin(true);
-                askToRemember();
+                smartLock.wantToRemember();
                 cout << "Insert your titolar code: " << endl;
                 setTitolarCode();
             }
         }
     }
     else if (firstLogin || !remembered) {
-        askToRemember();
+        smartLock.wantToRemember();
         cout << "Insert your titolar code: " << endl;
         setTitolarCode();
     }
@@ -48,32 +48,6 @@ void AccessManager::login() {
 
 const string &AccessManager::getName() const {
     return clientName;
-}
-
-bool AccessManager::wantToSwitchAccount() {
-    bool answer = false;
-    cout << "Do you want to switch account?" << endl;
-    if (getStringInput() == "yes"){
-        resetInfo();
-        setRemembered(false);
-        setFirstLogin(true);
-        answer = true;
-    }
-    return answer;
-}
-
-void AccessManager::askToRemember() {       //valutare se spostare in un'altra classe.
-    cout << "Do you want your name and titolar code to be remembered by this App?" << endl;
-    if (getStringInput() == "yes") {
-        cout << "Then insert your name: " << endl;
-        setClientName();
-        setRemembered(true);
-    }
-    if (getStringInput() == "no") {
-        cout << "Ok, then your titolar code will be removed. " << endl;
-        resetInfo();
-        setRemembered(false);
-    }
 }
 
 void AccessManager::checkCredentials() {
@@ -114,14 +88,16 @@ void AccessManager::resetInfo() {
 
 bool AccessManager::isCorrectInput() {
 
-    for (auto account : accounts) {
-        if (make_pair(titolarCode, PIN) == account.acceptableCredentials) {
-            cout << "Credentials accepted. Logging in..." << endl;
-            account.personalArea.displayScreen();
-            return true;
+    if (purpose == 1) {
+        for (auto account : accounts) {
+            if (make_pair(titolarCode, PIN) == account.acceptableCredentials) {
+                cout << "Credentials accepted. Logging in..." << endl;
+                account.personalArea.displayScreen();
+                return true;
+            }
         }
+        return false;
     }
-    return false;
 }
 
 void AccessManager::tryAgain() {
