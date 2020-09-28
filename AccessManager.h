@@ -9,31 +9,45 @@
 #include <list>
 
 #include "Account.h"
+#include "InputManager.h"
 
 using namespace std;
 
-class AccessManager {
+class AccessManager : public InputManager {
 public:
     AccessManager();
 
-    bool login();  // per adesso niente logout (callback?)
+    void login();  // per adesso niente logout (callback?)
     const string &getName() const;
 
 private:
 
     void askToRemember();
+
     bool wantToSwitchAccount();
-    bool checkCredentials();
-    bool areCorrectCredentials();
+
+    void checkCredentials();
 
     void setTitolarCode();
+
     void setRemembered(bool rem);
+
     void setClientName();
+
     void setPIN();
+
     void setFirstLogin(bool l);
 
     void resetInfo();
 
+public:
+    bool isCorrectInput() override;
+
+    void tryAgain() override;
+
+    void enableFailureRoutine() override;
+
+private:
     unsigned int titolarCode;
     unsigned int PIN;
     string clientName{"client"};

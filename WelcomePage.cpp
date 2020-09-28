@@ -2,7 +2,6 @@
 // Created by Rebecca on 28/09/2020.
 //
 
-
 #include "WelcomePage.h"
 
 #include <iostream>
@@ -18,24 +17,9 @@ const int MAX_ATTEMPTS = 5;
 void WelcomePage::displayScreen() {
     cout << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
-    manageInput();
-}
 
-void WelcomePage::manageInput() {
     static int attempts = 1;
-
-    if (!isCorrectInput()) {
-        if (attempts <= MAX_ATTEMPTS) {
-            cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. " << endl;
-            attempts++;
-            displayScreen();
-        } else {
-            cerr << "More than five uncorrect inputs." << endl;
-            attempts = 1;
-            exit();
-        }
-    }
-    attempts = 1;
+    manageInput(this, attempts);
 }
 
 bool WelcomePage::isCorrectInput() {
@@ -44,8 +28,9 @@ bool WelcomePage::isCorrectInput() {
 
     if (input == "login") {
         correct = true;
-        if (!accessManager.login())
-            displayScreen();
+        accessManager.login();
+        /*if (!accessManager.login())
+            displayScreen();*/
     } else if (input == "exit") {
         correct = true;
         exit();
@@ -53,6 +38,16 @@ bool WelcomePage::isCorrectInput() {
     return correct;
 }
 
-void WelcomePage::exit() {
-    cout << "Application closed. Goodbye." << endl;
+
+void WelcomePage::tryAgain() {
+    displayScreen();
 }
+
+void WelcomePage::enableFailureRoutine() {
+    cout << "You're being redirected to our Welcome Page." << endl;
+}
+
+void WelcomePage::exit() {
+    cout << "Application closed. Goodbye. " << endl;
+}
+
