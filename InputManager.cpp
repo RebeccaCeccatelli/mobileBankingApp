@@ -9,7 +9,7 @@ using namespace std;
 
 const unsigned int MAX_ATTEMPTS = 5;
 
-void InputManager::manageInput(InputManager *specificClass, int &attempts) {
+void InputManager::manageInput(InputManager *specificClass) {
     if (!specificClass->isCorrectInput()) {
         if (attempts <= MAX_ATTEMPTS) {
             cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. " << endl;

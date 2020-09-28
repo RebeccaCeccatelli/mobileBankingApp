@@ -14,6 +14,7 @@ namespace utilityFunctions {
     const string getStringInput();
     const unsigned int getNumInput();
 
+    void exit();
 }
 
 #endif //MOBILE_BANKING_APP_UTILITYFUNCTIONS_H

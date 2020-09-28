@@ -17,12 +17,8 @@ public:
 
 private:
     bool isCorrectInput() override;
-
     void tryAgain() override;
-
     void enableFailureRoutine() override;
-
-    static void exit();
 
     AccessManager accessManager;
 };

@@ -18,8 +18,7 @@ void WelcomePage::displayScreen() {
     cout << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
 
-    static int attempts = 1;
-    manageInput(this, attempts);
+    manageInput(this);
 }
 
 bool WelcomePage::isCorrectInput() {
@@ -38,16 +37,11 @@ bool WelcomePage::isCorrectInput() {
     return correct;
 }
 
-
 void WelcomePage::tryAgain() {
     displayScreen();
 }
 
 void WelcomePage::enableFailureRoutine() {
     cout << "You're being redirected to our Welcome Page." << endl;
-}
-
-void WelcomePage::exit() {
-    cout << "Application closed. Goodbye. " << endl;
 }
 

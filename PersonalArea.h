@@ -12,13 +12,10 @@ public:
     void displayScreen();
 
 private:
-public:
+    bool isCorrectInput() override;
     void tryAgain() override;
-
     void enableFailureRoutine() override;
 
-private:
-    bool isCorrectInput() override;
 
     /*BankingAccountsManager banking;
      * list<Reminder> reminders;
@@ -27,5 +24,6 @@ private:
      * BankServiceManager bsManager;
      * ProfileManager profileManager;*/
 };
+
 
 #endif //MOBILE_BANKING_APP_PERSONALAREA_H

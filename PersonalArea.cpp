@@ -19,8 +19,7 @@ void PersonalArea::displayScreen() {
 
     cout << "Enter the corrisponding number: " << endl;
 
-    static int attempts = 1;
-    manageInput(this, attempts);
+    manageInput(this);
 }
 
 
@@ -53,7 +52,7 @@ void PersonalArea::tryAgain() {
 }
 
 void PersonalArea::enableFailureRoutine() {
-    cout << "More than five uncorrect inputs. Here there is no maximum limit, you can try again. " << endl;
+    cout << "More than five uncorrect inputs. There is no maximum limit, you can try again. " << endl;
     displayScreen();
 }
 

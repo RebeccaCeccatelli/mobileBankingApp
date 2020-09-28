@@ -7,20 +7,34 @@
 
 #include "InputManager.h"
 
+#include <string>
+
+using namespace std;
+
 class SmartLock : public InputManager {
 public:
-    void wantToRemember();
+    bool wantToRemember();
+
+    const unsigned int getTitolarCode() const;
+    void setTitolarCode();
+
+    const string& getName() const;
+
+    void reset();
 
 protected:
     bool isCorrectInput() override;
-
     void tryAgain() override;
-
     void enableFailureRoutine() override;
 
 private:
+    void setClientNickname();
+    void setRemembered(bool rem);
+
+    unsigned int titolarCode{0};
+    string clientNickname;
+
     bool remembered{false};
-    bool firstLogin{true};
 };
 
 #endif //MOBILE_BANKING_APP_SMARTLOCK_H

@@ -12,24 +12,29 @@ using namespace std;
 using namespace utilityFunctions;
 
 bool AccountsManager::wantToSwitchAccount() {
-    bool answer = false;
     cout << "Do you want to switch account?" << endl;
 
-    static int attempts = 1;
-    manageInput(this, attempts);
+    manageInput(this);
 
     return answer;
 }
 
 bool AccountsManager::isCorrectInput() {
-    bool correct = true;
+    bool correct = false;
+
     string input = getStringInput();
     if (input == "yes") {
-        cout << "Switch account" << endl; //TODO
-    } else if (input == "no") {
-        cout << "I'll stay" << endl; //TODO
-    } else
-        correct = false;
+        cout << "Switch account" << endl;
+        answer = true;
+
+        correct = true;
+    }
+    else if (input == "no") {
+        cout << "I'll stay" << endl;
+        answer = false;
+
+        correct = true;
+    }
     return correct;
 }
 

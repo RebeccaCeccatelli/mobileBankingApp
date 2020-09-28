@@ -19,45 +19,27 @@ class AccessManager : public InputManager {
 public:
     AccessManager();
 
-    void login();    // per il momento no metodi di logout
+    void login();
     const string &getName() const;
 
-protected:
-    bool isCorrectInput() override;
-
-    void tryAgain() override;
-
-    void enableFailureRoutine() override;
-
 private:
+    bool isCorrectInput() override;
+    void tryAgain() override;
+    void enableFailureRoutine() override;
 
     void checkCredentials();
 
-    void setTitolarCode();
-
-    void setRemembered(bool rem);
-
-    void setClientName();
-
     void setPIN();
+    void resetPIN();
 
-    void setFirstLogin(bool l);
 
-    void resetInfo();
-
-private:
-    unsigned int titolarCode;
     unsigned int PIN;
-    string clientName{"client"};
-
-    bool remembered{false};
     bool firstLogin{true};
-    char purpose{1};
+
     AccountsManager accountsManager;
     SmartLock smartLock;
 
     list<Account> accounts;
-
 };
 
 #endif //MOBILE_BANKING_APP_ACCESSMANAGER_H

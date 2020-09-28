@@ -8,13 +8,16 @@
 class InputManager {
 protected:
 
-    void manageInput(InputManager *specificClass, int &attempts);
+    void manageInput(InputManager *specificClass);
 
     virtual bool isCorrectInput() = 0;
 
     virtual void tryAgain() = 0;
 
     virtual void enableFailureRoutine() = 0;
+
+private:
+    int attempts{1};
 };
 
 #endif //MOBILE_BANKING_APP_INPUTMANAGER_H

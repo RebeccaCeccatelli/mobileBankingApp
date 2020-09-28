@@ -11,26 +11,54 @@
 using namespace std;
 using namespace utilityFunctions;
 
-void SmartLock::wantToRemember() {
-    cout << "Do you want your name and titolar code to be remembered by this App?" << endl;
+bool SmartLock::wantToRemember() {
+    cout << "Do you want your titolar code to be remembered by this App?" << endl;
 
-    static int attempts = 1;
-    manageInput(this, attempts);
+    manageInput(this);
+
+    return !remembered;
+}
+
+const unsigned int SmartLock::getTitolarCode() const {
+    return titolarCode;
+}
+
+void SmartLock::setTitolarCode() {
+    if (!remembered) {
+        cout << "Insert titolar code: " << endl;
+        titolarCode = getNumInput();
+    }
+}
+
+const string &SmartLock::getName() const {
+    return clientNickname;
+}
+
+void SmartLock::reset() {
+    if (remembered) {
+        clientNickname = "Client";
+        setRemembered(false);
+    }
+    titolarCode = 0;
 }
 
 bool SmartLock::isCorrectInput() {
-    bool correct = true;
+    bool correct = false;
     string input = getStringInput();
+
     if (input == "yes") {
-        cout << "Then insert your name: " << endl;
-        /*setClientName();
-        setRemembered(true);*/
-    } else if (input == "no") {
-        cout << "Ok, then your titolar code will be removed. " << endl;
-        /* resetInfo();
-         setRemembered(false);*/
-    } else
-        correct = false;
+        setRemembered(true);
+        cout << "Ok! Insert a nickname: " << endl;
+        setClientNickname();
+
+        correct = true;
+    }
+    else if (input == "no") {
+        cout << "Ok, your titolar code won't be remembered. You'll be asked again next time. " << endl;
+        reset();
+        correct = true;
+    }
+
     return correct;
 }
 
@@ -39,5 +67,14 @@ void SmartLock::tryAgain() {
 }
 
 void SmartLock::enableFailureRoutine() {
-    cout << "You're being redirected to our WelcomePage. " << endl;
+    cout << "More than five uncorrect inputs. There is no maximum limit here, you can try again. " << endl;
+    wantToRemember();
+}
+
+void SmartLock::setClientNickname() {
+    clientNickname = getStringInput();
+}
+
+void SmartLock::setRemembered(bool rem) {
+    remembered = rem;
 }

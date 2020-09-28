@@ -13,10 +13,10 @@ public:
 
 private:
     bool isCorrectInput() override;
-
     void tryAgain() override;
-
     void enableFailureRoutine() override;
+
+    bool answer{false};
 };
 
 #endif //MOBILE_BANKING_APP_ACCOUNTSMANAGER_H

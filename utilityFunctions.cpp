@@ -18,3 +18,7 @@ const unsigned int utilityFunctions::getNumInput() {
     cin >> num;
     return num;
 }
+
+void utilityFunctions::exit() {
+    cout << "Application closed. Goodbye. " << endl;
+}
