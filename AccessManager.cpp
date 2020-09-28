@@ -12,26 +12,54 @@
 using namespace std;
 using namespace utilityFunctions;
 
+AccessManager::AccessManager() {
+    accounts.emplace_back(1234567,12345,"Mario Rossi");
+    accounts.emplace_back(1111111,11111,"Elisabetta Fellini");
+    accounts.emplace_back(7654321,76543,"Lorenzo Cappelli");
+    accounts.emplace_back(7777777,77777,"Eleonora Frangetti");
+    accounts.emplace_back(1000000,10000,"Rebecca Ceccatelli");
+}
+
 bool AccessManager::login() {
     cout << "*** Login page ***" << endl;
-    if (!firstLogin && remembered)
-        cout << clientName << ", your titolar code is already setted. " << endl;
-    else {      //TODO possibilità di cambiare account (altro titolare)
-        askToRemember();       //TODO chiede ogni volta solo se si è detto no
+    if (!firstLogin) {
+        if (remembered){
+            if (!wantToSwitchAccount())
+                cout << clientName << ", your titolar code is already setted. " << endl;
+            else{
+                cout << "Removing previous info." << endl;
+                setFirstLogin(true);
+                askToRemember();
+                cout << "Insert your titolar code: " << endl;
+                setTitolarCode();
+            }
+        }
+    }
+    else if (firstLogin || !remembered) {
+        askToRemember();
         cout << "Insert your titolar code: " << endl;
         setTitolarCode();
-
     }
     cout << "Insert your PIN: " << endl;
     setPIN();
 
-    bool successful = checkCredentials();
-    resetInfo();
-    return successful;
+    return checkCredentials();
 }
 
 const string &AccessManager::getName() const {
     return clientName;
+}
+
+bool AccessManager::wantToSwitchAccount() {
+    bool answer = false;
+    cout << "Do you want to switch account?" << endl;
+    if (getStringInput() == "yes"){
+        resetInfo();
+        setRemembered(false);
+        setFirstLogin(true);
+        answer = true;
+    }
+    return answer;
 }
 
 void AccessManager::askToRemember() {
@@ -44,6 +72,7 @@ void AccessManager::askToRemember() {
     } else {
         cout << "Ok, then your titolar code will be removed. " << endl;
         resetInfo();
+        setRemembered(false);
     }
 }
 
@@ -60,23 +89,27 @@ bool AccessManager::checkCredentials() {
             resetInfo();
             login();
         } else if (attempts > 5) {
-            cerr << "More than five uncorrect inputs." << endl;
+            cout << "More than five uncorrect inputs." << endl;
             attempts = 1, correct = false;
             resetInfo();
-            exit();   //FIXME errore qui: si ricorda il nome dopo avermi riportato alla welcome page e dice titCode setted.
+            exit();
+            setRemembered(false);
+            login();  //bug corretto ma scrittura non è chiara TODO
         }
     }
     attempts = 1;
     setFirstLogin(false);
+    resetInfo();
     return correct;
 }
 
 bool AccessManager::areCorrectCredentials() {
 
-    for (auto cred : acceptableCredentials) {
-        if (make_pair(titolarCode, PIN) == cred) {
+    for (auto account : accounts) {
+        if (make_pair(titolarCode, PIN) == account.acceptableCredentials) {
             cout << "Logging in..." << endl;
-            return true;
+            account.personalArea.displayScreen();
+            return true; //qui si entra nell'area personale
         }
     }
     return false;
@@ -108,12 +141,4 @@ void AccessManager::resetInfo() {
         titolarCode = 0;
     }
     PIN = 0;  //ok ma ricontrollare logica
-}
-
-AccessManager::AccessManager() {
-    acceptableCredentials.emplace_back(1234567, 12345);
-    acceptableCredentials.emplace_back(1111111, 11111);
-    acceptableCredentials.emplace_back(7654321, 76543);
-    acceptableCredentials.emplace_back(7777777, 77777);
-    acceptableCredentials.emplace_back(00000000, 00000);
 }

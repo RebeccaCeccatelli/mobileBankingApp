@@ -5,9 +5,10 @@
 #ifndef MOBILE_BANKING_APP_ACCESSMANAGER_H
 #define MOBILE_BANKING_APP_ACCESSMANAGER_H
 
-#include <iostream>
 #include <string>
 #include <list>
+
+#include "Account.h"
 
 using namespace std;
 
@@ -21,19 +22,14 @@ public:
 private:
 
     void askToRemember();
-
+    bool wantToSwitchAccount();
     bool checkCredentials();
-
     bool areCorrectCredentials();
 
     void setTitolarCode();
-
     void setRemembered(bool rem);
-
     void setClientName();
-
     void setPIN();
-
     void setFirstLogin(bool l);
 
     void resetInfo();
@@ -44,7 +40,8 @@ private:
     bool remembered{false};
     bool firstLogin{true};     //TODO rivedere nome
 
-    list<pair<unsigned int, unsigned int>> acceptableCredentials;
+    list<Account> accounts;
+
 };
 
 #endif //MOBILE_BANKING_APP_ACCESSMANAGER_H

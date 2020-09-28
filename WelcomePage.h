@@ -17,7 +17,6 @@ public:
 
 private:
     void manageInput();
-
     bool isCorrectInput();
 
     static void exit();
