@@ -6,10 +6,12 @@
 #define MOBILE_BANKING_APP_PERSONALAREA_H
 
 #include "InputManager.h"
+#include "RemindersManager.h"
 
 class PersonalArea : public InputManager {
 public:
     void displayScreen();
+    void setClientName(const string& cname);
 
 private:
     bool isCorrectInput() override;
@@ -17,8 +19,10 @@ private:
     void enableFailureRoutine() override;
 
 
+    RemindersManager remindersManager;
+    string clientName{"client"};
     /*BankingAccountsManager banking;
-     * list<Reminder> reminders;
+
      * list<Alert> alerts;
      * ArchiveManager archiveManager;
      * BankServiceManager bsManager;

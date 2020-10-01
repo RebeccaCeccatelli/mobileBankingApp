@@ -13,11 +13,11 @@ using namespace std;
 using namespace utilityFunctions;
 
 AccessManager::AccessManager() {
-    accounts.emplace_back(1234567,12345,"Mario Rossi");
-    accounts.emplace_back(1111111,11111,"Elisabetta Fellini");
-    accounts.emplace_back(7654321,76543,"Lorenzo Cappelli");
-    accounts.emplace_back(7777777,77777,"Eleonora Frangetti");
-    accounts.emplace_back(1000000,10000,"Rebecca Ceccatelli");
+    accounts.emplace_back(1234567,12345,"mario_rossi");
+    accounts.emplace_back(1111111,11111,"elisabetta_fellini");
+    accounts.emplace_back(7654321,76543,"lorenzo_cappelli");
+    accounts.emplace_back(7777777,77777,"eleonora_frangetti");
+    accounts.emplace_back(1000000,10000,"rebecca_ceccatelli");
 }
 
 void AccessManager::login(){
@@ -48,6 +48,7 @@ bool AccessManager::isCorrectInput() {
             cout << "Credentials accepted. Logging in..." << endl;
             if(firstLogin)
                 firstLogin = smartLock.wantToRemember();
+            account.personalArea.setClientName(account.clientName);
             account.personalArea.displayScreen();
             return true;
         }

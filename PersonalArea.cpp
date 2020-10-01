@@ -14,10 +14,10 @@ using namespace utilityFunctions;
 void PersonalArea::displayScreen() {
     cout << "*** Hi, client! This is your personal area. ***" << endl << "What would you like to do?" << endl;
     cout << "1) Banking accounts. " << endl << "2) My Profile. " << endl << "3) Bank services. " << endl
-         << "4) Archive. "
-         << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. " << endl;
+         << "4) Archive. " << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. "
+         << endl;
 
-    cout << "Enter the corrisponding number: " << endl;
+    cout << "Choose action (enter the corrisponding number): " << endl;
 
     manageInput(this);
 }
@@ -37,8 +37,10 @@ bool PersonalArea::isCorrectInput() {
         cout << "To implement." << endl;
     else if (input == "5")
         cout << "To implement." << endl;
-    else if (input == "6")
-        cout << "To implement." << endl;
+    else if (input == "6") {
+        remindersManager.setClientName(clientName);
+        remindersManager.displayScreen();
+    }
     else if (input == "0")
         cout << "To implement logout." << endl;
     else
@@ -54,5 +56,9 @@ void PersonalArea::tryAgain() {
 void PersonalArea::enableFailureRoutine() {
     cout << "More than five uncorrect inputs. There is no maximum limit, you can try again. " << endl;
     displayScreen();
+}
+
+void PersonalArea::setClientName(const string &cname) {
+    clientName = cname;
 }
 

@@ -13,10 +13,11 @@
 using namespace std;
 
 struct Account {
-    Account(unsigned int titCode, unsigned int pin, string c) : acceptableCredentials{make_pair(titCode,pin)}, client{move(c)} {}
+    Account(unsigned int titCode, unsigned int pin, string c) : acceptableCredentials{make_pair(titCode,pin)},
+        clientName{move(c)} {}
 
     pair<unsigned int, unsigned int> acceptableCredentials;
-    string client;
+    string clientName;
     PersonalArea personalArea;
 };
 

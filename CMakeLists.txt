@@ -7,7 +7,8 @@ add_subdirectory(test)
 
 set(SOURCE_FILES WelcomePage.cpp WelcomePage.h utilityFunctions.cpp utilityFunctions.h
         AccessManager.cpp AccessManager.h PersonalArea.cpp PersonalArea.h Account.h
-        InputManager.cpp InputManager.h AccountsManager.cpp AccountsManager.h SmartLock.cpp SmartLock.h test/runAllTests.cpp)
+        InputManager.cpp InputManager.h AccountsManager.cpp AccountsManager.h SmartLock.cpp
+        SmartLock.h test/runAllTests.cpp RemindersManager.cpp RemindersManager.h Reminder.cpp Reminder.h)
 add_executable(mobile_banking_app main.cpp  )
 
 add_library(core ${SOURCE_FILES})
