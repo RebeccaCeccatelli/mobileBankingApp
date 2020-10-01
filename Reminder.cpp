@@ -8,67 +8,87 @@
 #include <string>
 #include <ctime>
 #include <fstream>
+#include <sstream>
+#include <locale>
 
 using namespace std;
 
 Reminder::Reminder() {
-    setTitle();
-    setText();
-    setCreationDate();
+    setUserTitle();
+    setUserText();
+    setLastUpdate(0);
 }
 
-Reminder::Reminder(const string &tit, const string &tex) {
+Reminder::Reminder(const string &tit, const string &tex,const string& date) {
     title = tit;
     text = tex;
-    setCreationDate();
+    setLastUpdate(1, date);
 }
 
 void Reminder::display() {
-    cout << "Title: " << title << endl;
-    cout << "Text: " << text << endl;
-    cout << "- Creation date: " << getCreationDate();
+    cout << "-Title: " << title << endl;
+    cout << "-Text: " << text << endl;
+    cout << "-Creation date: " << convertDateToString();
 }
 
-void Reminder::setTitle() {
-    string tmp;
-    cout << "Set title: " << endl;
-    getline(cin,tmp,'/');
-    title = tmp;
+void Reminder::setUserTitle() {
+    cout << "Set title (insert '/' to confirm): " << endl;
+    getline(cin,title,'/');
 }
 
-void Reminder::setText() {
-    string tmp;
-    cout << "set text: " << endl;
-    getline(cin,tmp,'/');
-    text = tmp;
+void Reminder::setUserText() {
+    cout << "Set text (insert '/' to confirm): " << endl;
+    getline(cin,text,'/');
 }
 
 const string &Reminder::getTitle() const {
     return title;
 }
 
-const string &Reminder::getText() const {
-    return text;
+const string Reminder::convertDateToString() const {
+    char buffer[80];
+    strftime(buffer, 80, "%x %X", &lastUpdate.first);
+    string stringDate(buffer);
+    return stringDate;
 }
 
-const string Reminder::getCreationDate() const {
-    return asctime(&lastUpdate);
+tm Reminder::convertDateToTm() const {
+    locale loc;
+    auto& tmget = use_facet <time_get<char>>(loc);
+    ios::iostate state;
+    string format = "%x %X";
+
+    istringstream  iss {lastUpdate.second};
+
+    tm tmDate;
+    tmget.get(iss, std::time_get<char>::iter_type(), iss,
+              state, &tmDate, format.data(), format.data() + format.length());
+    return tmDate;
 }
 
-void Reminder::setCreationDate() {
-    cout << "Automatically setting date: ";
-    time_t rawTime;
-    time(&rawTime);
-    lastUpdate = *localtime(&rawTime);
+
+void Reminder::setLastUpdate(char mode, const string& date) {
+    if (mode == 0) {
+        time_t rawTime;
+        time(&rawTime);
+        lastUpdate.first = *localtime(&rawTime);
+
+        lastUpdate.second = convertDateToString();
+        cout << "Date automatically setted. " << endl;
+    }
+    if (mode == 1) {
+        lastUpdate.second = date;
+        lastUpdate.first = convertDateToTm();
+    }
 }
 
 void Reminder::serialize(const string &cname) const {
     string path = "../files/" + cname + "/reminders/" + title;
     ofstream oFile (path);
 
-    oFile << "-Title: " << getTitle();
-    oFile << "\n\n-Text: " << getText();
-    oFile << "\n\n-Creation date: " << getCreationDate();
+    oFile << "-Title: " << title;
+    oFile << "\n\n-Text: " << text;
+    oFile << "\n\n-Creation date: " << convertDateToString();
 
     oFile.close();
 }

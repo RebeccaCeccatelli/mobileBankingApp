@@ -103,7 +103,7 @@ void RemindersManager::deserialize(const string &fileName) {
     string path = "../files/" + clientName + "/reminders/" + fileName;
     ifstream iFile (path);
 
-    string line, title, text, creationDate;
+    string line, title, text, lastUpdate;
     int it = 0;
     while (getline(iFile, line,'-') && it <=3) {
 
@@ -120,13 +120,13 @@ void RemindersManager::deserialize(const string &fileName) {
         if (it == 3){
             line.erase(0, 15);
             line.erase((line.end()-1));
-            creationDate = line;
+            lastUpdate = line;
         }
         it++;
-        cout << line << endl << "STOP" << endl;
     }
 
-    Reminder deserializedReminder(title, text);
+    Reminder deserializedReminder(title, text,lastUpdate);
     reminders.emplace(title,deserializedReminder);
     deserializedReminder.serialize(clientName);
 }
+// ogni volta che si apre remindersmanager controllare se ci sono files e eventualmente deserializzarli TODO

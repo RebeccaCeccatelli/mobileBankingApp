@@ -35,8 +35,10 @@ bool PersonalArea::isCorrectInput() {
         cout << "To implement." << endl;
     else if (input == "4")
         cout << "To implement." << endl;
-    else if (input == "5")
-        cout << "To implement." << endl;
+    else if (input == "5"){
+        remindersManager.setClientName(clientName);
+        remindersManager.displayScreen();
+    }
     else if (input == "6") {
         remindersManager.setClientName(clientName);
         remindersManager.displayScreen();

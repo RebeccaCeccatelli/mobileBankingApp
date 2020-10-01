@@ -7,6 +7,7 @@
 
 #include "InputManager.h"
 #include "RemindersManager.h"
+#include "AlertsManager.h"
 
 class PersonalArea : public InputManager {
 public:
@@ -21,6 +22,7 @@ private:
 
     RemindersManager remindersManager;
     string clientName{"client"};
+    AlertsManager alertsManager;
     /*BankingAccountsManager banking;
 
      * list<Alert> alerts;

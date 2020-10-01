@@ -13,23 +13,25 @@ using namespace std;
 class Reminder {
 public:
     Reminder();
-    Reminder(const string &tit, const string &tex);
+    Reminder(const string &tit, const string &tex, const string& date);
+
     void display();
 
-    void setTitle();
-    void setText();
-    void setCreationDate();
 
     const string& getTitle() const;
-    const string& getText() const;
-    const string getCreationDate() const;
+    const string convertDateToString() const;
     void serialize(const string &cname) const;
 
 private:
+    void setUserTitle();
+    void setUserText();
+    void setLastUpdate(char mode = 0, const string& date = "");
+
     string title{"unknown"};
     string text{"empty"};
-    tm lastUpdate{0, 0, 0, 1, 0, 120,
-                  1, 0, -1};  // default : lunedì 1 gennaio 2020, 0:00:00
+    pair<tm,string> lastUpdate;
+
+    tm convertDateToTm() const;
 };
 
 
