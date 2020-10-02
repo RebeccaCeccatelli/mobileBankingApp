@@ -11,18 +11,20 @@ using namespace std;
 
 class Alert {
 public:
-    Alert();
+    Alert(string obj, string mex, bool pers = false);
     void serialize(const string &cname);
     void convertDatefromTmtoString();
+    bool isRead() const;
+    bool isPersonal() const;
+    void setRead();
+    void display();
 private:
-    string title;
+    string object;
     string message;
-    pair<char[80],tm> arrivalDate;
-    bool read{false};
+    pair<tm,char[80]> arrivalDate;
+    bool read{false}, personal;
 
-    void setTitle();
     void setDate();
-    void setText();
 };
 
 #endif //MOBILE_BANKING_APP_ALERT_H

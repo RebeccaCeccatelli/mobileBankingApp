@@ -7,46 +7,62 @@
 #include <fstream>
 #include <iostream>
 #include <ctime>
+#include <string>
+
+using namespace std;
 
 void Alert::serialize(const string &cname) {
-    string path = "../files/" + cname + "/alerts/" + title;
+    string path = "../files/" + cname + "/alerts/" + object;
     ofstream oFile (path);
 
-    oFile << "-Title: " << title << endl << endl;
-    oFile << "-Message: " << message << endl << endl;
-    oFile << "-Arrival date: " << arrivalDate.first << endl << endl;
-    oFile << "-Read: " << read << endl << endl;
+    oFile << "-Title: " << object << endl;
+    oFile << "-Message: " << message << endl;
+    oFile << "-Arrival date: " << arrivalDate.second << endl;
+    oFile << "-Read: ";
+    if (isRead())
+        oFile << "yes" << endl;
+    else
+         oFile << "no" << endl;
 
     oFile.close();
 }
 
 void Alert::convertDatefromTmtoString() {
-    strftime(arrivalDate.first,80,"%x %X",&arrivalDate.second);
-    puts(arrivalDate.first);
-}
-void Alert::setTitle() {
-    string tmp;
-    cout << "Set title: " << endl;
-    getline(cin,tmp,'/');
-    title = tmp;
-}
-void Alert::setText() {
-    string tmp;
-    cout << "set text: " << endl;
-    getline(cin,tmp,'/');
-    message = tmp;
+    strftime(arrivalDate.second,80,"%x %X",&arrivalDate.first);
 }
 
 void Alert::setDate() {
-    cout << "Automatically setting date... " << endl;
     time_t rawTime;
     time(&rawTime);
-    arrivalDate.second = *localtime(&rawTime);
+    arrivalDate.first = *localtime(&rawTime);
     convertDatefromTmtoString();
 }
 
-Alert::Alert() {
-    setTitle();
-    setText();
+Alert::Alert(string obj, string mex, bool pers) : object{move(obj)}, message{move(mex)}, personal{pers} {
     setDate();
+}
+
+bool Alert::isRead() const {
+    return read;
+}
+
+bool Alert::isPersonal() const {
+    return personal;
+}
+
+void Alert::setRead() {
+    if (!isRead())
+        read = true;
+}
+
+void Alert::display() {
+    cout << "-Title: " << object << endl;
+    cout << "-Message: " << message << endl;
+    cout << "-Arrival date: " << arrivalDate.second << endl;
+    cout << "-Read: ";
+    if (isRead())
+        cout << "yes" << endl;
+    else
+        cout << "no" << endl;
+
 }
