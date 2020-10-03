@@ -125,12 +125,12 @@ void RemindersManager::deserialize(const string &extractedPath) {
     while (getline(iFile, line,'-') && it <=3) {
         if (it == 1) {
             line.erase(0, 7);
-            line.erase((line.end() - 2), line.end());
+            line.erase(line.end() - 2, line.end());
             title = line;
         }
         if (it == 2 ){
             line.erase(0,6);
-            line.erase((line.end()-2),line.end());
+            line.erase(line.end()-2,line.end());
             text = line;
         }
         if (it == 3){

@@ -17,16 +17,20 @@ using namespace std;
 class AlertsManager : public InputManager {
 public:
     AlertsManager();
+
+    virtual ~AlertsManager();
+
     void displayScreen();
     void setClientName(const string &cname);
 
 private:
+    void updateServer() const;
     bool isCorrectInput() override;
 
     void tryAgain() override;
 
     void enableFailureRoutine() override;
-
+    void getDirectoryEntries();
 private:
     void deserialize(const string& extractedPath);
     void displayAll();

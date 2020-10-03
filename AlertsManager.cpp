@@ -6,23 +6,19 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 #include "utilityFunctions.h"
 
 using namespace std;
 using namespace utilityFunctions;
+namespace fs = std::filesystem;
 
 void AlertsManager::setClientName(const string &cname) {
     clientName = cname;
 }
 
 AlertsManager::AlertsManager() {
-
-    alerts.emplace("Christmas holidays", Alert("Christmas holidays","Banks will be closed during holidays."));
-    alerts.emplace ("New credit card",Alert("New credit card", "We inform you that your new credit card has arrived.",true));
-    alerts.emplace("Changes to privacy settings", Alert("Changes to privacy settings", "We modified privacy settings. We invite you to reconsider them."));
-    alerts.emplace("Large withdrawal", Alert("Large withdrawal","You made a very large withdrawal recently. Check it.",true));
-
 }
 
 void AlertsManager::displayAll() {
@@ -80,6 +76,8 @@ bool AlertsManager::wantToSaveAsFile() {
 }
 
 void AlertsManager::displayScreen() {
+    getDirectoryEntries();
+
     cout << "*** Alerts area. " << endl << "What would you like to do? Insert corresponding number. " << endl;
     cout << "1) display all" << endl << "2)display general" << endl << "3)display personal"
         << endl << "4)display unread." << endl << "5) display specific message" << endl << "6)Save file. "
@@ -152,8 +150,56 @@ void AlertsManager::enableFailureRoutine() {
 
 void AlertsManager::deserialize(const string& extractedPath) {
     ifstream iFile(extractedPath);
+
     string line, object, message, arrivalDate;
+    bool r{false}, pers{false};
 
     int it = 0;
-    while (getline(iFile,line,'-') && it<=4){}
+    while (getline(iFile,line,'-') && it<=5){
+        if (it == 1){
+            line.erase(0,8);
+            line.erase(line.end()-2,line.end());
+            object = line;
+        }
+        if (it == 2){
+            line.erase(0,9);
+            line.erase(line.end()-2,line.end());
+            message = line;
+        }
+        if(it == 3){
+            line.erase(0,14);
+            line.erase(line.end()-2,line.end());
+            arrivalDate = line;
+        }
+        if (it == 4){
+            line.erase(0,6);
+            line.erase(line.end()-2,line.end());
+            if (line == "yes")
+                r = true;
+        }
+        if (it == 5){
+            line.erase(0,10);
+            if (line == "yes")
+                pers = true;
+        }
+        it++;
+    }
+    Alert newAlert(object,message,r,pers,arrivalDate);
+    alerts.emplace(object,newAlert);
+    newAlert.serialize(clientName);
+}
+
+void AlertsManager::getDirectoryEntries() {
+    for (auto& it : fs::directory_iterator("../server/" + clientName + "/alerts"))
+        deserialize(it.path());
+}
+
+AlertsManager::~AlertsManager() {
+    updateServer();
+}
+
+void AlertsManager::updateServer() const {
+    cout << "Updating server..." << endl;
+    for (const auto& alert : alerts)
+        alert.second.serialize(clientName,"../server/");
 }

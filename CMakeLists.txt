@@ -3,7 +3,7 @@ project(mobile_banking_app)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(test server)
+add_subdirectory(test)
 
 set(SOURCE_FILES WelcomePage.cpp WelcomePage.h utilityFunctions.cpp utilityFunctions.h
         AccessManager.cpp AccessManager.h PersonalArea.cpp PersonalArea.h Account.h
