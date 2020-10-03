@@ -33,11 +33,13 @@ void Reminder::display() {
 
 void Reminder::setUserTitle() {
     cout << "Set title (insert '/' to confirm): " << endl;
+    cin.ignore(); //importante, altrimenti viene inserito '\n' in title.
     getline(cin,title,'/');
 }
 
 void Reminder::setUserText() {
     cout << "Set text (insert '/' to confirm): " << endl;
+    cin.ignore();
     getline(cin,text,'/');
 }
 
@@ -82,8 +84,8 @@ void Reminder::setLastUpdate(char mode, const string& date) {
     }
 }
 
-void Reminder::serialize(const string &cname) const {
-    string path = "../files/" + cname + "/reminders/" + title;
+void Reminder::serialize(const string &cname,const string& mainDirectory) const {
+    string path = mainDirectory + cname + "/reminders/" + title;
     ofstream oFile (path);
 
     oFile << "-Title: " << title;

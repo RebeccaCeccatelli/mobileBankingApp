@@ -4,6 +4,8 @@
 #include "AlertsManager.h"
 
 #include <iostream>
+#include <string>
+#include <fstream>
 
 #include "utilityFunctions.h"
 
@@ -118,27 +120,18 @@ bool AlertsManager::isCorrectInput() {
     }
     else if (input == "5"){
         cout << "Insert object: " << endl;
-        string tmp;
-        cin.ignore();
-        getline(cin,tmp,'/');
-        displayMessage(tmp);
+        displayMessage(getLineInput());
     }
     else if (input == "6"){
         cout << "Insert object: " << endl;
-        string tmp;
-        cin.ignore();
-        getline(cin,tmp, '/');
-        saveAsFile(tmp);
+        saveAsFile(getLineInput());
         displayScreen();
     }
     else if (input == "7"){
         cout << "Insert object: " << endl;
-        string tmp;
-        cin.ignore();
-        getline(cin,tmp, '/');
-        auto it = alerts.find(tmp);
+        auto it = alerts.find(getLineInput());
         if (it != alerts.end())
-            it->second.setRead();
+            it->second.setRead();    //valutare possibilità di rimettere anche unread e farglielo ricordare.
         else
             cout << "not found." << endl;
     }
@@ -155,4 +148,12 @@ void AlertsManager::tryAgain() {
 void AlertsManager::enableFailureRoutine() {
     cout << "More than five uncorrect inputs. No limit here. " << endl;
     displayScreen();
+}
+
+void AlertsManager::deserialize(const string& extractedPath) {
+    ifstream iFile(extractedPath);
+    string line, object, message, arrivalDate;
+
+    int it = 0;
+    while (getline(iFile,line,'-') && it<=4){}
 }

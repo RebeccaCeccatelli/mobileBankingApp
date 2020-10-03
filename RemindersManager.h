@@ -15,7 +15,7 @@ using namespace std;
 
 class RemindersManager : public InputManager {
 public:
-    void displayScreen();
+    void displayUserInterface();
     void setClientName(const string &cname);
 
 private:
@@ -23,8 +23,11 @@ private:
     void displayReminder(const string& title);
 
     void createReminder();
+    void getFromServer();
+    void updateServer();
+    void getDirectoryEntries();
     void removeReminder(const string& title);
-    void deserialize(const string& fileName);
+    void deserialize(const string& extractedPath);
 
     static string insertTitle();
     //eventualmente remindereditor da aggiungere in un secondo momento

@@ -11,8 +11,10 @@
 using namespace std;
 
 namespace utilityFunctions {
-    const string getStringInput();
-    const unsigned int getNumInput();
+    string getStringInput();
+    unsigned int getNumInput();
+    string getLineInput();
+
 
     void exit();
 }

@@ -12,13 +12,13 @@
 using namespace std;
 
 void Alert::serialize(const string &cname) {
-    string path = "../files/" + cname + "/alerts/" + object;
+    string path = "../my_files/" + cname + "/alerts/" + object;
     ofstream oFile (path);
 
-    oFile << "-Title: " << object << endl;
-    oFile << "-Message: " << message << endl;
-    oFile << "-Arrival date: " << arrivalDate.second << endl;
-    oFile << "-Read: ";
+    oFile << "-Title: " << object;
+    oFile << "-\n\nMessage: " << message;
+    oFile << "-\n\nArrival date: " << arrivalDate.second;
+    oFile << "-\n\nRead: ";
     if (isRead())
         oFile << "yes" << endl;
     else

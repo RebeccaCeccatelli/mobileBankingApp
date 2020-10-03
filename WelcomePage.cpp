@@ -29,7 +29,7 @@ bool WelcomePage::isCorrectInput() {
         correct = true;
         accessManager.login();
         /*if (!accessManager.login())
-            displayScreen();*/
+            displayUserInterface();*/
     } else if (input == "exit") {
         correct = true;
         exit();

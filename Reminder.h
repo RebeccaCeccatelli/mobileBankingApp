@@ -20,7 +20,7 @@ public:
 
     const string& getTitle() const;
     const string convertDateToString() const;
-    void serialize(const string &cname) const;
+    void serialize(const string &cname, const string& mainDirectory = "../my_files/") const;
 
 private:
     void setUserTitle();

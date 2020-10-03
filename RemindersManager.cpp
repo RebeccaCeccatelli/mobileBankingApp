@@ -7,17 +7,20 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "utilityFunctions.h"
-
+#include <filesystem>
 
 using namespace std;
 using namespace utilityFunctions;
 
+namespace fs = std::filesystem;
+
 void RemindersManager::displayAllTitles() {
     for (const auto& reminder : reminders)
-        cout << "- " << reminder.first;
-    displayScreen();
+        cout << "- " << reminder.first << endl;
+    displayUserInterface();
 }
 
 void RemindersManager::createReminder() {
@@ -46,13 +49,15 @@ void RemindersManager::displayReminder(const string& title) {
         cout << "Reminder" << title << " not found. " << endl;
 }
 
-void RemindersManager::displayScreen() {
+void RemindersManager::displayUserInterface() {
+    getFromServer();
     cout << "*** Reminders. ***" << endl << "What would you like to do?" << endl;
     cout << "1) Display titles' list. " << endl << "2) Display reminder. " << endl << "3) Create reminder. "
-         << endl << "4) Remove reminder. " << endl << "5) Extract reminder from file. " << endl;
+         << endl << "4) Remove reminder. " << endl << "5) Extract reminder from file. " << endl << "6) save file." << endl;
 
     cout << "Choose action (enter the corrisponding number): " << endl;
     manageInput(this);
+    updateServer();
 }
 
 bool RemindersManager::isCorrectInput() {
@@ -65,14 +70,26 @@ bool RemindersManager::isCorrectInput() {
         displayReminder(insertTitle());
     else if (input == "3") {
         createReminder();
-        displayScreen();
+        displayUserInterface();
     }
     else if (input == "4")
         removeReminder(insertTitle());
     else if (input == "5"){
         deserialize(insertTitle());
-        displayScreen();
+        displayUserInterface();
     }
+    else if (input == "6"){
+        cout << "Insert title: " << endl;
+
+        auto it = reminders.find(getLineInput());
+        if (it!= reminders.end()) {
+            cout << "Saving file." << endl;
+            it->second.serialize(clientName);//forse grazie a filesystem si può anche fare a meno di usare clientName TODO
+        }
+        else
+            cout << "not found. " << endl;
+    }
+
     else
         correct = false;
 
@@ -80,12 +97,12 @@ bool RemindersManager::isCorrectInput() {
 }
 
 void RemindersManager::tryAgain() {
-    displayScreen();
+    displayUserInterface();
 }
 
 void RemindersManager::enableFailureRoutine() {
     cout << "More than five uncorrect inputs. There is no maximum limit here, you can try again. " << endl;
-    displayScreen();
+    displayUserInterface();
 }
 
 string RemindersManager::insertTitle() {
@@ -99,14 +116,13 @@ void RemindersManager::setClientName(const string &cname) {
     clientName = cname;
 }
 
-void RemindersManager::deserialize(const string &fileName) {
-    string path = "../files/" + clientName + "/reminders/" + fileName;
-    ifstream iFile (path);
+void RemindersManager::deserialize(const string &extractedPath) {
+
+    ifstream iFile (extractedPath);
 
     string line, title, text, lastUpdate;
     int it = 0;
     while (getline(iFile, line,'-') && it <=3) {
-
         if (it == 1) {
             line.erase(0, 7);
             line.erase((line.end() - 2), line.end());
@@ -119,14 +135,25 @@ void RemindersManager::deserialize(const string &fileName) {
         }
         if (it == 3){
             line.erase(0, 15);
-            line.erase((line.end()-1));
             lastUpdate = line;
         }
         it++;
     }
-
-    Reminder deserializedReminder(title, text,lastUpdate);
-    reminders.emplace(title,deserializedReminder);
-    deserializedReminder.serialize(clientName);
+    reminders.emplace(title,Reminder(title,text,lastUpdate));
 }
-// ogni volta che si apre remindersmanager controllare se ci sono files e eventualmente deserializzarli TODO
+
+void RemindersManager::getDirectoryEntries() {
+    for (auto& it : fs::directory_iterator("../server/" + clientName + "/reminders"))
+        deserialize(it.path());
+}
+
+void RemindersManager::getFromServer() {
+    getDirectoryEntries();
+}
+
+void RemindersManager::updateServer() {
+    cout << "Updating server..." << endl;
+    for (const auto& reminder : reminders)
+        reminder.second.serialize(clientName,"../server/");
+}
+// metodi getfromserver e updateserver

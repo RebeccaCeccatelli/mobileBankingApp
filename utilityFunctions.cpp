@@ -7,13 +7,13 @@
 #include <iostream>
 #include <string>
 
-const string utilityFunctions::getStringInput() {
+string utilityFunctions::getStringInput() {
     string input;
     cin >> input;
     return input;
 }
 
-const unsigned int utilityFunctions::getNumInput() {
+unsigned int utilityFunctions::getNumInput() {
     unsigned int num;
     cin >> num;
     return num;
@@ -21,4 +21,11 @@ const unsigned int utilityFunctions::getNumInput() {
 
 void utilityFunctions::exit() {
     cout << "Application closed. Goodbye. " << endl;
+}
+
+string utilityFunctions::getLineInput() {
+    string input;
+    cin.ignore();
+    getline(cin, input, '/');
+    return input;
 }

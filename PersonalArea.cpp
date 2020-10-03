@@ -41,7 +41,7 @@ bool PersonalArea::isCorrectInput() {
     }
     else if (input == "6") {
         remindersManager.setClientName(clientName);
-        remindersManager.displayScreen();
+        remindersManager.displayUserInterface();
     }
     else if (input == "0")
         cout << "To implement logout." << endl;

@@ -28,6 +28,7 @@ private:
     void enableFailureRoutine() override;
 
 private:
+    void deserialize(const string& extractedPath);
     void displayAll();
     void displayGeneral();
     void displayPersonal();
