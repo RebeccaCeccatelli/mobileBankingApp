@@ -32,6 +32,8 @@ private:
     void setPIN();
     void resetPIN();
 
+    void serialize() const;
+    static bool deserialize();
 
     unsigned int PIN;
     bool firstLogin{true};

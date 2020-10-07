@@ -55,7 +55,7 @@ void RemindersManager::displayUserInterface() {
     cout << "1) Display titles' list. " << endl << "2) Display reminder. " << endl << "3) Create reminder. "
          << endl << "4) Remove reminder. " << endl << "5) Extract reminder from file. " << endl << "6) save file." << endl;
 
-    cout << "Choose action (enter the corrisponding number): " << endl;
+    cout << "Choose action (enter the corresponding number): " << endl;
     manageInput(this);
     updateServer();
 }
@@ -139,6 +139,8 @@ void RemindersManager::deserialize(const string &extractedPath) {
         }
         it++;
     }
+    iFile.close();
+
     reminders.emplace(title,Reminder(title,text,lastUpdate));
 }
 

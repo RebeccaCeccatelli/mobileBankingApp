@@ -13,8 +13,13 @@
 
 using namespace std;
 
-void Alert::serialize(const string &cname,const string& mainDirectory) const{
-    string path = mainDirectory + cname + "/alerts/" + object;
+Alert::Alert(string obj, string mex, bool r, bool pers, string date) : object{move(obj)}, message{move(mex)},
+    read{r}, personal{pers} {
+    setDate(move(date));
+}
+
+void Alert::serialize(const string &cname, string mainDirectory) const {
+    string path = move(mainDirectory)+ cname + "/alerts/" + object;
     ofstream oFile (path);
 
     oFile << "-Object: " << object;
@@ -34,34 +39,45 @@ void Alert::serialize(const string &cname,const string& mainDirectory) const{
     oFile.close();
 }
 
-void Alert::setDate(char mode, const string &date) {
-    if (mode == 0) {
-        time_t rawTime;
-        time(&rawTime);
+pair<string, Alert> Alert::deserialize(const string& extractedPath) {
+    ifstream iFile(extractedPath);
 
+    string line, object, message, arrivalDate;
+    bool r{false}, pers{false};
+
+    int it = 0;
+    while (getline(iFile,line,'-') && it<=5){
+        if (it == 1){
+            line.erase(0,8);
+            line.erase(line.end()-2,line.end());
+            object = line;
+        }
+        if (it == 2){
+            line.erase(0,9);
+            line.erase(line.end()-2,line.end());
+            message = line;
+        }
+        if(it == 3){
+            line.erase(0,14);
+            line.erase(line.end()-2,line.end());
+            arrivalDate = line;
+        }
+        if (it == 4){
+            line.erase(0,6);
+            line.erase(line.end()-2,line.end());
+            if (line == "yes")
+                r = true;
+        }
+        if (it == 5){
+            line.erase(0,10);
+            if (line == "yes")
+                pers = true;
+        }
+        it++;
     }
-    if (mode == 1) {
-        arrivalDate.second = date;
-        arrivalDate.first = convertDateToTm();
-    }
-}
+    iFile.close();
 
-Alert::Alert(string obj, string mex, bool r, bool pers, string date) : object{move(obj)}, message{move(mex)},
-                                                                       read{r}, personal{pers} {
-    setDate(1, date);
-}
-
-bool Alert::isRead() const {
-    return read;
-}
-
-bool Alert::isPersonal() const {
-    return personal;
-}
-
-void Alert::setRead() {
-    if (!isRead())
-        read = true;
+    return make_pair(object, Alert(object,message,r,pers,arrivalDate));
 }
 
 void Alert::display() {
@@ -73,7 +89,29 @@ void Alert::display() {
         cout << "yes" << endl;
     else
         cout << "no" << endl;
+    cout << "-Personal: ";
+    if (isPersonal())
+        cout << "yes" << endl;
+    else
+        cout << "no" << endl;
+}
 
+void Alert::setRead() {
+    if (!isRead())
+        read = true;
+}
+
+bool Alert::isRead() const {
+    return read;
+}
+
+bool Alert::isPersonal() const {
+    return personal;
+}
+
+void Alert::setDate(string date) {
+    arrivalDate.second = move(date);
+    arrivalDate.first = convertDateToTm();
 }
 
 tm Alert::convertDateToTm() const {

@@ -5,12 +5,18 @@
 using namespace std;
 
 int main() {
-    int it = 1;
+    cout << "Telephone screen. Press 1 to open your mobile banking app. " << endl;
+    int input;
+    cin >> input;
+
     WelcomePage welcomePage;
-    while (it == 1) {
-        welcomePage.displayScreen();
-        cout << "press 1 to stay, 2 to quit" << endl;
-        cin >> it;
+
+    while (input == 1) {
+
+        welcomePage.displayUserInterface(&welcomePage);
+        cout << "Telephone screen. Press 1 to open your mobile banking app. " << endl;
+        cin >> input;
     }
+
     return 0;
 }

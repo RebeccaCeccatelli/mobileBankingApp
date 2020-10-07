@@ -13,14 +13,20 @@ using namespace std;
 
 class SmartLock : public InputManager {
 public:
+    SmartLock() = default;
+    SmartLock(unsigned int titCode, string cname, bool r) : titolarCode{titCode}, clientNickname{move(cname)},
+        remembered{r} {}
+
     bool wantToRemember();
 
     const unsigned int getTitolarCode() const;
     void setTitolarCode();
 
-    const string& getName() const;
+    const string& getNickname() const;
 
     void reset();
+
+    static SmartLock deserialize();
 
 protected:
     bool isCorrectInput() override;
@@ -31,8 +37,10 @@ private:
     void setClientNickname();
     void setRemembered(bool rem);
 
+    void serialize() const;
+
     unsigned int titolarCode{0};
-    string clientNickname;
+    string clientNickname{"client"};
 
     bool remembered{false};
 };

@@ -9,36 +9,35 @@
 #include <string>
 
 #include "Alert.h"
-
 #include "InputManager.h"
+#include "Interface.h"
 
 using namespace std;
 
-class AlertsManager : public InputManager {
+class AlertsManager : public InputManager, public Interface {
+
 public:
-    AlertsManager();
-
-    virtual ~AlertsManager();
-
-    void displayScreen();
     void setClientName(const string &cname);
 
 private:
+    void display() override;
+
+    void pullFromServer();
     void updateServer() const;
+
+
     bool isCorrectInput() override;
-
     void tryAgain() override;
-
     void enableFailureRoutine() override;
-    void getDirectoryEntries();
-private:
-    void deserialize(const string& extractedPath);
+
     void displayAll();
     void displayGeneral();
     void displayPersonal();
     void displayUnread();
+
     void displayMessage(const string& object);
     bool wantToSaveAsFile();
+    bool wantToSetAsRead();
     void saveAsFile(const string& object);
 
     map<string,Alert> alerts;

@@ -14,7 +14,7 @@ using namespace utilityFunctions;
 
 const int MAX_ATTEMPTS = 5;
 
-void WelcomePage::displayScreen() {
+void WelcomePage::display() {
     cout << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
 
@@ -28,17 +28,16 @@ bool WelcomePage::isCorrectInput() {
     if (input == "login") {
         correct = true;
         accessManager.login();
-        /*if (!accessManager.login())
-            displayUserInterface();*/
     } else if (input == "exit") {
         correct = true;
+        setGoBack(true);
         exit();
     }
     return correct;
 }
 
 void WelcomePage::tryAgain() {
-    displayScreen();
+    display();
 }
 
 void WelcomePage::enableFailureRoutine() {

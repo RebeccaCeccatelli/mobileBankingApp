@@ -6,15 +6,17 @@
 #define MOBILE_BANKING_APP_PERSONALAREA_H
 
 #include "InputManager.h"
+#include "Interface.h"
 #include "RemindersManager.h"
 #include "AlertsManager.h"
 
-class PersonalArea : public InputManager {
+class PersonalArea : public InputManager, public Interface {
 public:
-    void displayScreen();
     void setClientName(const string& cname);
 
 private:
+    void display() override;
+
     bool isCorrectInput() override;
     void tryAgain() override;
     void enableFailureRoutine() override;

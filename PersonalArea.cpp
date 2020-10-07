@@ -11,13 +11,13 @@
 using namespace std;
 using namespace utilityFunctions;
 
-void PersonalArea::displayScreen() {
-    cout << "*** Hi, client! This is your personal area. ***" << endl << "What would you like to do?" << endl;
+void PersonalArea::display() {
+    cout << endl << "*** Hi, client! This is your personal area. ***" << endl << "What would you like to do?" << endl;
     cout << "1) Banking accounts. " << endl << "2) My Profile. " << endl << "3) Bank services. " << endl
          << "4) Archive. " << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. "
          << endl;
 
-    cout << "Choose action (enter the corrisponding number): " << endl;
+    cout << "Choose action (enter the corresponding number): " << endl;
 
     manageInput(this);
 }
@@ -36,15 +36,16 @@ bool PersonalArea::isCorrectInput() {
     else if (input == "4")
         cout << "To implement." << endl;
     else if (input == "5"){
-        alertsManager.setClientName(clientName);
-        alertsManager.displayScreen();
+        alertsManager.setClientName(clientName);   //fare il modo che sia fatto solo la prima volta TODO
+
+        alertsManager.displayUserInterface(&alertsManager);
     }
     else if (input == "6") {
         remindersManager.setClientName(clientName);
         remindersManager.displayUserInterface();
     }
     else if (input == "0")
-        cout << "To implement logout." << endl;
+        setGoBack(true);
     else
         correct = false;
 
@@ -52,12 +53,12 @@ bool PersonalArea::isCorrectInput() {
 }
 
 void PersonalArea::tryAgain() {
-    displayScreen();
+    display();
 }
 
 void PersonalArea::enableFailureRoutine() {
     cout << "More than five uncorrect inputs. There is no maximum limit, you can try again. " << endl;
-    displayScreen();
+    display();
 }
 
 void PersonalArea::setClientName(const string &cname) {

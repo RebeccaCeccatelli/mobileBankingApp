@@ -12,20 +12,27 @@ using namespace std;
 class Alert {
 public:
     Alert(string obj, string mex, bool r, bool pers, string date);
-    void serialize(const string &cname,const string& mainDirectory = "../my_files/") const;
+
+    void serialize(const string &cname, string mainDirectory = "../my_files/") const;
+    static pair<string, Alert> deserialize(const string& extractedPath);
+
+    void display();
+
+    void setRead();
     bool isRead() const;
     bool isPersonal() const;
-    void setRead();
-    void display();
-    tm convertDateToTm() const;
+
 private:
+    void setDate(string date);
+    tm convertDateToTm() const;
+
     string object;
     string message;
     pair<tm,string> arrivalDate;
-    bool read{false};
-    bool personal{false};
+    bool read;
+    bool personal;
 
-    void setDate(char mode = 0, const string &date = "");
+
 };
 
 #endif //MOBILE_BANKING_APP_ALERT_H

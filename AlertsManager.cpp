@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <filesystem>
 
 #include "utilityFunctions.h"
@@ -18,7 +17,28 @@ void AlertsManager::setClientName(const string &cname) {
     clientName = cname;
 }
 
-AlertsManager::AlertsManager() {
+void AlertsManager::display() {
+    pullFromServer();
+
+    cout << endl << "*** Alerts area. ***" << endl << "What would you like to do?" << endl;
+    cout << "1) display all alerts." << endl << "2)display general alerts." << endl << "3)display personal alerts."
+         << endl << "4)display unread alerts." << endl << "5) display specific alert. " << endl << "6)Save alert as file. "
+         << endl << "7) Set alert as read." << endl << "0) Go back. " << endl;
+
+    cout << "Choose action (enter the corresponding number): " << endl;
+
+    manageInput(this);
+}
+
+void AlertsManager::pullFromServer() {
+    for (auto& it : fs::directory_iterator("../server/" + clientName + "/alerts"))
+        alerts.emplace(Alert::deserialize(it.path()));
+}
+
+void AlertsManager::updateServer() const {
+    cout << "Updating server..." << endl;
+    for (const auto& alert : alerts)
+        alert.second.serialize(clientName,"../server/");
 }
 
 void AlertsManager::displayAll() {
@@ -50,10 +70,13 @@ void AlertsManager::displayUnread() {
 void AlertsManager::displayMessage(const string &object) {
     auto it = alerts.find(object);
     if (it != alerts.end()) {
-        it->second.setRead();
         if (wantToSaveAsFile()){
             cout << "Saving file in alerts..." << endl;
             it->second.serialize(clientName);
+        }
+        if (wantToSetAsRead()) {
+            cout << "Setting alert as read..." << endl;
+            it->second.setRead();
         }
         it->second.display();
     }
@@ -75,21 +98,23 @@ bool AlertsManager::wantToSaveAsFile() {
     }
 }
 
-void AlertsManager::displayScreen() {
-    getDirectoryEntries();
+bool AlertsManager::wantToSetAsRead() {
+    cout << "Do you want to set it as read?" << endl;
+    string input = getStringInput();
 
-    cout << "*** Alerts area. " << endl << "What would you like to do? Insert corresponding number. " << endl;
-    cout << "1) display all" << endl << "2)display general" << endl << "3)display personal"
-        << endl << "4)display unread." << endl << "5) display specific message" << endl << "6)Save file. "
-        << endl << "7) Set message as read." << endl;
-
-    manageInput(this);
+    if (input == "yes")
+        return true;
+    if (input == "no")
+        return false;
+    else {
+        cout << "Input not correct. Try again. " << endl;
+        return wantToSetAsRead();
+    }
 }
-
 void AlertsManager::saveAsFile(const string &object) {
-    auto it = alerts.find(object);   //controllare senso di const auto& it
+    const auto& it = alerts.find(object);
     if (it != alerts.end()) {
-        cout << "Saving file... " << endl;
+        cout << "Saving file in alerts... " << endl;
         it->second.serialize(clientName);
     }
     else
@@ -102,19 +127,15 @@ bool AlertsManager::isCorrectInput() {
 
     if (input == "1"){
         displayAll();
-        displayScreen();
     }
     else if (input == "2"){
         displayGeneral();
-        displayScreen();
     }
     else if (input == "3"){
         displayPersonal();
-        displayScreen();
     }
     else if (input == "4"){
         displayUnread();
-        displayScreen();
     }
     else if (input == "5"){
         cout << "Insert object: " << endl;
@@ -123,83 +144,33 @@ bool AlertsManager::isCorrectInput() {
     else if (input == "6"){
         cout << "Insert object: " << endl;
         saveAsFile(getLineInput());
-        displayScreen();
     }
     else if (input == "7"){
         cout << "Insert object: " << endl;
         auto it = alerts.find(getLineInput());
         if (it != alerts.end())
-            it->second.setRead();    //valutare possibilità di rimettere anche unread e farglielo ricordare.
+            it->second.setRead();
         else
             cout << "not found." << endl;
     }
+    else if (input == "0") {
+        updateServer();
+        setGoBack(true);
+    }
     else
         correct = false;
+
     return correct;
 }
 
 void AlertsManager::tryAgain() {
     cout << "Uncorrect input. Try again. " << endl;
-    displayScreen();
+    display();
 }
 
 void AlertsManager::enableFailureRoutine() {
     cout << "More than five uncorrect inputs. No limit here. " << endl;
-    displayScreen();
+    display();
 }
 
-void AlertsManager::deserialize(const string& extractedPath) {
-    ifstream iFile(extractedPath);
 
-    string line, object, message, arrivalDate;
-    bool r{false}, pers{false};
-
-    int it = 0;
-    while (getline(iFile,line,'-') && it<=5){
-        if (it == 1){
-            line.erase(0,8);
-            line.erase(line.end()-2,line.end());
-            object = line;
-        }
-        if (it == 2){
-            line.erase(0,9);
-            line.erase(line.end()-2,line.end());
-            message = line;
-        }
-        if(it == 3){
-            line.erase(0,14);
-            line.erase(line.end()-2,line.end());
-            arrivalDate = line;
-        }
-        if (it == 4){
-            line.erase(0,6);
-            line.erase(line.end()-2,line.end());
-            if (line == "yes")
-                r = true;
-        }
-        if (it == 5){
-            line.erase(0,10);
-            if (line == "yes")
-                pers = true;
-        }
-        it++;
-    }
-    Alert newAlert(object,message,r,pers,arrivalDate);
-    alerts.emplace(object,newAlert);
-    newAlert.serialize(clientName);
-}
-
-void AlertsManager::getDirectoryEntries() {
-    for (auto& it : fs::directory_iterator("../server/" + clientName + "/alerts"))
-        deserialize(it.path());
-}
-
-AlertsManager::~AlertsManager() {
-    updateServer();
-}
-
-void AlertsManager::updateServer() const {
-    cout << "Updating server..." << endl;
-    for (const auto& alert : alerts)
-        alert.second.serialize(clientName,"../server/");
-}

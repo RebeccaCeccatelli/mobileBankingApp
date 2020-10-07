@@ -5,6 +5,7 @@
 #include "SmartLock.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "utilityFunctions.h"
 
@@ -30,7 +31,7 @@ void SmartLock::setTitolarCode() {
     }
 }
 
-const string &SmartLock::getName() const {
+const string &SmartLock::getNickname() const {
     return clientNickname;
 }
 
@@ -50,6 +51,8 @@ bool SmartLock::isCorrectInput() {
         setRemembered(true);
         cout << "Ok! Insert a nickname: " << endl;
         setClientNickname();
+
+        serialize();
 
         correct = true;
     }
@@ -78,3 +81,50 @@ void SmartLock::setClientNickname() {
 void SmartLock::setRemembered(bool rem) {
     remembered = rem;
 }
+
+void SmartLock::serialize() const {
+    string path = "../my_files/smart_lock";
+    ofstream oFile (path);
+
+    oFile << "-Titolar code: " << titolarCode;
+    oFile << "\n\n-Client nickname: " << clientNickname;
+    oFile << "\n\n-Remembered: ";
+    if (remembered)
+        oFile << "yes";
+    else
+        oFile << "no";
+
+    oFile.close();
+}
+
+SmartLock SmartLock::deserialize() {
+    ifstream iFile("../my_files/smart_lock");
+
+    string line, clientNickname;
+    unsigned int titolarCode;
+    bool remembered {false};
+
+    int it = 0;
+    while (getline(iFile,line,'-') && it<=3) {
+        if (it == 1) {
+            line.erase(0, 14);
+            line.erase(line.end() - 2, line.end());
+            titolarCode = stoi(line);
+        }
+        else if (it == 2) {
+            line.erase(0, 17);
+            line.erase(line.end() - 2, line.end());
+            clientNickname = line;
+        }
+        else if (it == 3) {
+            line.erase(0, 12);
+            if (line == "yes")
+                remembered = true;
+        }
+        it++;
+    }
+    iFile.close();
+
+    return SmartLock(titolarCode,clientNickname,remembered);
+}
+

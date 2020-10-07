@@ -5,17 +5,19 @@
 #ifndef MOBILE_BANKING_APP_WELCOMEPAGE_H
 #define MOBILE_BANKING_APP_WELCOMEPAGE_H
 
+#include <string>
+
+
 #include "AccessManager.h"
 #include "InputManager.h"
-#include <string>
+#include "Interface.h"
 
 using namespace std;
 
-class WelcomePage : InputManager {
-public:
-    void displayScreen();
-
+class WelcomePage : public InputManager, public Interface {
 private:
+    void display() override;
+
     bool isCorrectInput() override;
     void tryAgain() override;
     void enableFailureRoutine() override;

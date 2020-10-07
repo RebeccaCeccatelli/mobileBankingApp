@@ -5,6 +5,7 @@
 #include "AccessManager.h"
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "utilityFunctions.h"
@@ -18,6 +19,10 @@ AccessManager::AccessManager() {
     accounts.emplace_back(7654321,76543,"lorenzo_cappelli");
     accounts.emplace_back(7777777,77777,"eleonora_frangetti");
     accounts.emplace_back(1000000,10000,"rebecca_ceccatelli");
+
+    firstLogin = deserialize();
+    if (!firstLogin)
+        smartLock = SmartLock::deserialize();
 }
 
 void AccessManager::login(){
@@ -38,18 +43,22 @@ void AccessManager::login(){
 }
 
 const string &AccessManager::getName() const {
-    return smartLock.getName();
+    return smartLock.getNickname();
 }
 
 bool AccessManager::isCorrectInput() {
 
-    for (auto account : accounts) {
+    for (auto& account : accounts) {
         if (make_pair(smartLock.getTitolarCode(), PIN) == account.acceptableCredentials) {
             cout << "Credentials accepted. Logging in..." << endl;
-            if(firstLogin)
+            if(firstLogin) {
                 firstLogin = smartLock.wantToRemember();
+                serialize();
+            }
             account.personalArea.setClientName(account.clientName);
-            account.personalArea.displayScreen();
+
+            account.personalArea.displayUserInterface(&account.personalArea);  //altrimenti rendendolo statico
+
             return true;
         }
     }
@@ -81,4 +90,27 @@ void AccessManager::setPIN() {
 
 void AccessManager::resetPIN() {
     PIN = 0;
+}
+
+void AccessManager::serialize() const {
+    ofstream oFile("../my_files/first_login");
+
+    oFile << "First login: ";
+    if (firstLogin)
+        oFile << "yes";
+    else
+        oFile << "no";
+}
+
+bool AccessManager::deserialize() {
+    bool firstLogin = true;
+    ifstream iFile("../my_files/first_login");
+
+    string line;
+    getline(iFile,line);
+    line.erase(0,13);
+    if (line == "no")
+        firstLogin = false;
+
+    return firstLogin;
 }

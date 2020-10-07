@@ -16,6 +16,7 @@ protected:
 
     virtual void enableFailureRoutine() = 0;
 
+
 private:
     int attempts{1};
 };
