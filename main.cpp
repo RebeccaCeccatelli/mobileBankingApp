@@ -13,7 +13,7 @@ int main() {
 
     while (input == 1) {
 
-        welcomePage.displayUserInterface(&welcomePage);
+        welcomePage.displayUserInterface();
         cout << "Telephone screen. Press 1 to open your mobile banking app. " << endl;
         cin >> input;
     }

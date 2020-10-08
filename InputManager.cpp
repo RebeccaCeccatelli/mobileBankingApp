@@ -10,16 +10,16 @@ using namespace std;
 
 const unsigned int MAX_ATTEMPTS = 5;
 
-void InputManager::manageInput(InputManager *specificClass) {
-    if (!specificClass->isCorrectInput()) {
+void InputManager::manageInput() {
+    if (!isCorrectInput()) {
         if (attempts <= MAX_ATTEMPTS) {
             cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. " << endl;
             attempts++;
-            specificClass->tryAgain();
+            tryAgain();
         } else {
             cerr << "More than five uncorrect inputs." << endl;
             attempts = 1;
-            specificClass->enableFailureRoutine();
+            enableFailureRoutine();
         }
     }
     attempts = 1;

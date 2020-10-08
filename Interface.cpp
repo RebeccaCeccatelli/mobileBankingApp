@@ -4,6 +4,12 @@
 
 #include "Interface.h"
 
+void Interface::displayUserInterface() {
+    while (!isGoBack())
+        display();
+    resetGoBack();
+}
+
 void Interface::setGoBack(bool l) {
     goBack = l;
 }
@@ -16,8 +22,3 @@ void Interface::resetGoBack() {
     goBack = false;
 }
 
-void Interface::displayUserInterface(Interface* specificClass) {
-    while (!specificClass->isGoBack())
-        specificClass->display();
-    specificClass->resetGoBack();
-}

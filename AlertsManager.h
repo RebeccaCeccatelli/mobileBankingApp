@@ -15,16 +15,15 @@
 using namespace std;
 
 class AlertsManager : public InputManager, public Interface {
-
 public:
     void setClientName(const string &cname);
 
 private:
-    void display() override;
 
     void pullFromServer();
     void updateServer() const;
 
+    void display() override;
 
     bool isCorrectInput() override;
     void tryAgain() override;
@@ -35,10 +34,12 @@ private:
     void displayPersonal();
     void displayUnread();
 
-    void displayMessage(const string& object);
+    void displaySpecificAlert(const string& object);
     bool wantToSaveAsFile();
     bool wantToSetAsRead();
     void saveAsFile(const string& object);
+
+    static string insertObject();
 
     map<string,Alert> alerts;
     string clientName;

@@ -31,8 +31,6 @@ private:
     pair<tm,string> arrivalDate;
     bool read;
     bool personal;
-
-
 };
 
 #endif //MOBILE_BANKING_APP_ALERT_H

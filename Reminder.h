@@ -13,25 +13,29 @@ using namespace std;
 class Reminder {
 public:
     Reminder();
-    Reminder(const string &tit, const string &tex, const string& date);
+    Reminder(string tit, string tex, string date, bool s);
 
     void display();
 
-
     const string& getTitle() const;
-    const string convertDateToString() const;
-    void serialize(const string &cname, const string& mainDirectory = "../my_files/") const;
+    void setSaved();
+    bool isSaved() const;
+
+    void serialize(const string &cname, string mainDirectory = "../my_files/") const;
+    static pair<string, Reminder> deserialize(const string& extractedPath);
 
 private:
+    void setDate(char mode = 0, string date = "");
+    string convertDateToString() const;
+    tm convertDateToTm() const;
+
     void setUserTitle();
     void setUserText();
-    void setLastUpdate(char mode = 0, const string& date = "");
 
     string title{"unknown"};
     string text{"empty"};
     pair<tm,string> lastUpdate;
-
-    tm convertDateToTm() const;
+    bool saved{false};
 };
 
 

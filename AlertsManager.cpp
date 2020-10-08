@@ -17,18 +17,6 @@ void AlertsManager::setClientName(const string &cname) {
     clientName = cname;
 }
 
-void AlertsManager::display() {
-    pullFromServer();
-
-    cout << endl << "*** Alerts area. ***" << endl << "What would you like to do?" << endl;
-    cout << "1) display all alerts." << endl << "2)display general alerts." << endl << "3)display personal alerts."
-         << endl << "4)display unread alerts." << endl << "5) display specific alert. " << endl << "6)Save alert as file. "
-         << endl << "7) Set alert as read." << endl << "0) Go back. " << endl;
-
-    cout << "Choose action (enter the corresponding number): " << endl;
-
-    manageInput(this);
-}
 
 void AlertsManager::pullFromServer() {
     for (auto& it : fs::directory_iterator("../server/" + clientName + "/alerts"))
@@ -39,6 +27,69 @@ void AlertsManager::updateServer() const {
     cout << "Updating server..." << endl;
     for (const auto& alert : alerts)
         alert.second.serialize(clientName,"../server/");
+}
+
+void AlertsManager::display() {
+    pullFromServer();
+
+    cout << endl << "*** Alerts area. ***" << endl << "What would you like to do?" << endl;
+    cout << "1) display all alerts." << endl << "2)display general alerts." << endl << "3)display personal alerts."
+         << endl << "4)display unread alerts." << endl << "5) display specific alert. " << endl << "6)Save alert as file. "
+         << endl << "7) Set alert as read." << endl << "0) Go back. " << endl;
+
+    cout << "Choose action (enter the corresponding number): " << endl;
+
+    manageInput();
+}
+
+bool AlertsManager::isCorrectInput() {
+    bool correct = true;
+    string input = getStringInput();
+
+    if (input == "1"){
+        displayAll();
+    }
+    else if (input == "2"){
+        displayGeneral();
+    }
+    else if (input == "3"){
+        displayPersonal();
+    }
+    else if (input == "4"){
+        displayUnread();
+    }
+    else if (input == "5"){
+        displaySpecificAlert(insertObject());
+    }
+    else if (input == "6"){
+        saveAsFile(insertObject());
+    }
+    else if (input == "7"){
+        auto it = alerts.find(insertObject());
+        if (it != alerts.end()) {
+            cout << "Setting alert " << it->first << "as read..." << endl;
+            it->second.setRead();
+        }
+        else
+            cout << "Alert not found." << endl;
+    }
+    else if (input == "0") {
+        updateServer();
+        setGoBack(true);
+    }
+    else
+        correct = false;
+
+    return correct;
+}
+
+void AlertsManager::tryAgain() {
+    display();
+}
+
+void AlertsManager::enableFailureRoutine() {
+    cout << "There is no limit here, try again. " << endl;
+    display();
 }
 
 void AlertsManager::displayAll() {
@@ -67,21 +118,21 @@ void AlertsManager::displayUnread() {
     }
 }
 
-void AlertsManager::displayMessage(const string &object) {
+void AlertsManager::displaySpecificAlert(const string &object) {
     auto it = alerts.find(object);
     if (it != alerts.end()) {
         if (wantToSaveAsFile()){
-            cout << "Saving file in alerts..." << endl;
+            cout << "Saving " << it->first << " as file in directory alerts..." << endl;
             it->second.serialize(clientName);
         }
         if (wantToSetAsRead()) {
-            cout << "Setting alert as read..." << endl;
+            cout << "Setting alert " << it->first << " as read..." << endl;
             it->second.setRead();
         }
         it->second.display();
     }
     else
-        cout << "Alert not found. " << endl;
+        cout << "Alert " << object << "not found. " << endl;
 }
 
 bool AlertsManager::wantToSaveAsFile() {
@@ -93,7 +144,7 @@ bool AlertsManager::wantToSaveAsFile() {
     if (input == "no")
         return false;
     else {
-        cout << "Input not correct. Try again. " << endl;
+        cout << "Your input is not correct. Try again. " << endl;
         return wantToSaveAsFile();
     }
 }
@@ -107,70 +158,24 @@ bool AlertsManager::wantToSetAsRead() {
     if (input == "no")
         return false;
     else {
-        cout << "Input not correct. Try again. " << endl;
+        cout << "Your input is not correct. Try again. " << endl;
         return wantToSetAsRead();
     }
 }
+
 void AlertsManager::saveAsFile(const string &object) {
     const auto& it = alerts.find(object);
     if (it != alerts.end()) {
-        cout << "Saving file in alerts... " << endl;
+        cout << "Saving " << it->first << " as file in directory alerts... " << endl;
         it->second.serialize(clientName);
     }
     else
-        cout << "Alert not found. " << endl;
+        cout << "Alert" << object << " not found. " << endl;
 }
 
-bool AlertsManager::isCorrectInput() {
-    bool correct = true;
-    string input = getStringInput();
-
-    if (input == "1"){
-        displayAll();
-    }
-    else if (input == "2"){
-        displayGeneral();
-    }
-    else if (input == "3"){
-        displayPersonal();
-    }
-    else if (input == "4"){
-        displayUnread();
-    }
-    else if (input == "5"){
-        cout << "Insert object: " << endl;
-        displayMessage(getLineInput());
-    }
-    else if (input == "6"){
-        cout << "Insert object: " << endl;
-        saveAsFile(getLineInput());
-    }
-    else if (input == "7"){
-        cout << "Insert object: " << endl;
-        auto it = alerts.find(getLineInput());
-        if (it != alerts.end())
-            it->second.setRead();
-        else
-            cout << "not found." << endl;
-    }
-    else if (input == "0") {
-        updateServer();
-        setGoBack(true);
-    }
-    else
-        correct = false;
-
-    return correct;
-}
-
-void AlertsManager::tryAgain() {
-    cout << "Uncorrect input. Try again. " << endl;
-    display();
-}
-
-void AlertsManager::enableFailureRoutine() {
-    cout << "More than five uncorrect inputs. No limit here. " << endl;
-    display();
+string AlertsManager::insertObject() {
+    cout << "Insert alert's object: (type '/' to confirm: " << endl;
+    return getLineInput();
 }
 
 

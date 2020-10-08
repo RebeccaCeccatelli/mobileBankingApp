@@ -10,37 +10,37 @@
 
 #include "Reminder.h"
 #include "InputManager.h"
+#include "Interface.h"
 
 using namespace std;
 
-class RemindersManager : public InputManager {
+class RemindersManager : public InputManager, public Interface {
 public:
-    void displayUserInterface();
     void setClientName(const string &cname);
 
 private:
-    void displayAllTitles();
-    void displayReminder(const string& title);
+    void pullFromServer();
+    void updateServer() const;
 
-    void createReminder();
-    void getFromServer();
-    void updateServer();
-    void getDirectoryEntries();
-    void removeReminder(const string& title);
-    void deserialize(const string& extractedPath);
-
-    static string insertTitle();
-    //eventualmente remindereditor da aggiungere in un secondo momento
-    //rivedere assetto "grafico" delle stampe a video TODO
+    void display() override;
 
     bool isCorrectInput() override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 
+    void displayAll();
+    void displaySpecificReminder(const string& title);
+    bool wantToSaveAsFile();
 
-private:
+    void createReminder();
+    void removeReminder(const string& title);
+
+    static string insertTitle();
+    //eventualmente remindereditor da aggiungere in un secondo momento TODO
+
     map<string,Reminder> reminders;
     string clientName{"client"};
+
 };
 
 #endif //MOBILE_BANKING_APP_REMINDERSMANAGER_H

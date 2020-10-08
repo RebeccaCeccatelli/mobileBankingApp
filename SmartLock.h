@@ -5,9 +5,9 @@
 #ifndef MOBILE_BANKING_APP_SMARTLOCK_H
 #define MOBILE_BANKING_APP_SMARTLOCK_H
 
-#include "InputManager.h"
-
 #include <string>
+
+#include "InputManager.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
 
     bool wantToRemember();
 
-    const unsigned int getTitolarCode() const;
+    unsigned int getTitolarCode() const;
     void setTitolarCode();
 
     const string& getNickname() const;
@@ -28,12 +28,11 @@ public:
 
     static SmartLock deserialize();
 
-protected:
+private:
     bool isCorrectInput() override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 
-private:
     void setClientNickname();
     void setRemembered(bool rem);
 
@@ -41,7 +40,6 @@ private:
 
     unsigned int titolarCode{0};
     string clientNickname{"client"};
-
     bool remembered{false};
 };
 

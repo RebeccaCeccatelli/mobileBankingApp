@@ -19,10 +19,6 @@ unsigned int utilityFunctions::getNumInput() {
     return num;
 }
 
-void utilityFunctions::exit() {
-    cout << "Application closed. Goodbye. " << endl;
-}
-
 string utilityFunctions::getLineInput() {
     string input;
     cin.ignore();

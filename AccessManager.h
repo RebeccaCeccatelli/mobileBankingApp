@@ -19,15 +19,15 @@ class AccessManager : public InputManager {
 public:
     AccessManager();
 
-    void login();
     const string &getName() const;
+    void login();
 
 private:
+    void checkCredentials();
+
     bool isCorrectInput() override;
     void tryAgain() override;
     void enableFailureRoutine() override;
-
-    void checkCredentials();
 
     void setPIN();
     void resetPIN();
@@ -35,7 +35,7 @@ private:
     void serialize() const;
     static bool deserialize();
 
-    unsigned int PIN;
+    unsigned int PIN{0};
     bool firstLogin{true};
 
     AccountsManager accountsManager;

@@ -8,17 +8,17 @@
 
 class Interface {
 public:
-    void displayUserInterface(Interface* specificClass);
-    bool isGoBack() const;
-    void resetGoBack();
+    void displayUserInterface();
 
 protected:
     virtual void display() = 0;
     void setGoBack(bool l);
 
 private:
-    bool goBack{false};
+    bool isGoBack() const;
+    void resetGoBack();
 
+    bool goBack{false};
 };
 
 

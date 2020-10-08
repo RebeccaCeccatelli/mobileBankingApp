@@ -7,15 +7,11 @@
 
 class InputManager {
 protected:
-
-    void manageInput(InputManager *specificClass);
+    void manageInput();
 
     virtual bool isCorrectInput() = 0;
-
     virtual void tryAgain() = 0;
-
     virtual void enableFailureRoutine() = 0;
-
 
 private:
     int attempts{1};

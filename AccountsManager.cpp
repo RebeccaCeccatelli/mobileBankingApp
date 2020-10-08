@@ -14,7 +14,7 @@ using namespace utilityFunctions;
 bool AccountsManager::wantToSwitchAccount() {
     cout << "Do you want to switch account?" << endl;
 
-    manageInput(this);
+    manageInput();
 
     return answer;
 }
@@ -24,13 +24,13 @@ bool AccountsManager::isCorrectInput() {
 
     string input = getStringInput();
     if (input == "yes") {
-        cout << "Switch account" << endl;
+        cout << "Preparing to switch account..." << endl;
         answer = true;
 
         correct = true;
     }
     else if (input == "no") {
-        cout << "I'll stay" << endl;
+        cout << "Preparing your account access with smartlock facilities..." << endl;
         answer = false;
 
         correct = true;

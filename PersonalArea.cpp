@@ -11,15 +11,20 @@
 using namespace std;
 using namespace utilityFunctions;
 
+void PersonalArea::setClientName(const string &cname) {
+    clientName = cname;
+}
+
 void PersonalArea::display() {
-    cout << endl << "*** Hi, client! This is your personal area. ***" << endl << "What would you like to do?" << endl;
+    cout << endl << "*** Hi, " << clientName << "! This is your personal area. ***" << endl
+        << "What would you like to do?" << endl;
     cout << "1) Banking accounts. " << endl << "2) My Profile. " << endl << "3) Bank services. " << endl
          << "4) Archive. " << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. "
          << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
-    manageInput(this);
+    manageInput();
 }
 
 
@@ -32,13 +37,12 @@ bool PersonalArea::isCorrectInput() {
     else if (input == "2")
         cout << "To implement - my profile." << endl;
     else if (input == "3")
-        cout << "To implement." << endl;
+        cout << "To implement - bank services." << endl;
     else if (input == "4")
-        cout << "To implement." << endl;
+        cout << "To implement - archive." << endl;
     else if (input == "5"){
-        alertsManager.setClientName(clientName);   //fare il modo che sia fatto solo la prima volta TODO
-
-        alertsManager.displayUserInterface(&alertsManager);
+        alertsManager.setClientName(clientName);    //forse includere setName all'interno di altro. think
+        alertsManager.displayUserInterface();
     }
     else if (input == "6") {
         remindersManager.setClientName(clientName);
@@ -46,6 +50,7 @@ bool PersonalArea::isCorrectInput() {
     }
     else if (input == "0")
         setGoBack(true);
+
     else
         correct = false;
 
@@ -57,11 +62,7 @@ void PersonalArea::tryAgain() {
 }
 
 void PersonalArea::enableFailureRoutine() {
-    cout << "More than five uncorrect inputs. There is no maximum limit, you can try again. " << endl;
+    cout << "There is no maximum limit, you can try again. " << endl;
     display();
-}
-
-void PersonalArea::setClientName(const string &cname) {
-    clientName = cname;
 }
 

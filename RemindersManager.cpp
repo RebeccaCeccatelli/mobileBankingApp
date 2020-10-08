@@ -17,77 +17,48 @@ using namespace utilityFunctions;
 
 namespace fs = std::filesystem;
 
-void RemindersManager::displayAllTitles() {
+void RemindersManager::setClientName(const string &cname) {
+    clientName = cname;
+}
+
+void RemindersManager::pullFromServer() {
+    for (auto& it : fs::directory_iterator("../server/" + clientName + "/reminders"))
+        reminders.emplace(Reminder::deserialize(it.path()));
+}
+
+void RemindersManager::updateServer() const {
+    cout << "Updating server..." << endl;
     for (const auto& reminder : reminders)
-        cout << "- " << reminder.first << endl;
-    displayUserInterface();
+        reminder.second.serialize(clientName,"../server/");
 }
 
-void RemindersManager::createReminder() {
-    Reminder newReminder;
-    reminders.emplace(newReminder.getTitle(),newReminder);
-    newReminder.serialize(clientName);
+void RemindersManager::display() {
+    pullFromServer();
 
-}
-
-void RemindersManager::removeReminder(const string& title) {
-    auto it = reminders.find(title);
-    if (it != reminders.end()) {
-        reminders.erase(it);
-        cout << "Reminder " << title << " removed. " << endl;
-    }
-    else
-        cout << "Reminder " << title << " not found." << endl;
-}
-
-void RemindersManager::displayReminder(const string& title) {
-
-    auto it = reminders.find(title);
-    if (it!=reminders.end())
-        it->second.display();
-    else
-        cout << "Reminder" << title << " not found. " << endl;
-}
-
-void RemindersManager::displayUserInterface() {
-    getFromServer();
-    cout << "*** Reminders. ***" << endl << "What would you like to do?" << endl;
-    cout << "1) Display titles' list. " << endl << "2) Display reminder. " << endl << "3) Create reminder. "
-         << endl << "4) Remove reminder. " << endl << "5) Extract reminder from file. " << endl << "6) save file." << endl;
+    cout << endl << "*** Reminders. ***" << endl << "What would you like to do?" << endl;
+    cout << "1) Display all reminders. " << endl << "2) Display specific reminder. " << endl
+         <<"3) Create reminder. " << endl << "4) Remove reminder. " << endl << "0) Go back. " << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
-    manageInput(this);
-    updateServer();
-}
 
+    manageInput();
+}
 bool RemindersManager::isCorrectInput() {
     bool correct = true;
     string input = getStringInput();
 
     if (input == "1")
-        displayAllTitles();
+        displayAll();
     else if (input == "2")
-        displayReminder(insertTitle());
-    else if (input == "3") {
+        displaySpecificReminder(insertTitle());
+    else if (input == "3")
         createReminder();
-        displayUserInterface();
-    }
     else if (input == "4")
         removeReminder(insertTitle());
-    else if (input == "5"){
-        deserialize(insertTitle());
-        displayUserInterface();
-    }
-    else if (input == "6"){
-        cout << "Insert title: " << endl;
 
-        auto it = reminders.find(getLineInput());
-        if (it!= reminders.end()) {
-            cout << "Saving file." << endl;
-            it->second.serialize(clientName);//forse grazie a filesystem si può anche fare a meno di usare clientName TODO
-        }
-        else
-            cout << "not found. " << endl;
+    else if (input == "0") {
+        updateServer();
+        setGoBack(true);
     }
 
     else
@@ -97,65 +68,74 @@ bool RemindersManager::isCorrectInput() {
 }
 
 void RemindersManager::tryAgain() {
-    displayUserInterface();
+    display();
 }
 
 void RemindersManager::enableFailureRoutine() {
-    cout << "More than five uncorrect inputs. There is no maximum limit here, you can try again. " << endl;
-    displayUserInterface();
+    cout << "There is no maximum limit here, you can try again. " << endl;
+    display();
+}
+
+void RemindersManager::displayAll() {
+    for (const auto& reminder : reminders)
+        cout << "- " << reminder.first << endl;
+}
+
+void RemindersManager::displaySpecificReminder(const string& title) {
+    auto it = reminders.find(title);
+    if (it!=reminders.end()){
+        if (!it->second.isSaved()) {
+            if (wantToSaveAsFile()) {
+                cout << "Saving reminder " << it->first << " as file in directory reminders..." << endl;
+                it->second.setSaved();
+                it->second.serialize(clientName);
+            }
+        }
+        else
+            cout << "This reminder is already saved. " << endl;
+        it->second.display();
+    }
+    else
+        cout << "Reminder not found. " << endl;
+}
+
+bool RemindersManager::wantToSaveAsFile() {
+    cout << "This reminder is not saved yet. Do you want to save it as a file?" << endl;
+    string input = getStringInput();
+
+    if (input == "yes")
+        return true;
+    if (input == "no")
+        return false;
+    else {
+        cout << "Your input is not correct. Try again. " << endl;
+        return wantToSaveAsFile();
+    }
+}
+
+void RemindersManager::createReminder() {
+    cout << "Creating new reminder... " << endl;
+
+    Reminder newReminder;
+    reminders.emplace(newReminder.getTitle(),newReminder);
+    displaySpecificReminder(newReminder.getTitle());
+}
+
+void RemindersManager::removeReminder(const string& title) {
+    auto it = reminders.find(title);
+    if (it != reminders.end()) {
+        reminders.erase(it);
+
+        fs::remove("../my_files/" + clientName + "/reminders/" + title);
+        fs::remove("../server/" + clientName + "/reminders/" + title);
+
+        cout << "Reminder " << title << " removed. " << endl;
+    }
+    else
+        cout << "Reminder not found." << endl;
 }
 
 string RemindersManager::insertTitle() {
-    cout << "Insert reminder's title: " << endl;
-    string tmp;
-    getline(cin,tmp, '/');
-    return tmp;
+    cout << "Insert reminder's title: (type '/' to confirm): " << endl;
+    return getLineInput();
 }
-
-void RemindersManager::setClientName(const string &cname) {
-    clientName = cname;
-}
-
-void RemindersManager::deserialize(const string &extractedPath) {
-
-    ifstream iFile (extractedPath);
-
-    string line, title, text, lastUpdate;
-    int it = 0;
-    while (getline(iFile, line,'-') && it <=3) {
-        if (it == 1) {
-            line.erase(0, 7);
-            line.erase(line.end() - 2, line.end());
-            title = line;
-        }
-        if (it == 2 ){
-            line.erase(0,6);
-            line.erase(line.end()-2,line.end());
-            text = line;
-        }
-        if (it == 3){
-            line.erase(0, 15);
-            lastUpdate = line;
-        }
-        it++;
-    }
-    iFile.close();
-
-    reminders.emplace(title,Reminder(title,text,lastUpdate));
-}
-
-void RemindersManager::getDirectoryEntries() {
-    for (auto& it : fs::directory_iterator("../server/" + clientName + "/reminders"))
-        deserialize(it.path());
-}
-
-void RemindersManager::getFromServer() {
-    getDirectoryEntries();
-}
-
-void RemindersManager::updateServer() {
-    cout << "Updating server..." << endl;
-    for (const auto& reminder : reminders)
-        reminder.second.serialize(clientName,"../server/");
-}
-// metodi getfromserver e updateserver

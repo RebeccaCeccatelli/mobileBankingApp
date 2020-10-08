@@ -15,10 +15,10 @@ using namespace utilityFunctions;
 const int MAX_ATTEMPTS = 5;
 
 void WelcomePage::display() {
-    cout << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
+    cout << endl << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
 
-    manageInput(this);
+    manageInput();
 }
 
 bool WelcomePage::isCorrectInput() {
@@ -42,5 +42,9 @@ void WelcomePage::tryAgain() {
 
 void WelcomePage::enableFailureRoutine() {
     cout << "You're being redirected to our Welcome Page." << endl;
+}
+
+void WelcomePage::exit() {
+    cout << "Application closed. Goodbye. " << endl;
 }
 

@@ -16,38 +16,103 @@ using namespace std;
 Reminder::Reminder() {
     setUserTitle();
     setUserText();
-    setLastUpdate(0);
+    setDate(0);
 }
 
-Reminder::Reminder(const string &tit, const string &tex,const string& date) {
-    title = tit;
-    text = tex;
-    setLastUpdate(1, date);
+Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit)}, text{move(tex)}, saved{s} {
+    setDate(1, move(date));
 }
 
 void Reminder::display() {
     cout << "-Title: " << title << endl;
     cout << "-Text: " << text << endl;
-    cout << "-Creation date: " << convertDateToString();
-}
-
-void Reminder::setUserTitle() {
-    cout << "Set title (insert '/' to confirm): " << endl;
-    cin.ignore(); //importante, altrimenti viene inserito '\n' in title.
-    getline(cin,title,'/');
-}
-
-void Reminder::setUserText() {
-    cout << "Set text (insert '/' to confirm): " << endl;
-    cin.ignore();
-    getline(cin,text,'/');
+    cout << "-Last update: " << lastUpdate.second << endl;
+    cout << "-Saved: ";
+    if (isSaved())
+        cout << "yes";
+    else
+        cout << "no";
 }
 
 const string &Reminder::getTitle() const {
     return title;
 }
 
-const string Reminder::convertDateToString() const {
+bool Reminder::isSaved() const {
+    return saved;
+}
+
+void Reminder::setSaved() {
+    saved = true;
+}
+
+void Reminder::serialize(const string &cname, string mainDirectory) const {
+    string path = move(mainDirectory) + cname + "/reminders/" + title;
+    ofstream oFile (path);
+
+    oFile << "-Title: " << title;
+    oFile << "\n\n-Text: " << text;
+    oFile << "\n\n-Last update: " << lastUpdate.second;
+    oFile << "\n\n-Saved: ";
+    if (isSaved())
+        oFile << "yes";
+    else
+        oFile << "no";
+
+    oFile.close();
+}
+
+pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
+    ifstream iFile (extractedPath);
+
+    string line, title, text, lastUpdate;
+    bool saved{false};
+
+    int it = 0;
+    while (getline(iFile, line,'-') && it <=4) {
+        if (it == 1) {
+            line.erase(0, 7);
+            line.erase(line.end() - 2, line.end());
+            title = line;
+        }
+        if (it == 2 ){
+            line.erase(0,6);
+            line.erase(line.end()-2,line.end());
+            text = line;
+        }
+        if (it == 3){
+            line.erase(0, 13);
+            line.erase(line.end()-2,line.end());
+            lastUpdate = line;
+        }
+        if (it == 4){
+            line.erase(0,7);
+            if (line == "yes")
+                saved = true;
+        }
+        it++;
+    }
+    iFile.close();
+
+    return make_pair(title, Reminder(title, text, lastUpdate, saved));
+}
+
+void Reminder::setDate(char mode, string date) {
+    if (mode == 0) {
+        time_t rawTime;
+        time(&rawTime);
+        lastUpdate.first = *localtime(&rawTime);
+
+        lastUpdate.second = convertDateToString();
+        cout << "Setting date automatically... " << endl;
+    }
+    if (mode == 1) {
+        lastUpdate.second = move(date);
+        lastUpdate.first = convertDateToTm();
+    }
+}
+
+string Reminder::convertDateToString() const {
     char buffer[80];
     strftime(buffer, 80, "%x %X", &lastUpdate.first);
     string stringDate(buffer);
@@ -68,29 +133,16 @@ tm Reminder::convertDateToTm() const {
     return tmDate;
 }
 
-
-void Reminder::setLastUpdate(char mode, const string& date) {
-    if (mode == 0) {
-        time_t rawTime;
-        time(&rawTime);
-        lastUpdate.first = *localtime(&rawTime);
-
-        lastUpdate.second = convertDateToString();
-        cout << "Date automatically setted. " << endl;
-    }
-    if (mode == 1) {
-        lastUpdate.second = date;
-        lastUpdate.first = convertDateToTm();
-    }
+void Reminder::setUserTitle() {
+    cout << "Insert title (type '/' to confirm): " << endl;
+    cin.ignore();
+    getline(cin,title,'/');
 }
 
-void Reminder::serialize(const string &cname,const string& mainDirectory) const {
-    string path = mainDirectory + cname + "/reminders/" + title;
-    ofstream oFile (path);
-
-    oFile << "-Title: " << title;
-    oFile << "\n\n-Text: " << text;
-    oFile << "\n\n-Creation date: " << convertDateToString();
-
-    oFile.close();
+void Reminder::setUserText() {
+    cout << "Insert text (type '/' to confirm): " << endl;
+    cin.ignore();
+    getline(cin,text,'/');
 }
+
+

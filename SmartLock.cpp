@@ -15,12 +15,12 @@ using namespace utilityFunctions;
 bool SmartLock::wantToRemember() {
     cout << "Do you want your titolar code to be remembered by this App?" << endl;
 
-    manageInput(this);
+    manageInput();
 
     return !remembered;
 }
 
-const unsigned int SmartLock::getTitolarCode() const {
+unsigned int SmartLock::getTitolarCode() const {
     return titolarCode;
 }
 
@@ -59,6 +59,10 @@ bool SmartLock::isCorrectInput() {
     else if (input == "no") {
         cout << "Ok, your titolar code won't be remembered. You'll be asked again next time. " << endl;
         reset();
+
+        ofstream oFile("../my_files/smart_lock", ofstream::trunc);
+        oFile.close();
+
         correct = true;
     }
 
@@ -70,7 +74,7 @@ void SmartLock::tryAgain() {
 }
 
 void SmartLock::enableFailureRoutine() {
-    cout << "More than five uncorrect inputs. There is no maximum limit here, you can try again. " << endl;
+    cout << "There is no maximum limit here, you can try again. " << endl;
     wantToRemember();
 }
 

@@ -22,6 +22,8 @@ private:
     void tryAgain() override;
     void enableFailureRoutine() override;
 
+    static void exit();
+
     AccessManager accessManager;
 };
 

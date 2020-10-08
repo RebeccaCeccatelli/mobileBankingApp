@@ -6,6 +6,7 @@
 #define MOBILE_BANKING_APP_UTILITYFUNCTIONS_H
 
 #include <string>
+
 #include "InputManager.h"
 
 using namespace std;
@@ -14,9 +15,6 @@ namespace utilityFunctions {
     string getStringInput();
     unsigned int getNumInput();
     string getLineInput();
-
-
-    void exit();
 }
 
 #endif //MOBILE_BANKING_APP_UTILITYFUNCTIONS_H

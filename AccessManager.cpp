@@ -25,8 +25,12 @@ AccessManager::AccessManager() {
         smartLock = SmartLock::deserialize();
 }
 
+const string &AccessManager::getName() const {
+    return smartLock.getNickname();
+}
+
 void AccessManager::login(){
-    cout << "*** Login page. *** " << endl;
+    cout << endl << "*** Login page. *** " << endl;
 
     if (!firstLogin) {
         resetPIN();
@@ -42,8 +46,11 @@ void AccessManager::login(){
     checkCredentials();
 }
 
-const string &AccessManager::getName() const {
-    return smartLock.getNickname();
+void AccessManager::checkCredentials() {
+
+    cout << "Checking Credentials..." << endl;
+
+    manageInput();
 }
 
 bool AccessManager::isCorrectInput() {
@@ -57,7 +64,7 @@ bool AccessManager::isCorrectInput() {
             }
             account.personalArea.setClientName(account.clientName);
 
-            account.personalArea.displayUserInterface(&account.personalArea);  //altrimenti rendendolo statico
+            account.personalArea.displayUserInterface();
 
             return true;
         }
@@ -74,13 +81,6 @@ void AccessManager::enableFailureRoutine() {
     resetPIN();
     smartLock.reset();
     firstLogin = true;
-}
-
-void AccessManager::checkCredentials() {
-
-    cout << "Checking Credentials..." << endl;
-
-    manageInput(this);
 }
 
 void AccessManager::setPIN() {
@@ -111,6 +111,8 @@ bool AccessManager::deserialize() {
     line.erase(0,13);
     if (line == "no")
         firstLogin = false;
+
+    iFile.close();
 
     return firstLogin;
 }
