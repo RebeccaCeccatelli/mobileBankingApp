@@ -41,11 +41,10 @@ void RemindersManager::display() {
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 }
-bool RemindersManager::isCorrectInput() {
+bool RemindersManager::isCorrectInput(string input) {
     bool correct = true;
-    string input = getStringInput();
 
     if (input == "1")
         displayAll();

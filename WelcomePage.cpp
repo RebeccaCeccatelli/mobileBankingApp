@@ -18,12 +18,11 @@ void WelcomePage::display() {
     cout << endl << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 }
 
-bool WelcomePage::isCorrectInput() {
+bool WelcomePage::isCorrectInput(string input) {
     bool correct = false;
-    string input = getStringInput();
 
     if (input == "login") {
         correct = true;

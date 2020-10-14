@@ -1,12 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-add_subdirectory(lib/googletest)
-set(gtest_SOURCE_DIR, ./lib/googletest/)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+add_subdirectory(lib/googletest-master)
 
-set(gmock_SOURCE_DIR, ./lib/googlemock/)
-include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
-
-set(TEST_SOURCE_FILES runAllTests.cpp)
+set(TEST_SOURCE_FILES runAllTests.cpp WelcomePageSuite.cpp)
 add_executable(runBankingAppTests ${TEST_SOURCE_FILES})
-target_link_libraries(runBankingAppTests gtest gtest_main core)
+
+target_link_libraries(runBankingAppTests gtest gtest_main gmock gmock_main core)

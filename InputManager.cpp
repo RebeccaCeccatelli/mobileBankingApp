@@ -10,8 +10,8 @@ using namespace std;
 
 const unsigned int MAX_ATTEMPTS = 5;
 
-void InputManager::manageInput() {
-    if (!isCorrectInput()) {
+void InputManager::manageInput(string input) {
+    if (!isCorrectInput(move(input))) {
         if (attempts <= MAX_ATTEMPTS) {
             cout << "Your input is not correct (attempt nr = " << attempts << "). Try Again. " << endl;
             attempts++;

@@ -1,0 +1,9 @@
+<toolSet name="External Tools">
+  <tool name="gtest" showInMainMenu="false" showInEditor="false" showInProject="false" showInSearchPopup="false" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/test/lib/googletest/include/gtest" />
+    </exec>
+  </tool>
+</toolSet>

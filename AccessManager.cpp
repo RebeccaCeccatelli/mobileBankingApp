@@ -53,7 +53,7 @@ void AccessManager::checkCredentials() {
     manageInput();
 }
 
-bool AccessManager::isCorrectInput() {
+bool AccessManager::isCorrectInput(string input) {
 
     for (auto& account : accounts) {
         if (make_pair(smartLock.getTitolarCode(), PIN) == account.acceptableCredentials) {

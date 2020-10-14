@@ -14,15 +14,14 @@ using namespace utilityFunctions;
 bool AccountsManager::wantToSwitchAccount() {
     cout << "Do you want to switch account?" << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 
     return answer;
 }
 
-bool AccountsManager::isCorrectInput() {
+bool AccountsManager::isCorrectInput(string input) {
     bool correct = false;
 
-    string input = getStringInput();
     if (input == "yes") {
         cout << "Preparing to switch account..." << endl;
         answer = true;

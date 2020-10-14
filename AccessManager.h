@@ -25,7 +25,7 @@ public:
 private:
     void checkCredentials();
 
-    bool isCorrectInput() override;
+    bool isCorrectInput(string input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 

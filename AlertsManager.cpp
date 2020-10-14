@@ -39,12 +39,11 @@ void AlertsManager::display() {
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 }
 
-bool AlertsManager::isCorrectInput() {
+bool AlertsManager::isCorrectInput(string input) {
     bool correct = true;
-    string input = getStringInput();
 
     if (input == "1"){
         displayAll();

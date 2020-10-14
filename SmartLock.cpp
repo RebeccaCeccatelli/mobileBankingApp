@@ -15,7 +15,7 @@ using namespace utilityFunctions;
 bool SmartLock::wantToRemember() {
     cout << "Do you want your titolar code to be remembered by this App?" << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 
     return !remembered;
 }
@@ -43,9 +43,8 @@ void SmartLock::reset() {
     titolarCode = 0;
 }
 
-bool SmartLock::isCorrectInput() {
+bool SmartLock::isCorrectInput(string input) {
     bool correct = false;
-    string input = getStringInput();
 
     if (input == "yes") {
         setRemembered(true);

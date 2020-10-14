@@ -10,5 +10,7 @@ using namespace std;
 
 int main(){
     cout << "Se mi stampa funziona." << endl;
-    return 0;
+
+    ::testing::InitGoogleTest();
+    return RUN_ALL_TESTS();
 }

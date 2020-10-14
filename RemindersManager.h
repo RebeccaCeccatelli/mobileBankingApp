@@ -24,7 +24,7 @@ private:
 
     void display() override;
 
-    bool isCorrectInput() override;
+    bool isCorrectInput(string input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 
@@ -36,7 +36,6 @@ private:
     void removeReminder(const string& title);
 
     static string insertTitle();
-    //eventualmente remindereditor da aggiungere in un secondo momento TODO
 
     map<string,Reminder> reminders;
     string clientName{"client"};

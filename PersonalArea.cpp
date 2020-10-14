@@ -18,30 +18,29 @@ void PersonalArea::setClientName(const string &cname) {
 void PersonalArea::display() {
     cout << endl << "*** Hi, " << clientName << "! This is your personal area. ***" << endl
         << "What would you like to do?" << endl;
-    cout << "1) Banking accounts. " << endl << "2) My Profile. " << endl << "3) Bank services. " << endl
-         << "4) Archive. " << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. "
-         << endl;
+    cout << "1) Banking accounts. (not implemented yet) " << endl << "2) My Profile. (not implemented yet)"
+         << endl << "3) Bank services. (not implemented yet)" << endl << "4) Archive. (not implemented yet)"
+         << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. " << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
-    manageInput();
+    manageInput(getStringInput());
 }
 
 
-bool PersonalArea::isCorrectInput() {
+bool PersonalArea::isCorrectInput(string input) {
     bool correct = true;
-    string input = getStringInput();
 
     if (input == "1")
-        cout << "To implement - banking accounts." << endl;
+        cout << "Not implemented yet - banking accounts." << endl;
     else if (input == "2")
-        cout << "To implement - my profile." << endl;
+        cout << "Not implemented yet - my profile." << endl;
     else if (input == "3")
-        cout << "To implement - bank services." << endl;
+        cout << "Not implemented yet - bank services." << endl;
     else if (input == "4")
-        cout << "To implement - archive." << endl;
+        cout << "Not implemented yet - archive." << endl;
     else if (input == "5"){
-        alertsManager.setClientName(clientName);    //forse includere setName all'interno di altro. think
+        alertsManager.setClientName(clientName);
         alertsManager.displayUserInterface();
     }
     else if (input == "6") {

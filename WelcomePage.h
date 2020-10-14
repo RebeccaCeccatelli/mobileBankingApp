@@ -6,7 +6,7 @@
 #define MOBILE_BANKING_APP_WELCOMEPAGE_H
 
 #include <string>
-
+#include "gtest/gtest.h"
 
 #include "AccessManager.h"
 #include "InputManager.h"
@@ -15,10 +15,12 @@
 using namespace std;
 
 class WelcomePage : public InputManager, public Interface {
+    FRIEND_TEST(WelcomePageSuite, isCorrectInputTest);
+
 private:
     void display() override;
 
-    bool isCorrectInput() override;
+    bool isCorrectInput(string input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 
