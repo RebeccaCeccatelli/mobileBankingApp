@@ -32,13 +32,13 @@ bool PersonalArea::isCorrectInput(string input) {
     bool correct = true;
 
     if (input == "1")
-        cout << "Not implemented yet - banking accounts." << endl;
+        cout << "Not implemented yet - banking accounts." << endl;  //3
     else if (input == "2")
-        cout << "Not implemented yet - my profile." << endl;
+        cout << "Not implemented yet - my profile." << endl;       //1
     else if (input == "3")
-        cout << "Not implemented yet - bank services." << endl;
+        cout << "Not implemented yet - bank services." << endl;    //2
     else if (input == "4")
-        cout << "Not implemented yet - archive." << endl;
+        cout << "Not implemented yet - archive." << endl;         //4
     else if (input == "5"){
         alertsManager.setClientName(clientName);
         alertsManager.displayUserInterface();
