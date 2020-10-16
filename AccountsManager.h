@@ -12,7 +12,7 @@ public:
     bool wantToSwitchAccount();
 
 private:
-    bool isCorrectInput(string input) override;
+    bool isCorrectInput(const string &input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 

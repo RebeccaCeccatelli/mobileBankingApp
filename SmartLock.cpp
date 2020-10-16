@@ -43,7 +43,7 @@ void SmartLock::reset() {
     titolarCode = 0;
 }
 
-bool SmartLock::isCorrectInput(string input) {
+bool SmartLock::isCorrectInput(const string &input) {
     bool correct = false;
 
     if (input == "yes") {

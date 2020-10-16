@@ -9,12 +9,14 @@
 
 string utilityFunctions::getStringInput() {
     string input;
+    cin.ignore();
     cin >> input;
     return input;
 }
 
 unsigned int utilityFunctions::getNumInput() {
     unsigned int num;
+    cin.ignore();
     cin >> num;
     return num;
 }

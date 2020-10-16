@@ -19,7 +19,7 @@ bool AccountsManager::wantToSwitchAccount() {
     return answer;
 }
 
-bool AccountsManager::isCorrectInput(string input) {
+bool AccountsManager::isCorrectInput(const string &input) {
     bool correct = false;
 
     if (input == "yes") {

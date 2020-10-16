@@ -18,7 +18,7 @@ void PersonalArea::setClientName(const string &cname) {
 void PersonalArea::display() {
     cout << endl << "*** Hi, " << clientName << "! This is your personal area. ***" << endl
         << "What would you like to do?" << endl;
-    cout << "1) Banking accounts. (not implemented yet) " << endl << "2) My Profile. (not implemented yet)"
+    cout << "1) Banking accounts. (not implemented yet) " << endl << "2) My Profile."
          << endl << "3) Bank services. (not implemented yet)" << endl << "4) Archive. (not implemented yet)"
          << endl << "5) Alerts. " << endl << "6) Reminders. " << endl << "0) logout. " << endl;
 
@@ -28,13 +28,15 @@ void PersonalArea::display() {
 }
 
 
-bool PersonalArea::isCorrectInput(string input) {
+bool PersonalArea::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == "1")
         cout << "Not implemented yet - banking accounts." << endl;  //3
-    else if (input == "2")
-        cout << "Not implemented yet - my profile." << endl;       //1
+    else if (input == "2"){
+        profileManager.setClientName(clientName);
+        profileManager.displayUserInterface();
+    }
     else if (input == "3")
         cout << "Not implemented yet - bank services." << endl;    //2
     else if (input == "4")

@@ -13,7 +13,7 @@ class InputManager {
 protected:
     void manageInput(string input = "");
 
-    virtual bool isCorrectInput(string input) = 0;
+    virtual bool isCorrectInput(const string &input) = 0;
     virtual void tryAgain() = 0;
     virtual void enableFailureRoutine() = 0;
 

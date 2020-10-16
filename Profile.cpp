@@ -13,11 +13,11 @@ using namespace utilityFunctions;
 using namespace std;
 
 Profile::Profile(string name, string addr, string mail, string num, bool news) : cname {move(name)},
-                                                                                 residentialAddress{move(addr)}, email {move(mail)}, telephoneNumber{move(num)},
-                                                                                 newsletter{news} {}
+    residentialAddress{move(addr)}, email {move(mail)}, telephoneNumber{move(num)},
+    newsletter{news} {}
 
 void Profile::display() {
-    cout << "*** Personal profile. ***" << endl;
+    cout << endl << "*** Personal informations. ***" << endl;
     cout << "-Client name: " << cname << " (1)" << endl;
     cout << "-Residential address: " <<  residentialAddress << " (2)" << endl;
     cout << "-Email: " << email << " (3)" << endl;
@@ -32,7 +32,7 @@ void Profile::display() {
     manageInput(getStringInput());
 }
 
-bool Profile::isCorrectInput(string input) {
+bool Profile::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == "1" || input == "2" || input == "3" || input == "4") {
@@ -103,7 +103,7 @@ Profile Profile::deserialize(const string &extractedPath) {
             name = line;
         }
         if (it == 2){
-            line.erase(0,22);
+            line.erase(0,21);
             line.erase(line.end()-2,line.end());
             addr = line;
         }

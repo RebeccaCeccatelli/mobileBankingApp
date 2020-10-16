@@ -14,6 +14,7 @@ using namespace std;
 
 class Profile : public InputManager, public Interface {
 public:
+    Profile() = default;
     Profile(string name, string addr, string mail, string num, bool news);
 
     void serialize(const string &name) const;
@@ -22,17 +23,17 @@ public:
 private:
     void display() override;
 
-    bool isCorrectInput(string input) override;
+    bool isCorrectInput(const string &input) override;
     void enableFailureRoutine() override;
     void tryAgain() override;
 
     void changeNewsletterSettings();
 
-    string cname;
-    string residentialAddress;
-    string email;
-    bool newsletter;
-    string telephoneNumber;
+    string cname {"client"};
+    string residentialAddress {"unknown"};
+    string email {"unknown"};
+    string telephoneNumber{"unknown"};
+    bool newsletter {true};
 };
 
 

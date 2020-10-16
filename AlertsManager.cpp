@@ -42,7 +42,7 @@ void AlertsManager::display() {
     manageInput(getStringInput());
 }
 
-bool AlertsManager::isCorrectInput(string input) {
+bool AlertsManager::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == "1"){

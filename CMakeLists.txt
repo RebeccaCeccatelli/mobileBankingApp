@@ -9,7 +9,8 @@ set(SOURCE_FILES WelcomePage.cpp WelcomePage.h utilityFunctions.cpp utilityFunct
         AccessManager.cpp AccessManager.h PersonalArea.cpp PersonalArea.h Account.h
         InputManager.cpp InputManager.h AccountsManager.cpp AccountsManager.h SmartLock.cpp
         SmartLock.h RemindersManager.cpp RemindersManager.h Reminder.cpp Reminder.h Alert.cpp
-        Alert.h AlertsManager.cpp AlertsManager.h Interface.cpp Interface.h Profile.cpp Profile.h)
+        Alert.h AlertsManager.cpp AlertsManager.h Interface.cpp Interface.h Profile.cpp
+        Profile.h SecurityManager.cpp SecurityManager.h ProfileManager.cpp ProfileManager.h)
 add_executable(mobile_banking_app main.cpp)
 
 add_library(core ${SOURCE_FILES})

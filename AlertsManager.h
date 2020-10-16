@@ -25,7 +25,7 @@ private:
 
     void display() override;
 
-    bool isCorrectInput(string input) override;
+    bool isCorrectInput(const string &input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 

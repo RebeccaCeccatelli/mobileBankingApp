@@ -21,7 +21,7 @@ void WelcomePage::display() {
     manageInput(getStringInput());
 }
 
-bool WelcomePage::isCorrectInput(string input) {
+bool WelcomePage::isCorrectInput(const string &input) {
     bool correct = false;
 
     if (input == "login") {

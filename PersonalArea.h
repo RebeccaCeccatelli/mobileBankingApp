@@ -9,6 +9,7 @@
 #include "Interface.h"
 #include "RemindersManager.h"
 #include "AlertsManager.h"
+#include "ProfileManager.h"
 
 class PersonalArea : public InputManager, public Interface {
 public:
@@ -17,20 +18,18 @@ public:
 private:
     void display() override;
 
-    bool isCorrectInput(string input) override;
+    bool isCorrectInput(const string &input) override;
     void tryAgain() override;
     void enableFailureRoutine() override;
 
-
-    RemindersManager remindersManager;
     string clientName{"client"};
+    RemindersManager remindersManager;
     AlertsManager alertsManager;
-    /*BankingAccountsManager banking;
+    ProfileManager profileManager;
+/*BankingAccountsManager banking;
 
-     * list<Alert> alerts;
-     * ArchiveManager archiveManager;
-     * BankServiceManager bsManager;
-     * ProfileManager profileManager;*/
+ * ArchiveManager archiveManager;
+ * BankServiceManager bsManager;*/
 };
 
 

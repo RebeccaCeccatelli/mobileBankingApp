@@ -43,7 +43,7 @@ void RemindersManager::display() {
 
     manageInput(getStringInput());
 }
-bool RemindersManager::isCorrectInput(string input) {
+bool RemindersManager::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == "1")
