@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class Profile : public InputManager, public Interface {
+class Profile : public InputManager {
 public:
     Profile() = default;
     Profile(string name, string addr, string mail, string num, bool news);
@@ -24,8 +24,6 @@ private:
     void display() override;
 
     bool isCorrectInput(const string &input) override;
-    void enableFailureRoutine() override;
-    void tryAgain() override;
 
     void changeNewsletterSettings();
 

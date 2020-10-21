@@ -30,8 +30,7 @@ public:
 
 private:
     bool isCorrectInput(const string &input) override;
-    void tryAgain() override;
-    void enableFailureRoutine() override;
+    void display() override;
 
     void setClientNickname();
     void setRemembered(bool rem);

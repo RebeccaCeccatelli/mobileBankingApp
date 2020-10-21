@@ -87,15 +87,6 @@ bool SecurityManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void SecurityManager::tryAgain() {
-    display();
-}
-
-void SecurityManager::enableFailureRoutine() {
-    cout << "There is no maximum limit here, you can try again. " << endl;
-    display();
-}
-
 bool SecurityManager::askSecurityQuestion() const {
     bool correct = false;
     cout << "Before changing your settings, answer to this question (type '/' to confirm): "

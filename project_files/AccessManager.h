@@ -26,8 +26,8 @@ private:
     void checkCredentials();
 
     bool isCorrectInput(const string &input) override;
-    void tryAgain() override;
     void enableFailureRoutine() override;
+    void display() override;
 
     void setPIN();
     void resetPIN();

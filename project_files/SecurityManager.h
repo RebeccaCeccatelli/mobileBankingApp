@@ -8,11 +8,10 @@
 #include <string>
 
 #include "InputManager.h"
-#include "Interface.h"
 
 using namespace std;
 
-class SecurityManager : public InputManager, public Interface {
+class SecurityManager : public InputManager {
 public:
     SecurityManager() = default;
     SecurityManager(string question, string answer, bool digKey);
@@ -24,8 +23,6 @@ private:
     void display() override;
 
     bool isCorrectInput(const string &input) override;
-    void tryAgain() override;
-    void enableFailureRoutine() override;
 
     bool askSecurityQuestion() const;
     void changeDigitalKeySetting();

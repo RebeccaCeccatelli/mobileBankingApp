@@ -66,11 +66,3 @@ bool ProfileManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void ProfileManager::tryAgain() {
-    display();
-}
-
-void ProfileManager::enableFailureRoutine() {
-    cout << "There is no limit here, try again. " << endl;
-    display();
-}

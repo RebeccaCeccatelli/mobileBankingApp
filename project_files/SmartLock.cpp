@@ -54,8 +54,7 @@ bool SmartLock::isCorrectInput(const string &input) {
         serialize();
 
         correct = true;
-    }
-    else if (input == "no") {
+    } else if (input == "no") {
         cout << "Ok, your titolar code won't be remembered. You'll be asked again next time. " << endl;
         reset();
 
@@ -68,12 +67,7 @@ bool SmartLock::isCorrectInput(const string &input) {
     return correct;
 }
 
-void SmartLock::tryAgain() {
-    wantToRemember();
-}
-
-void SmartLock::enableFailureRoutine() {
-    cout << "There is no maximum limit here, you can try again. " << endl;
+void SmartLock::display() {
     wantToRemember();
 }
 
@@ -130,4 +124,7 @@ SmartLock SmartLock::deserialize() {
 
     return SmartLock(titolarCode,clientNickname,remembered);
 }
+
+
+
 

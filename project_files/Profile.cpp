@@ -115,16 +115,6 @@ bool Profile::isCorrectInput(const string &input) {
     return correct;
 }
 
-void Profile::tryAgain() {
-    display();
-}
-
-
-void Profile::enableFailureRoutine() {
-    cout << "There is no maximum limit here, you can try again. " << endl;
-    display();
-}
-
 void Profile::changeNewsletterSettings() {
     newsletter = !newsletter;
 }

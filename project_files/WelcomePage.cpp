@@ -12,8 +12,6 @@
 using namespace std;
 using namespace utilityFunctions;
 
-const int MAX_ATTEMPTS = 5;
-
 void WelcomePage::display() {
     cout << endl << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
@@ -33,10 +31,6 @@ bool WelcomePage::isCorrectInput(const string &input) {
         exit();
     }
     return correct;
-}
-
-void WelcomePage::tryAgain() {
-    display();
 }
 
 void WelcomePage::enableFailureRoutine() {

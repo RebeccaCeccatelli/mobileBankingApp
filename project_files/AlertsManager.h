@@ -10,24 +10,20 @@
 
 #include "Alert.h"
 #include "InputManager.h"
-#include "Interface.h"
 
 using namespace std;
 
-class AlertsManager : public InputManager, public Interface {
+class AlertsManager : public InputManager {
 public:
     void setClientName(const string &cname);
 
 private:
-
     void pullFromServer();
     void updateServer() const;
 
     void display() override;
 
     bool isCorrectInput(const string &input) override;
-    void tryAgain() override;
-    void enableFailureRoutine() override;
 
     void displayAll();
     void displayGeneral();

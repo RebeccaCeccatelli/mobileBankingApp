@@ -82,15 +82,6 @@ bool AlertsManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void AlertsManager::tryAgain() {
-    display();
-}
-
-void AlertsManager::enableFailureRoutine() {
-    cout << "There is no limit here, try again. " << endl;
-    display();
-}
-
 void AlertsManager::displayAll() {
     for (const auto& alert : alerts)
         cout << "- " << alert.first << endl;

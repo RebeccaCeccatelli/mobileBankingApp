@@ -53,12 +53,3 @@ bool PersonalArea::isCorrectInput(const string &input) {
     return correct;
 }
 
-void PersonalArea::tryAgain() {
-    display();
-}
-
-void PersonalArea::enableFailureRoutine() {
-    cout << "There is no maximum limit, you can try again. " << endl;
-    display();
-}
-

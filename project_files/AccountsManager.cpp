@@ -37,10 +37,11 @@ bool AccountsManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void AccountsManager::tryAgain() {
+void AccountsManager::display() {
     wantToSwitchAccount();
 }
 
 void AccountsManager::enableFailureRoutine() {
-    cout << "You're being redirected to our Welcome Page. " << endl;
+    cout << "We assume you don't want to switch account." << endl;
 }
+

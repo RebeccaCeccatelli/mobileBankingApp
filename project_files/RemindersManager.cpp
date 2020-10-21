@@ -66,15 +66,6 @@ bool RemindersManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void RemindersManager::tryAgain() {
-    display();
-}
-
-void RemindersManager::enableFailureRoutine() {
-    cout << "There is no maximum limit here, you can try again. " << endl;
-    display();
-}
-
 void RemindersManager::displayAll() {
     for (const auto& reminder : reminders)
         cout << "- " << reminder.first << endl;

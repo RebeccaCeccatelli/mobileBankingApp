@@ -7,15 +7,17 @@
 
 #include <string>
 
+#include "Interface.h"
+
 using namespace std;
 
-class InputManager {
+class InputManager : public Interface {
 protected:
-    void manageInput(string input = "");
+    void manageInput(const string &input = "");
 
     virtual bool isCorrectInput(const string &input) = 0;
-    virtual void tryAgain() = 0;
-    virtual void enableFailureRoutine() = 0;
+    virtual void tryAgain();
+    virtual void enableFailureRoutine();
 
 private:
     int attempts{1};

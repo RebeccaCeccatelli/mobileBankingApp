@@ -8,14 +8,13 @@
 #include <string>
 
 #include "InputManager.h"
-#include "Interface.h"
 #include "Profile.h"
 #include "SecurityManager.h"
 #include "BankBranch.h"
 
 using namespace std;
 
-class ProfileManager : public InputManager, public Interface {
+class ProfileManager : public InputManager {
 public:
     void setClientName(const string& cname);
 
@@ -26,8 +25,6 @@ private:
     void display() override;
 
     bool isCorrectInput(const string &input) override;
-    void tryAgain() override;
-    void enableFailureRoutine() override;
 
     string clientName;
     Profile profile;

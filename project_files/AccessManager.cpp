@@ -72,7 +72,7 @@ bool AccessManager::isCorrectInput(const string &input) {
     return false;
 }
 
-void AccessManager::tryAgain() {
+void AccessManager::display() {
     login();
 }
 
@@ -116,3 +116,4 @@ bool AccessManager::deserialize() {
 
     return firstLogin;
 }
+
