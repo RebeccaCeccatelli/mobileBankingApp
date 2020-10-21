@@ -2,7 +2,7 @@
 // Created by rebecca on 10/13/20.
 
 #include "gtest/gtest.h"
-#include "../WelcomePage.h"
+#include "../project_files/WelcomePage.h"
 
 TEST(WelcomePageSuite, isCorrectInputTest) {
     //Arrange

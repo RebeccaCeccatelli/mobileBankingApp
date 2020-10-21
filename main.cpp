@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "WelcomePage.h"
+#include "project_files/WelcomePage.h"
 
 using namespace std;
 
