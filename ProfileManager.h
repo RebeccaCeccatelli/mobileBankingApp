@@ -11,6 +11,7 @@
 #include "Interface.h"
 #include "Profile.h"
 #include "SecurityManager.h"
+#include "BankBranch.h"
 
 using namespace std;
 
@@ -30,7 +31,9 @@ private:
 
     string clientName;
     Profile profile;
+    BankBranch bankBranch;
     SecurityManager securityManager;
+
     bool first{true};    //rendere più chiaro l'uso di questo booleano FIXME
 };
 

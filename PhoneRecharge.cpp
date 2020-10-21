@@ -16,6 +16,6 @@ void PhoneRecharge::setProcessed(bool rec) {
 
 }
 
-void PhoneRecharge::setRecipient(string, int string, num) {
+void PhoneRecharge::setRecipient(string mobOperator, string num) {
 
 }

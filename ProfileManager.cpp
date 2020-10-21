@@ -19,6 +19,8 @@ void ProfileManager::pullFromServer() {
 
         profile = Profile::deserialize(directoryPath + "personal_informations");
         securityManager = SecurityManager::deserialize(directoryPath + "security_settings");
+        bankBranch = BankBranch::deserialize(directoryPath + "bank_branch");
+
         first = false;
     }
     //...
@@ -37,7 +39,7 @@ void ProfileManager::display() {
 
     cout << endl << "*** Profile area. ***" << endl << "What would you like to do?" << endl;
     cout << "1) My profile." << endl << "2) My products." << endl << "3) My security settings."
-        << endl << "0) Go back. " << endl;
+        << endl << "4) My bank branch. " << endl << "0) Go back. " << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
@@ -53,6 +55,8 @@ bool ProfileManager::isCorrectInput(const string &input) {
         cout << "to implement - my products. "; //TODO
     else if (input == "3")
         securityManager.displayUserInterface();
+    else if (input == "4")
+        bankBranch.display();
     else if (input == "0") {
         updateServer();
         setGoBack(true);
