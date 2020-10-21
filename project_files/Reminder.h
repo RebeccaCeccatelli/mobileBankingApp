@@ -8,9 +8,11 @@
 #include <string>
 #include <ctime>
 
+#include "DateSetter.h"
+
 using namespace std;
 
-class Reminder {
+class Reminder : public DateSetter {
 public:
     Reminder();
     Reminder(string tit, string tex, string date, bool s);
@@ -25,16 +27,11 @@ public:
     static pair<string, Reminder> deserialize(const string& extractedPath);
 
 private:
-    void setDate(char mode = 0, string date = "");
-    string convertDateToString() const;
-    tm convertDateToTm() const;
-
     void setUserTitle();
     void setUserText();
 
     string title{"unknown"};
     string text{"empty"};
-    pair<tm,string> lastUpdate;
     bool saved{false};
 };
 

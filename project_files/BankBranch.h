@@ -15,8 +15,9 @@ public:
     BankBranch(string addr, string manager, string num) : address{move(addr)}, assignedManager{move(manager)},
         telephoneNumber{move(num)} {}
 
-    void display();
     static BankBranch deserialize(const string& exctractedPath);
+
+    void display();
 
 private:
     string address;

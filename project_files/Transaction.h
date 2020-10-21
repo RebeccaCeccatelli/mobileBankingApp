@@ -7,28 +7,22 @@
 
 #include <string>
 
+#include "DateSetter.h"
+
 using namespace std;
 
-class Transaction {
+class Transaction : public DateSetter {
 public:
     virtual void display() = 0;
     virtual void setAmount(int amount) = 0;
     virtual void setProcessed(bool rec) = 0;
 
-    void setDate(char mode, string date);
-    //...
-
 private:
     string particular;
-    pair<tm,string> date;
     string category{"general"};
     string description{"unknown"};
     bool processed{false};
     int amountToTransfer;
-
-    string convertDateToString() const;
-
-    tm convertDateToTm() const;
 };
 
 

@@ -23,14 +23,13 @@ void ProfileManager::pullFromServer() {
 
         first = false;
     }
-    //...
 }
 
 void ProfileManager::updateServer(){
     cout << "Updating server..." << endl;
     profile.serialize(clientName);
     securityManager.serialize(clientName);
-    //...
+
     first = true;
 }
 

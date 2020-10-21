@@ -7,9 +7,11 @@
 
 #include <string>
 
+#include "DateSetter.h"
+
 using namespace std;
 
-class Alert {
+class Alert : public DateSetter {
 public:
     Alert(string obj, string mex, bool r, bool pers, string date);
 
@@ -23,12 +25,8 @@ public:
     bool isPersonal() const;
 
 private:
-    void setDate(string date);
-    tm convertDateToTm() const;
-
     string object;
     string message;
-    pair<tm,string> arrivalDate;
     bool read;
     bool personal;
 };

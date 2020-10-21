@@ -6,27 +6,24 @@
 
 #include <iostream>
 #include <string>
-#include <ctime>
 #include <fstream>
-#include <sstream>
-#include <locale>
 
 using namespace std;
 
 Reminder::Reminder() {
     setUserTitle();
     setUserText();
-    setDate(0);
+    setDate();
 }
 
 Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit)}, text{move(tex)}, saved{s} {
-    setDate(1, move(date));
+    setDate(move(date), 1);
 }
 
 void Reminder::display() {
     cout << "-Title: " << title << endl;
     cout << "-Text: " << text << endl;
-    cout << "-Last update: " << lastUpdate.second << endl;
+    cout << "-Last update: " << date.second << endl;
     cout << "-Saved: ";
     if (isSaved())
         cout << "yes";
@@ -52,7 +49,7 @@ void Reminder::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Title: " << title;
     oFile << "\n\n-Text: " << text;
-    oFile << "\n\n-Last update: " << lastUpdate.second;
+    oFile << "\n\n-Last update: " << date.second;
     oFile << "\n\n-Saved: ";
     if (isSaved())
         oFile << "yes";
@@ -95,42 +92,6 @@ pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
     iFile.close();
 
     return make_pair(title, Reminder(title, text, lastUpdate, saved));
-}
-
-void Reminder::setDate(char mode, string date) {
-    if (mode == 0) {
-        time_t rawTime;
-        time(&rawTime);
-        lastUpdate.first = *localtime(&rawTime);
-
-        lastUpdate.second = convertDateToString();
-        cout << "Setting date automatically... " << endl;
-    }
-    if (mode == 1) {
-        lastUpdate.second = move(date);
-        lastUpdate.first = convertDateToTm();
-    }
-}
-
-string Reminder::convertDateToString() const {
-    char buffer[80];
-    strftime(buffer, 80, "%x %X", &lastUpdate.first);
-    string stringDate(buffer);
-    return stringDate;
-}
-
-tm Reminder::convertDateToTm() const {
-    locale loc;
-    auto& tmget = use_facet <time_get<char>>(loc);
-    ios::iostate state;
-    string format = "%x %X";
-
-    istringstream  iss {lastUpdate.second};
-
-    tm tmDate;
-    tmget.get(iss, std::time_get<char>::iter_type(), iss,
-              state, &tmDate, format.data(), format.data() + format.length());
-    return tmDate;
 }
 
 void Reminder::setUserTitle() {

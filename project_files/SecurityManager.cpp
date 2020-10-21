@@ -12,6 +12,53 @@
 using namespace std;
 using namespace utilityFunctions;
 
+SecurityManager::SecurityManager(string question, string answer, bool digKey) : digitalKey{digKey} {
+    securityQuestion = make_pair(move(question),move(answer));
+}
+
+void SecurityManager::serialize(const string &cname) const {
+    string path = "../server/" + cname + "/profile/security_settings";
+    ofstream oFile(path);
+
+    oFile << "-Security question: " << securityQuestion.first;
+    oFile << "\n\n-Relative answer: " << securityQuestion.second;
+    oFile << "\n\n-Digital key: ";
+    if (digitalKey)
+        oFile << "yes";
+    else
+        oFile << "no";
+
+    oFile.close();
+}
+
+SecurityManager SecurityManager::deserialize(const string &extractedPath) {
+    ifstream iFile(extractedPath);
+
+    string line, question, answer;
+    bool digKey{false};
+
+    int it = 0;
+    while (getline(iFile,line,'-') && it<=3){
+        if (it == 1){
+            line.erase(0,19);
+            line.erase(line.end()-2,line.end());
+            question = line;
+        }
+        if (it == 2) {
+            line.erase(0, 17);
+            line.erase(line.end() - 2, line.end());
+            answer = line;
+        }
+        if (it == 3) {
+            line.erase(0, 23);
+            if (line == "yes")
+                digKey = true;
+        }
+        it++;
+    }
+    return SecurityManager(question,answer,digKey);
+}
+
 void SecurityManager::display() {
     cout << endl << "*** Security settings. ***" << endl;
     cout << "-Digital Key: ";
@@ -23,23 +70,6 @@ void SecurityManager::display() {
     cout << "Enter the corresponding number to modify the information, (0) to go back." << endl;
 
     manageInput(getStringInput());
-}
-
-void SecurityManager::changeDigitalKeySetting() {
-    if (askSecurityQuestion()) {
-        cout << "Changing digital key setting..." << endl;
-        digitalKey = !digitalKey;
-    }
-}
-
-void SecurityManager::changeSecurityQuestion() {
-    if (askSecurityQuestion()){
-        cout << "Insert your new question (type '/' to confirm): " << endl;
-        securityQuestion.first = getLineInput();
-        cout << "Insert your new answer (type '/' to confirm): " << endl;
-        securityQuestion.second = getLineInput();
-        cout << "Setted. " << endl;
-    }
 }
 
 bool SecurityManager::isCorrectInput(const string &input) {
@@ -80,49 +110,19 @@ bool SecurityManager::askSecurityQuestion() const {
     return correct;
 }
 
-void SecurityManager::serialize(const string &cname) const {
-    string path = "../server/" + cname + "/profile/security_settings";
-    ofstream oFile(path);
-
-    oFile << "-Security question: " << securityQuestion.first; //controllare questione delle righe di spazio TODO
-    oFile << "\n\n-Relative answer: " << securityQuestion.second;
-    oFile << "\n\n-Digital key: ";
-    if (digitalKey)
-        oFile << "yes";
-    else
-        oFile << "no";
-
-    oFile.close();
-}
-
-SecurityManager SecurityManager::deserialize(const string &extractedPath) {
-    ifstream iFile(extractedPath);
-
-    string line, question, answer;
-    bool digKey{false};
-
-    int it = 0;
-    while (getline(iFile,line,'-') && it<=3){
-        if (it == 1){
-            line.erase(0,19);
-            line.erase(line.end()-2,line.end());
-            question = line;
-        }
-        if (it == 2) {
-            line.erase(0, 17);
-            line.erase(line.end() - 2, line.end());
-            answer = line;
-        }
-        if (it == 3) {
-            line.erase(0, 23);
-            if (line == "yes")
-                digKey = true;
-        }
-        it++;
+void SecurityManager::changeDigitalKeySetting() {
+    if (askSecurityQuestion()) {
+        cout << "Changing digital key setting..." << endl;
+        digitalKey = !digitalKey;
     }
-    return SecurityManager(question,answer,digKey);
 }
 
-SecurityManager::SecurityManager(string question, string answer, bool digKey) : digitalKey{digKey} {
-    securityQuestion = make_pair(move(question),move(answer));
+void SecurityManager::changeSecurityQuestion() {
+    if (askSecurityQuestion()){
+        cout << "Insert your new question (type '/' to confirm): " << endl;
+        securityQuestion.first = getLineInput();
+        cout << "Insert your new answer (type '/' to confirm): " << endl;
+        securityQuestion.second = getLineInput();
+        cout << "Setted. " << endl;
+    }
 }

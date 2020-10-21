@@ -6,16 +6,13 @@
 
 #include <fstream>
 #include <iostream>
-#include <sstream>
-#include <locale>
-#include <ctime>
 #include <string>
 
 using namespace std;
 
 Alert::Alert(string obj, string mex, bool r, bool pers, string date) : object{move(obj)}, message{move(mex)},
     read{r}, personal{pers} {
-    setDate(move(date));
+    setDate(move(date),1);
 }
 
 void Alert::serialize(const string &cname, string mainDirectory) const {
@@ -24,7 +21,7 @@ void Alert::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Object: " << object;
     oFile << "\n\n-Message: " << message;
-    oFile << "\n\n-Arrival date: " << arrivalDate.second;
+    oFile << "\n\n-Arrival date: " << date.second;
     oFile << "\n\n-Read: ";
     if (isRead())
         oFile << "yes";
@@ -83,7 +80,7 @@ pair<string, Alert> Alert::deserialize(const string& extractedPath) {
 void Alert::display() {
     cout << "-Title: " << object << endl;
     cout << "-Message: " << message << endl;
-    cout << "-Arrival date: " << arrivalDate.second << endl;
+    cout << "-Arrival date: " << date.second << endl;
     cout << "-Read: ";
     if (isRead())
         cout << "yes" << endl;
@@ -107,23 +104,4 @@ bool Alert::isRead() const {
 
 bool Alert::isPersonal() const {
     return personal;
-}
-
-void Alert::setDate(string date) {
-    arrivalDate.second = move(date);
-    arrivalDate.first = convertDateToTm();
-}
-
-tm Alert::convertDateToTm() const {
-    locale loc;
-    auto& tmget = use_facet <time_get<char>>(loc);
-    ios::iostate state;
-    string format = "%x %X";
-
-    istringstream  iss {arrivalDate.second};
-
-    tm tmDate;
-    tmget.get(iss, std::time_get<char>::iter_type(), iss,
-              state, &tmDate, format.data(), format.data() + format.length());
-    return tmDate;
 }
