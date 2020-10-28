@@ -8,7 +8,7 @@
 #include <string>
 
 #include "InputManager.h"
-#include "Profile.h"
+#include "ProfileView.h"
 #include "SecurityManagerView.h"
 #include "BankBranch.h"
 
@@ -27,7 +27,7 @@ private:
     bool isCorrectInput(const string &input) override;
 
     //attributes
-    Profile profile;
+    ProfileView profileView;
     BankBranch bankBranch;
     SecurityManagerView securityManagerView;
 

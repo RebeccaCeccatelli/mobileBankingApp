@@ -23,7 +23,7 @@ void ProfileManagerView::pullFromServer() {
     if (first) {
         string directoryPath = "../server/" + clientName + "/profile/";
 
-        profile = Profile::deserialize(directoryPath + "personal_informations");
+        profileView.deserialize(directoryPath + "personal_informations");
         securityManagerView.deserialize(directoryPath + "security_settings");
         bankBranch = BankBranch::deserialize(directoryPath + "bank_branch");
 
@@ -33,7 +33,7 @@ void ProfileManagerView::pullFromServer() {
 
 void ProfileManagerView::updateServer(){
     cout << "Updating server..." << endl;
-    profile.serialize(clientName);
+    profileView.serialize(clientName);
     securityManagerView.serialize(clientName);
 
     first = true;
@@ -55,7 +55,7 @@ bool ProfileManagerView::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == PROFILE)
-        profile.displayUserInterface();
+        profileView.displayUserInterface();
     else if (input == PRODUCTS)
         cout << "to implement - my products. "; //TODO
     else if (input == SECURITY_SETTINGS)
