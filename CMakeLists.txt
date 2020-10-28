@@ -4,7 +4,7 @@ project(mobile_banking_app)
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(project_files)
-#add_subdirectory(test)
+add_subdirectory(test)
 
 add_executable(mobile_banking_app main.cpp)
 

@@ -4,12 +4,11 @@
 
 #include <iostream>
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
 
 using namespace std;
 
 int main(){
-    cout << "Se mi stampa funziona." << endl;
+    cout << "Testing project files..." << endl;
 
     ::testing::InitGoogleTest();
     return RUN_ALL_TESTS();
