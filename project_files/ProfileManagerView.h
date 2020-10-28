@@ -10,7 +10,7 @@
 #include "InputManager.h"
 #include "ProfileView.h"
 #include "SecurityManagerView.h"
-#include "BankBranch.h"
+#include "BankBranchView.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ private:
 
     //attributes
     ProfileView profileView;
-    BankBranch bankBranch;
+    BankBranchView bankBranch;
     SecurityManagerView securityManagerView;
 
     string clientName;

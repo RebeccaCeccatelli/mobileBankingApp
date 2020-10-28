@@ -20,9 +20,7 @@ public:
 
 private:
     void display() override;
-
     bool isCorrectInput(const string &input) override;
-    void changeNewsletterSettings();
 
     Profile profile;
 };

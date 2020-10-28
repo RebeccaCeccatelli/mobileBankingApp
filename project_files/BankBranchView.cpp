@@ -2,7 +2,7 @@
 // Created by rebecca on 10/21/20.
 //
 
-#include "BankBranch.h"
+#include "BankBranchView.h"
 
 #include <fstream>
 #include <string>
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-BankBranch BankBranch::deserialize(const string &exctractedPath) {
+BankBranchView BankBranchView::deserialize(const string &exctractedPath) {
     ifstream iFile(exctractedPath);
 
     string line, address, assignedManager, telephoneNumber;
@@ -36,10 +36,10 @@ BankBranch BankBranch::deserialize(const string &exctractedPath) {
 
     iFile.close();
 
-    return BankBranch(address,assignedManager,telephoneNumber);
+    return BankBranchView(address, assignedManager, telephoneNumber);
 }
 
-void BankBranch::display() {
+void BankBranchView::display() {
     cout << endl << "*** Your physical bank branch. *** " << endl;
     cout << "-Address: " << address << endl << "-Assigned manager: " << assignedManager << endl
         << "-Telephone number: " << telephoneNumber << endl;

@@ -10,6 +10,6 @@ set(SOURCE_FILES WelcomePage.cpp WelcomePage.h utilityFunctions.cpp utilityFunct
         Alert.h AlertsManager.cpp AlertsManager.h Interface.cpp Interface.h ProfileView.cpp
         ProfileView.h SecurityManagerView.cpp SecurityManagerView.h ProfileManagerView.cpp ProfileManagerView.h
         Transaction.cpp Transaction.h WireTransfer.cpp WireTransfer.h CardTransaction.cpp CardTransaction.h
-        Deposit.cpp Deposit.h PhoneRecharge.cpp PhoneRecharge.h BankBranch.cpp BankBranch.h DateSetter.cpp DateSetter.h SmartLock.cpp SmartLock.h AccessManager.cpp AccessManager.h Account.cpp SecurityManager.cpp SecurityManager.h Profile.cpp Profile.h)
+        Deposit.cpp Deposit.h PhoneRecharge.cpp PhoneRecharge.h BankBranchView.cpp BankBranchView.h DateSetter.cpp DateSetter.h SmartLock.cpp SmartLock.h AccessManager.cpp AccessManager.h Account.cpp SecurityManager.cpp SecurityManager.h Profile.cpp Profile.h)
 
 add_library(core ${SOURCE_FILES})

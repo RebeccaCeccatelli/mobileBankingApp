@@ -25,7 +25,7 @@ void ProfileManagerView::pullFromServer() {
 
         profileView.deserialize(directoryPath + "personal_informations");
         securityManagerView.deserialize(directoryPath + "security_settings");
-        bankBranch = BankBranch::deserialize(directoryPath + "bank_branch");
+        bankBranch = BankBranchView::deserialize(directoryPath + "bank_branch");
 
         first = false;
     }
