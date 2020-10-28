@@ -2,7 +2,7 @@
 // Created by rebecca on 10/15/20.
 //
 
-#include "ProfileManager.h"
+#include "ProfileManagerView.h"
 
 #include <iostream>
 #include "utilityFunctions.h"
@@ -10,30 +10,36 @@
 using namespace utilityFunctions;
 using namespace std;
 
-void ProfileManager::setClientName(const string &cname) {
+const string PROFILE = "1";
+const string PRODUCTS = "2";
+const string SECURITY_SETTINGS = "3";
+const string BANK_BRANCH = "4";
+const string BACK = "0";
+
+void ProfileManagerView::setClientName(const string &cname) {
     clientName = cname;
 }
-void ProfileManager::pullFromServer() {
+void ProfileManagerView::pullFromServer() {
     if (first) {
         string directoryPath = "../server/" + clientName + "/profile/";
 
         profile = Profile::deserialize(directoryPath + "personal_informations");
-        securityManager = SecurityManager::deserialize(directoryPath + "security_settings");
+        securityManagerView.deserialize(directoryPath + "security_settings");
         bankBranch = BankBranch::deserialize(directoryPath + "bank_branch");
 
         first = false;
     }
 }
 
-void ProfileManager::updateServer(){
+void ProfileManagerView::updateServer(){
     cout << "Updating server..." << endl;
     profile.serialize(clientName);
-    securityManager.serialize(clientName);
+    securityManagerView.serialize(clientName);
 
     first = true;
 }
 
-void ProfileManager::display() {
+void ProfileManagerView::display() {
     pullFromServer();
 
     cout << endl << "*** Profile area. ***" << endl << "What would you like to do?" << endl;
@@ -45,18 +51,18 @@ void ProfileManager::display() {
     manageInput(getStringInput());
 }
 
-bool ProfileManager::isCorrectInput(const string &input) {
+bool ProfileManagerView::isCorrectInput(const string &input) {
     bool correct = true;
 
-    if (input == "1")
+    if (input == PROFILE)
         profile.displayUserInterface();
-    else if (input == "2")
+    else if (input == PRODUCTS)
         cout << "to implement - my products. "; //TODO
-    else if (input == "3")
-        securityManager.displayUserInterface();
-    else if (input == "4")
+    else if (input == SECURITY_SETTINGS)
+        securityManagerView.displayUserInterface();
+    else if (input == BANK_BRANCH)
         bankBranch.display();
-    else if (input == "0") {
+    else if (input == BACK) {
         updateServer();
         setGoBack(true);
     }

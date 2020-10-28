@@ -12,6 +12,6 @@ bool Account::areCorrectCredentials(const string& titCode, const string& pin) co
 }
 
 void Account::enter() {
-    personalArea.setClientName(clientName);
-    personalArea.displayUserInterface();
+    personalAreaView.setClientName(clientName);
+    personalAreaView.displayUserInterface();
 }

@@ -9,6 +9,7 @@
 
 class AccountsManagerView : public InputManager {
 public:
+    virtual ~AccountsManagerView() = default;
     bool wantToSwitchAccount();
 
 private:

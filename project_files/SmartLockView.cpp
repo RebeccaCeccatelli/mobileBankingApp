@@ -11,6 +11,9 @@
 using namespace std;
 using namespace utilityFunctions;
 
+const string YES = "yes";
+const string NO = "no";
+
 bool SmartLockView::wantToRemember(const string& titolarCode) {
     cout << "Do you want your titolar code to be remembered by this App?" << endl;
 

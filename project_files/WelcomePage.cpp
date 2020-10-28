@@ -12,6 +12,9 @@
 using namespace std;
 using namespace utilityFunctions;
 
+const string LOGIN = "login";
+const string EXIT = "exit";
+
 void WelcomePage::display() {
     cout << endl << "*** Dear " << accessManagerView.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;

@@ -2,29 +2,31 @@
 // Created by Rebecca on 28/09/2020.
 //
 
-#ifndef MOBILE_BANKING_APP_PERSONALAREA_H
-#define MOBILE_BANKING_APP_PERSONALAREA_H
+#ifndef MOBILE_BANKING_APP_PERSONALAREAVIEW_H
+#define MOBILE_BANKING_APP_PERSONALAREAVIEW_H
 
 #include "InputManager.h"
 #include "RemindersManager.h"
 #include "AlertsManager.h"
-#include "ProfileManager.h"
+#include "ProfileManagerView.h"
 
-class PersonalArea : public InputManager {
+class PersonalAreaView : public InputManager {
 public:
+    virtual ~PersonalAreaView() = default;
     void setClientName(const string& cname);
 
 private:
     void display() override;
-
     bool isCorrectInput(const string &input) override;
 
-    string clientName{"client"};
+    //attributes
     RemindersManager remindersManager;
     AlertsManager alertsManager;
-    ProfileManager profileManager;
+    ProfileManagerView profileManager;
     //BankingAccountsManager banking;
+
+    string clientName{"client"};
 };
 
 
-#endif //MOBILE_BANKING_APP_PERSONALAREA_H
+#endif //MOBILE_BANKING_APP_PERSONALAREAVIEW_H

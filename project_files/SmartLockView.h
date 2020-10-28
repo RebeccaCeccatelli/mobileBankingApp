@@ -17,6 +17,7 @@ public:
     explicit SmartLockView(SmartLock* smart) {
         smartLock = smart;
     }
+    virtual ~SmartLockView() = default;
 
     bool wantToRemember(const string& titolarCode);
 

@@ -12,13 +12,7 @@
 using namespace std;
 
 namespace utilityFunctions {
-    //constants
-    const string YES = "yes";
-    const string NO = "no";
-    const string LOGIN = "login";
-    const string EXIT = "exit";
 
-    //input methods
     string getStringInput();
     unsigned int getNumInput();
     string getLineInput();

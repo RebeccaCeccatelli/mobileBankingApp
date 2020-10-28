@@ -8,7 +8,7 @@
 #include <list>
 #include <string>
 
-#include "PersonalArea.h"
+#include "PersonalAreaView.h"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ public:
 private:
     pair<string, string> acceptableCredentials;
     string clientName;
-    PersonalArea personalArea;
+    PersonalAreaView personalAreaView;
 };
 
 
