@@ -2,12 +2,12 @@
 // Created by Rebecca on 28/09/2020.
 //
 
-#ifndef MOBILE_BANKING_APP_ACCOUNTSMANAGER_H
-#define MOBILE_BANKING_APP_ACCOUNTSMANAGER_H
+#ifndef MOBILE_BANKING_APP_ACCOUNTSMANAGERVIEW_H
+#define MOBILE_BANKING_APP_ACCOUNTSMANAGERVIEW_H
 
 #include "InputManager.h"
 
-class AccountsManager : public InputManager {
+class AccountsManagerView : public InputManager {
 public:
     bool wantToSwitchAccount();
 
@@ -19,4 +19,4 @@ private:
     bool answer{false};
 };
 
-#endif //MOBILE_BANKING_APP_ACCOUNTSMANAGER_H
+#endif //MOBILE_BANKING_APP_ACCOUNTSMANAGERVIEW_H

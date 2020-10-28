@@ -12,6 +12,9 @@
 using namespace std;
 
 class InputManager : public Interface {
+public:
+    virtual ~InputManager() = default;
+
 protected:
     void manageInput(const string &input = "");
 

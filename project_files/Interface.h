@@ -8,6 +8,8 @@
 
 class Interface {
 public:
+    virtual ~Interface() = default;
+
     void displayUserInterface();
 
 protected:

@@ -1,5 +1,5 @@
 //
-// Created by Rebecca on 28/09/2020.
+// Created by rebecca on 10/27/20.
 //
 
 #include "AccessManager.h"
@@ -8,88 +8,14 @@
 #include <fstream>
 #include <string>
 
-#include "utilityFunctions.h"
-
 using namespace std;
-using namespace utilityFunctions;
 
-AccessManager::AccessManager() {
-    accounts.emplace_back(1234567,12345,"mario_rossi");
-    accounts.emplace_back(1111111,11111,"elisabetta_fellini");
-    accounts.emplace_back(7654321,76543,"lorenzo_cappelli");
-    accounts.emplace_back(7777777,77777,"eleonora_frangetti");
-    accounts.emplace_back(1000000,10000,"rebecca_ceccatelli");
-
-    firstLogin = deserialize();
-    if (!firstLogin)
-        smartLock = SmartLock::deserialize();
+void AccessManager::setPIN(string pin) {
+    PIN = move(pin);
 }
 
-const string &AccessManager::getName() const {
-    return smartLock.getNickname();
-}
-
-void AccessManager::login(){
-    cout << endl << "*** Login page. *** " << endl;
-
-    if (!firstLogin) {
-        resetPIN();
-        if (accountsManager.wantToSwitchAccount()) {
-            smartLock.reset();
-            firstLogin = true;
-        }
-    }
-
-    smartLock.setTitolarCode();
-    setPIN();
-
-    checkCredentials();
-}
-
-void AccessManager::checkCredentials() {
-
-    cout << "Checking Credentials..." << endl;
-
-    manageInput();
-}
-
-bool AccessManager::isCorrectInput(const string &input) {
-
-    for (auto& account : accounts) {
-        if (make_pair(smartLock.getTitolarCode(), PIN) == account.acceptableCredentials) {
-            cout << "Credentials accepted. Logging in..." << endl;
-            if(firstLogin) {
-                firstLogin = smartLock.wantToRemember();
-                serialize();
-            }
-            account.personalArea.setClientName(account.clientName);
-
-            account.personalArea.displayUserInterface();
-
-            return true;
-        }
-    }
-    return false;
-}
-
-void AccessManager::display() {
-    login();
-}
-
-void AccessManager::enableFailureRoutine() {
-    cout << "You're being redirected to the Welcome Page. " << endl;
-    resetPIN();
-    smartLock.reset();
-    firstLogin = true;
-}
-
-void AccessManager::setPIN() {
-    cout << "Insert PIN: " << endl;
-    PIN = getNumInput();
-}
-
-void AccessManager::resetPIN() {
-    PIN = 0;
+void AccessManager::setTitolarCode(string titCode) {
+    titolarCode = move(titCode);
 }
 
 void AccessManager::serialize() const {
@@ -116,4 +42,52 @@ bool AccessManager::deserialize() {
 
     return firstLogin;
 }
+
+bool AccessManager::isFirstLogin() const {
+    return firstLogin;
+}
+
+void AccessManager::resetPIN() {
+    PIN = "0";
+}
+
+void AccessManager::setFirstLogin(bool login) {
+    firstLogin = login;
+}
+
+AccessManager::AccessManager() {
+    accounts.emplace_back("1234567","12345","mario_rossi");
+    accounts.emplace_back("1111111","11111","elisabetta_fellini");
+    accounts.emplace_back("7654321","76543","lorenzo_cappelli");
+    accounts.emplace_back("7777777","77777","eleonora_frangetti");
+    accounts.emplace_back("1000000","10000","rebecca_ceccatelli");
+
+    firstLogin = deserialize();
+
+}
+
+bool AccessManager::checkCredentials() {
+
+    for (auto& account : accounts){
+        if (account.areCorrectCredentials(titolarCode,PIN)) {
+            currentAccount = &account;
+            return true;
+        }
+    }
+    return false;
+}
+
+void AccessManager::enter() {
+    if (currentAccount)
+        currentAccount->enter();
+}
+
+const string &AccessManager::getTitolarCode() const {
+    return titolarCode;
+}
+
+void AccessManager::addAccount(const string& titCode, const string& pin, string clientName) {
+    accounts.emplace_back(titCode, pin, move(clientName));
+}
+
 

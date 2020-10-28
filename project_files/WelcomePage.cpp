@@ -13,7 +13,7 @@ using namespace std;
 using namespace utilityFunctions;
 
 void WelcomePage::display() {
-    cout << endl << "*** Dear " << accessManager.getName() << ", Welcome! ***" << endl;
+    cout << endl << "*** Dear " << accessManagerView.getName() << ", Welcome! ***" << endl;
     cout << "Type 'login' to authenticate, 'exit' to close the application: " << endl;
 
     manageInput(getStringInput());
@@ -22,10 +22,10 @@ void WelcomePage::display() {
 bool WelcomePage::isCorrectInput(const string &input) {
     bool correct = false;
 
-    if (input == "login") {
+    if (input == LOGIN) {
         correct = true;
-        accessManager.login();
-    } else if (input == "exit") {
+        accessManagerView.login();
+    } else if (input == EXIT) {
         correct = true;
         setGoBack(true);
         exit();

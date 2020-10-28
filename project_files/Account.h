@@ -12,13 +12,19 @@
 
 using namespace std;
 
-struct Account {
-    Account(unsigned int titCode, unsigned int pin, string c) : acceptableCredentials{make_pair(titCode,pin)},
+class Account {
+public:
+    Account(string titCode, string pin, string c) : acceptableCredentials{make_pair(move(titCode),move(pin))},
         clientName{move(c)} {}
 
-    pair<unsigned int, unsigned int> acceptableCredentials;
+    bool areCorrectCredentials(const string& titCode, const string& pin) const;
+    void enter();
+
+private:
+    pair<string, string> acceptableCredentials;
     string clientName;
     PersonalArea personalArea;
 };
+
 
 #endif //MOBILE_BANKING_APP_ACCOUNT_H

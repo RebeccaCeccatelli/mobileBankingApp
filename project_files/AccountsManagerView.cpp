@@ -2,7 +2,7 @@
 // Created by Rebecca on 28/09/2020.
 //
 
-#include "AccountsManager.h"
+#include "AccountsManagerView.h"
 
 #include <iostream>
 
@@ -11,7 +11,7 @@
 using namespace std;
 using namespace utilityFunctions;
 
-bool AccountsManager::wantToSwitchAccount() {
+bool AccountsManagerView::wantToSwitchAccount() {
     cout << "Do you want to switch account?" << endl;
 
     manageInput(getStringInput());
@@ -19,16 +19,16 @@ bool AccountsManager::wantToSwitchAccount() {
     return answer;
 }
 
-bool AccountsManager::isCorrectInput(const string &input) {
+bool AccountsManagerView::isCorrectInput(const string &input) {
     bool correct = false;
 
-    if (input == "yes") {
+    if (input == YES) {
         cout << "Preparing to switch account..." << endl;
         answer = true;
 
         correct = true;
     }
-    else if (input == "no") {
+    else if (input == NO) {
         cout << "Preparing your account access with smartlock facilities..." << endl;
         answer = false;
 
@@ -37,11 +37,11 @@ bool AccountsManager::isCorrectInput(const string &input) {
     return correct;
 }
 
-void AccountsManager::display() {
+void AccountsManagerView::display() {
     wantToSwitchAccount();
 }
 
-void AccountsManager::enableFailureRoutine() {
+void AccountsManagerView::enableFailureRoutine() {
     cout << "We assume you don't want to switch account." << endl;
 }
 

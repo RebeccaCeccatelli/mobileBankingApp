@@ -6,16 +6,17 @@
 #define MOBILE_BANKING_APP_WELCOMEPAGE_H
 
 #include <string>
-//#include "gtest/gtest.h"
 
-#include "AccessManager.h"
+#include "AccessManagerView.h"
 #include "InputManager.h"
 
 using namespace std;
 
 class WelcomePage : public InputManager {
-    //FRIEND_TEST(WelcomePageSuite, isCorrectInputTest);
+public:
+    virtual ~WelcomePage() = default;
 
+private:
     void display() override;
 
     bool isCorrectInput(const string &input) override;
@@ -23,7 +24,7 @@ class WelcomePage : public InputManager {
 
     static void exit();
 
-    AccessManager accessManager;
+    AccessManagerView accessManagerView;
 };
 
 #endif //MOBILE_BANKING_APP_WELCOMEPAGE_H

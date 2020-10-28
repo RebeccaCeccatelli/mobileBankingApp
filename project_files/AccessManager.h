@@ -1,5 +1,5 @@
 //
-// Created by Rebecca on 28/09/2020.
+// Created by rebecca on 10/27/20.
 //
 
 #ifndef MOBILE_BANKING_APP_ACCESSMANAGER_H
@@ -9,39 +9,40 @@
 #include <list>
 
 #include "Account.h"
-#include "AccountsManager.h"
-#include "SmartLock.h"
-#include "InputManager.h"
 
 using namespace std;
 
-class AccessManager : public InputManager {
+class AccessManager {
 public:
     AccessManager();
 
-    const string &getName() const;
-    void login();
+    bool checkCredentials();
+    void enter();
 
-private:
-    void checkCredentials();
-
-    bool isCorrectInput(const string &input) override;
-    void enableFailureRoutine() override;
-    void display() override;
-
-    void setPIN();
+    const string& getTitolarCode() const;
+    void setTitolarCode(string titCode);
+    void setPIN(string pin);
     void resetPIN();
+    void setFirstLogin(bool login);
+    bool isFirstLogin() const;
 
     void serialize() const;
+
+    //method added to facilitate unit-testing
+    void addAccount(const string& titCode, const string& pin, string clientName);
+
+private:
     static bool deserialize();
 
-    unsigned int PIN{0};
-    bool firstLogin{true};
-
-    AccountsManager accountsManager;
-    SmartLock smartLock;
-
+//attributes
     list<Account> accounts;
+
+    string PIN;
+    string titolarCode;
+
+    bool firstLogin;
+    Account* currentAccount{nullptr};
 };
+
 
 #endif //MOBILE_BANKING_APP_ACCESSMANAGER_H
