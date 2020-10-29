@@ -1,3 +1,4 @@
+
 //
 // Created by Rebecca on 01/10/2020.
 //
@@ -11,14 +12,13 @@
 
 using namespace std;
 
-class Alert : public DateSetter {
+class Alert {
+    friend class AlertsManagerView;
 public:
     Alert(string obj, string mex, bool r, bool pers, string date);
 
     void serialize(const string &cname, string mainDirectory = "../my_files/") const;
     static pair<string, Alert> deserialize(const string& extractedPath);
-
-    void display();
 
     void setRead();
     bool isRead() const;
@@ -29,6 +29,7 @@ private:
     string message;
     bool read;
     bool personal;
+    DateSetter dateSetter;
 };
 
 #endif //MOBILE_BANKING_APP_ALERT_H

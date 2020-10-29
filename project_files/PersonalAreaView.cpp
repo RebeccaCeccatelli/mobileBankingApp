@@ -39,12 +39,12 @@ bool PersonalAreaView::isCorrectInput(const string &input) {
     if (input == BANKING_ACCOUNTS)
         cout << "Not implemented yet - banking accounts." << endl;
     else if (input == PROFILE) {
-        profileManager.setClientName(clientName);
-        profileManager.displayUserInterface();
+        profileManagerView.setClientName(clientName);
+        profileManagerView.displayUserInterface();
     }
     else if (input == ALERTS) {
-        alertsManager.setClientName(clientName);
-        alertsManager.displayUserInterface();
+        alertsManagerView.setClientName(clientName);
+        alertsManagerView.displayUserInterface();
     }
     else if (input == REMINDERS) {
         remindersManager.setClientName(clientName);

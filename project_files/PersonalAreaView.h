@@ -7,7 +7,7 @@
 
 #include "InputManager.h"
 #include "RemindersManager.h"
-#include "AlertsManager.h"
+#include "AlertsManagerView.h"
 #include "ProfileManagerView.h"
 
 class PersonalAreaView : public InputManager {
@@ -21,8 +21,8 @@ private:
 
     //attributes
     RemindersManager remindersManager;
-    AlertsManager alertsManager;
-    ProfileManagerView profileManager;
+    AlertsManagerView alertsManagerView;
+    ProfileManagerView profileManagerView;
     //BankingAccountsManager banking;
 
     string clientName{"client"};

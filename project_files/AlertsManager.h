@@ -1,43 +1,39 @@
 //
-// Created by Rebecca on 01/10/2020.
+// Created by rebecca on 10/28/20.
 //
 
 #ifndef MOBILE_BANKING_APP_ALERTSMANAGER_H
 #define MOBILE_BANKING_APP_ALERTSMANAGER_H
 
-#include <map>
 #include <string>
+#include <map>
+#include <vector>
 
 #include "Alert.h"
-#include "InputManager.h"
 
 using namespace std;
 
-class AlertsManager : public InputManager {
+class AlertsManager {
 public:
-    void setClientName(const string &cname);
-
-private:
+    void setClientName(const string& cname);
     void pullFromServer();
     void updateServer() const;
 
-    void display() override;
+    vector<string> returnAll() const;
+    vector<string> returnGeneral() const;
+    vector<string> returnPersonal() const;
+    vector<string> returnUnread() const;
+    pair<bool,const Alert*> returnSpecific(const string& object) const;
 
-    bool isCorrectInput(const string &input) override;
+    bool saveAsFile(const string& object);
+    bool setRead(const string& object);
 
-    void displayAll();
-    void displayGeneral();
-    void displayPersonal();
-    void displayUnread();
+    //method added to facilitate unit-testing
+    void addAlert(const string& object, const string& message, bool r, bool pers, const string& date);
 
-    void displaySpecificAlert(const string& object);
-    bool wantToSaveAsFile();
-    bool wantToSetAsRead();
-    void saveAsFile(const string& object);
-
-    static string insertObject();
-
-    map<string,Alert> alerts;
+private:
+    //attributes
+    map<const string,Alert> alerts;
     string clientName;
 };
 

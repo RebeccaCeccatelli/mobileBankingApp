@@ -47,3 +47,7 @@ tm DateSetter::convertDateToTm() const {
               state, &tmDate, format.data(), format.data() + format.length());
     return tmDate;
 }
+
+const string &DateSetter::getStringDate() const {
+    return date.second;
+}

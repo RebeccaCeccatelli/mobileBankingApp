@@ -1,22 +1,12 @@
 //
-// Created by Rebecca on 01/10/2020.
+// Created by rebecca on 10/28/20.
 //
+
 #include "AlertsManager.h"
 
-#include <iostream>
-#include <string>
 #include <filesystem>
 
-#include "utilityFunctions.h"
-
-using namespace std;
-using namespace utilityFunctions;
 namespace fs = std::filesystem;
-
-void AlertsManager::setClientName(const string &cname) {
-    clientName = cname;
-}
-
 
 void AlertsManager::pullFromServer() {
     for (auto& it : fs::directory_iterator("../server/" + clientName + "/alerts"))
@@ -24,148 +14,91 @@ void AlertsManager::pullFromServer() {
 }
 
 void AlertsManager::updateServer() const {
-    cout << "Updating server..." << endl;
     for (const auto& alert : alerts)
         alert.second.serialize(clientName,"../server/");
 }
 
-void AlertsManager::display() {
-    pullFromServer();
-
-    cout << endl << "*** Alerts area. ***" << endl << "What would you like to do?" << endl;
-    cout << "1) display all alerts." << endl << "2)display general alerts." << endl << "3)display personal alerts."
-         << endl << "4)display unread alerts." << endl << "5) display specific alert. " << endl << "6)Save alert as file. "
-         << endl << "7) Set alert as read." << endl << "0) Go back. " << endl;
-
-    cout << "Choose action (enter the corresponding number): " << endl;
-
-    manageInput(getStringInput());
+void AlertsManager::setClientName(const string &cname) {
+    clientName = cname;
 }
 
-bool AlertsManager::isCorrectInput(const string &input) {
-    bool correct = true;
+bool AlertsManager::saveAsFile(const string &object) {
+    bool found{false};
 
-    if (input == "1"){
-        displayAll();
-    }
-    else if (input == "2"){
-        displayGeneral();
-    }
-    else if (input == "3"){
-        displayPersonal();
-    }
-    else if (input == "4"){
-        displayUnread();
-    }
-    else if (input == "5"){
-        displaySpecificAlert(insertObject());
-    }
-    else if (input == "6"){
-        saveAsFile(insertObject());
-    }
-    else if (input == "7"){
-        auto it = alerts.find(insertObject());
-        if (it != alerts.end()) {
-            cout << "Setting alert " << it->first << "as read..." << endl;
-            it->second.setRead();
-        }
-        else
-            cout << "Alert not found." << endl;
-    }
-    else if (input == "0") {
-        updateServer();
-        setGoBack(true);
-    }
-    else
-        correct = false;
+    const auto it = alerts.find(object);
 
-    return correct;
+    if (it != alerts.end()) {
+        it->second.serialize(clientName);
+        found = true;
+    }
+    return found;
 }
 
-void AlertsManager::displayAll() {
-    for (const auto& alert : alerts)
-        cout << "- " << alert.first << endl;
-}
+bool AlertsManager::setRead(const string &object) {
+    bool found{false};
 
-void AlertsManager::displayGeneral() {
-    for (const auto& alert : alerts) {
-        if (!alert.second.isPersonal())
-            cout << "- " << alert.first << endl;
+    const auto it = alerts.find(object);
+
+    if (it != alerts.end()) {
+        it->second.setRead();
+        found = true;
     }
+    return found;
 }
 
-void AlertsManager::displayPersonal() {
+vector<string> AlertsManager::returnPersonal() const {
+    vector<string> personal;
+
     for (const auto& alert : alerts) {
         if (alert.second.isPersonal())
-            cout << "- " << alert.first << endl;
+            personal.push_back(alert.first);
     }
+    return personal;
 }
 
-void AlertsManager::displayUnread() {
+vector<string> AlertsManager::returnUnread() const {
+    vector<string> unread;
+
     for (const auto& alert : alerts) {
         if (!alert.second.isRead())
-            cout << "- " << alert.first << endl;
+            unread.push_back(alert.first);
     }
+    return unread;
 }
 
-void AlertsManager::displaySpecificAlert(const string &object) {
-    auto it = alerts.find(object);
+pair<bool,const Alert*> AlertsManager::returnSpecific(const string& object) const {
+    bool found{false};
+    const Alert* alert{nullptr};
+
+    const auto it = alerts.find(object);
+
     if (it != alerts.end()) {
-        if (wantToSaveAsFile()){
-            cout << "Saving " << it->first << " as file in directory alerts..." << endl;
-            it->second.serialize(clientName);
-        }
-        if (wantToSetAsRead()) {
-            cout << "Setting alert " << it->first << " as read..." << endl;
-            it->second.setRead();
-        }
-        it->second.display();
+        alert = &it->second;
+        found = true;
     }
-    else
-        cout << "Alert " << object << "not found. " << endl;
+
+    return make_pair(found,alert);
 }
 
-bool AlertsManager::wantToSaveAsFile() {
-    cout << "Do you want to save it as a file?" << endl;
-    string input = getStringInput();
+vector<string> AlertsManager::returnAll() const {
+    vector<string> all;
 
-    if (input == "yes")
-        return true;
-    if (input == "no")
-        return false;
-    else {
-        cout << "Your input is not correct. Try again. " << endl;
-        return wantToSaveAsFile();
+    for (const auto& alert : alerts)
+        all.push_back(alert.first);
+
+    return all;
+}
+
+vector<string> AlertsManager::returnGeneral() const {
+    vector<string> general;
+
+    for (const auto& alert : alerts) {
+        if (!alert.second.isPersonal())
+            general.push_back(alert.first);
     }
+    return general;
 }
 
-bool AlertsManager::wantToSetAsRead() {
-    cout << "Do you want to set it as read?" << endl;
-    string input = getStringInput();
-
-    if (input == "yes")
-        return true;
-    if (input == "no")
-        return false;
-    else {
-        cout << "Your input is not correct. Try again. " << endl;
-        return wantToSetAsRead();
-    }
+void AlertsManager::addAlert(const string& object, const string& message, bool r, bool pers, const string& date) {
+    alerts.emplace(object, Alert(object,message,r,pers,date));
 }
-
-void AlertsManager::saveAsFile(const string &object) {
-    const auto& it = alerts.find(object);
-    if (it != alerts.end()) {
-        cout << "Saving " << it->first << " as file in directory alerts... " << endl;
-        it->second.serialize(clientName);
-    }
-    else
-        cout << "Alert" << object << " not found. " << endl;
-}
-
-string AlertsManager::insertObject() {
-    cout << "Insert alert's object: (type '/' to confirm: " << endl;
-    return getLineInput();
-}
-
-

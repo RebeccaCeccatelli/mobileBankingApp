@@ -5,14 +5,13 @@
 #include "Alert.h"
 
 #include <fstream>
-#include <iostream>
 #include <string>
 
 using namespace std;
 
 Alert::Alert(string obj, string mex, bool r, bool pers, string date) : object{move(obj)}, message{move(mex)},
     read{r}, personal{pers} {
-    setDate(move(date),1);
+    dateSetter.setDate(move(date),1);
 }
 
 void Alert::serialize(const string &cname, string mainDirectory) const {
@@ -21,7 +20,7 @@ void Alert::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Object: " << object;
     oFile << "\n\n-Message: " << message;
-    oFile << "\n\n-Arrival date: " << date.second;
+    oFile << "\n\n-Arrival date: " << dateSetter.getStringDate();
     oFile << "\n\n-Read: ";
     if (isRead())
         oFile << "yes";
@@ -75,22 +74,6 @@ pair<string, Alert> Alert::deserialize(const string& extractedPath) {
     iFile.close();
 
     return make_pair(object, Alert(object,message,r,pers,arrivalDate));
-}
-
-void Alert::display() {
-    cout << "-Title: " << object << endl;
-    cout << "-Message: " << message << endl;
-    cout << "-Arrival date: " << date.second << endl;
-    cout << "-Read: ";
-    if (isRead())
-        cout << "yes" << endl;
-    else
-        cout << "no" << endl;
-    cout << "-Personal: ";
-    if (isPersonal())
-        cout << "yes" << endl;
-    else
-        cout << "no" << endl;
 }
 
 void Alert::setRead() {

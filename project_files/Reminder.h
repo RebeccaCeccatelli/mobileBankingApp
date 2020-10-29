@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class Reminder : public DateSetter {
+class Reminder {
 public:
     Reminder();
     Reminder(string tit, string tex, string date, bool s);
@@ -33,6 +33,7 @@ private:
     string title{"unknown"};
     string text{"empty"};
     bool saved{false};
+    DateSetter dateSetter;
 };
 
 

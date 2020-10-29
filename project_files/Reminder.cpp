@@ -13,17 +13,17 @@ using namespace std;
 Reminder::Reminder() {
     setUserTitle();
     setUserText();
-    setDate();
+    dateSetter.setDate();
 }
 
 Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit)}, text{move(tex)}, saved{s} {
-    setDate(move(date), 1);
+    dateSetter.setDate(move(date), 1);
 }
 
 void Reminder::display() {
     cout << "-Title: " << title << endl;
     cout << "-Text: " << text << endl;
-    cout << "-Last update: " << date.second << endl;
+    cout << "-Last update: " << dateSetter.getStringDate() << endl;
     cout << "-Saved: ";
     if (isSaved())
         cout << "yes";
@@ -49,7 +49,7 @@ void Reminder::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Title: " << title;
     oFile << "\n\n-Text: " << text;
-    oFile << "\n\n-Last update: " << date.second;
+    oFile << "\n\n-Last update: " << dateSetter.getStringDate();
     oFile << "\n\n-Saved: ";
     if (isSaved())
         oFile << "yes";
