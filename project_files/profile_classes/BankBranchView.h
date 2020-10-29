@@ -13,7 +13,7 @@ class BankBranchView {
 public:
     BankBranchView() = default;
     BankBranchView(string addr, string manager, string num) : address{move(addr)}, assignedManager{move(manager)},
-                                                              telephoneNumber{move(num)} {}
+        telephoneNumber{move(num)} {}
 
     static BankBranchView deserialize(const string& exctractedPath);
 

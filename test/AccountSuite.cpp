@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../project_files/Account.h"
+#include "../project_files/login_classes/Account.h"
 
 TEST(AccountSuite, areCorrectCredentialsTest) {
     Account testingAccount("1234567","12345","anything");

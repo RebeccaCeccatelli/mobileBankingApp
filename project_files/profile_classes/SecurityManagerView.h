@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "InputManager.h"
+#include "../InputManager.h"
 #include "SecurityManager.h"
 
 using namespace std;

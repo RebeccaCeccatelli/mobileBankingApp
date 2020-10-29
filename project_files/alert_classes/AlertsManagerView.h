@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "InputManager.h"
+#include "../InputManager.h"
 #include "AlertsManager.h"
 
 using namespace std;

@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../project_files/SmartLock.h"
+#include "../project_files/login_classes/SmartLock.h"
 
 TEST (SmartLockSuite, ResetTest){
     //arrange

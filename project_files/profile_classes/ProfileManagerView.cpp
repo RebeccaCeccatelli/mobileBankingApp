@@ -5,7 +5,7 @@
 #include "ProfileManagerView.h"
 
 #include <iostream>
-#include "utilityFunctions.h"
+#include "../utilityFunctions.h"
 
 using namespace utilityFunctions;
 using namespace std;

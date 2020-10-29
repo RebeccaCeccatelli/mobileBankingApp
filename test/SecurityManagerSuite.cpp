@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../project_files/SecurityManager.h"
+#include "../project_files/profile_classes/SecurityManager.h"
 
 class SecurityManagerSuite : public testing::Test {
 

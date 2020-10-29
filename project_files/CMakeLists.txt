@@ -3,13 +3,15 @@ cmake_minimum_required(VERSION 3.17)
 set(CMAKE_CXX_STANDARD 17)
 
 
-set(SOURCE_FILES WelcomePage.cpp WelcomePage.h utilityFunctions.cpp utilityFunctions.h
-        AccessManagerView.cpp AccessManagerView.h PersonalAreaView.cpp PersonalAreaView.h Account.h
-        InputManager.cpp InputManager.h AccountsManagerView.cpp AccountsManagerView.h SmartLockView.cpp
-        SmartLockView.h RemindersManager.cpp RemindersManager.h Reminder.cpp Reminder.h Alert.cpp
-        Alert.h AlertsManagerView.cpp AlertsManagerView.h Interface.cpp Interface.h ProfileView.cpp
-        ProfileView.h SecurityManagerView.cpp SecurityManagerView.h ProfileManagerView.cpp ProfileManagerView.h
+set(SOURCE_FILES login_classes/WelcomePage.cpp login_classes/WelcomePage.h utilityFunctions.cpp utilityFunctions.h
+        login_classes/AccessManagerView.cpp login_classes/AccessManagerView.h login_classes/PersonalAreaView.cpp login_classes/PersonalAreaView.h login_classes/Account.h
+        InputManager.cpp InputManager.h login_classes/AccountsManagerView.cpp login_classes/AccountsManagerView.h login_classes/SmartLockView.cpp
+        login_classes/SmartLockView.h RemindersManager.cpp RemindersManager.h Reminder.cpp Reminder.h alert_classes/Alert.cpp
+        alert_classes/Alert.h alert_classes/AlertsManagerView.cpp alert_classes/AlertsManagerView.h Interface.cpp Interface.h profile_classes/ProfileView.cpp
+        profile_classes/ProfileView.h profile_classes/SecurityManagerView.cpp profile_classes/SecurityManagerView.h profile_classes/ProfileManagerView.cpp profile_classes/ProfileManagerView.h
         Transaction.cpp Transaction.h WireTransfer.cpp WireTransfer.h CardTransaction.cpp CardTransaction.h
-        Deposit.cpp Deposit.h PhoneRecharge.cpp PhoneRecharge.h BankBranchView.cpp BankBranchView.h DateSetter.cpp DateSetter.h SmartLock.cpp SmartLock.h AccessManager.cpp AccessManager.h Account.cpp SecurityManager.cpp SecurityManager.h Profile.cpp Profile.h AlertsManager.cpp AlertsManager.h)
+        Deposit.cpp Deposit.h PhoneRecharge.cpp PhoneRecharge.h profile_classes/BankBranchView.cpp profile_classes/BankBranchView.h
+        DateSetter.cpp DateSetter.h login_classes/SmartLock.cpp login_classes/SmartLock.h login_classes/AccessManager.cpp login_classes/AccessManager.h login_classes/Account.cpp
+        profile_classes/SecurityManager.cpp profile_classes/SecurityManager.h profile_classes/Profile.cpp profile_classes/Profile.h alert_classes/AlertsManager.cpp alert_classes/AlertsManager.h)
 
 add_library(core ${SOURCE_FILES})

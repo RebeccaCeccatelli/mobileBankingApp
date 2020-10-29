@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "InputManager.h"
+#include "../InputManager.h"
 #include "SmartLock.h"
 
 using namespace std;

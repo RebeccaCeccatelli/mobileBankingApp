@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "project_files/WelcomePage.h"
+#include "project_files/login_classes/WelcomePage.h"
 
 using namespace std;
 

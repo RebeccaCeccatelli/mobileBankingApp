@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../project_files/AccessManager.h"
+#include "../project_files/login_classes/AccessManager.h"
 
 TEST(AccessManagerSuite, CheckCredentialsTest){
     AccessManager accessManager;

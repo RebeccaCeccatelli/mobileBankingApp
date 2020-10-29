@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "utilityFunctions.h"
+#include "../utilityFunctions.h"
 
 using namespace std;
 using namespace utilityFunctions;

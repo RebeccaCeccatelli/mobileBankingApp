@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "InputManager.h"
+#include "../InputManager.h"
 #include "ProfileView.h"
 #include "SecurityManagerView.h"
 #include "BankBranchView.h"

@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../project_files/Alert.h"
+#include "../project_files/alert_classes/Alert.h"
 
 TEST(AlertSuite, setReadTest){
     Alert alert("testing","setRead()", false,false,"everyday");

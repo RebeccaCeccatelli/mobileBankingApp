@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include "InputManager.h"
-#include "Interface.h"
+#include "../InputManager.h"
+#include "../Interface.h"
 #include "Profile.h"
 
 using namespace std;

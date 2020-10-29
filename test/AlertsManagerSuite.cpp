@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 #include <vector>
 
-#include "../project_files/AlertsManager.h"
+#include "../project_files/alert_classes/AlertsManager.h"
 
 class AlertsManagerSuite : public testing::Test {
 protected:
