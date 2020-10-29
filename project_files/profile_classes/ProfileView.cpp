@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../utilityFunctions.h"
+#include "../general_purpose_classes/utilityFunctions.h"
 
 using namespace utilityFunctions;
 using namespace std;

@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "../InputManager.h"
+#include "../general_purpose_classes/InputManager.h"
 #include "RemindersManager.h"
 
 using namespace std;

@@ -8,7 +8,7 @@
 #include <string>
 
 #include "AccessManagerView.h"
-#include "../InputManager.h"
+#include "../general_purpose_classes/InputManager.h"
 
 using namespace std;
 

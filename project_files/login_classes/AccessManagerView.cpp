@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-#include "../utilityFunctions.h"
+#include "../general_purpose_classes/utilityFunctions.h"
 #include "SmartLockView.h"
 #include "AccountsManagerView.h"
 

@@ -7,7 +7,7 @@
 #include <string>
 #include <filesystem>
 
-#include "../utilityFunctions.h"
+#include "../general_purpose_classes/utilityFunctions.h"
 
 using namespace std;
 using namespace utilityFunctions;

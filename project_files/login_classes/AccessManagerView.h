@@ -11,7 +11,7 @@
 #include "Account.h"
 #include "AccountsManagerView.h"
 #include "SmartLockView.h"
-#include "../InputManager.h"
+#include "../general_purpose_classes/InputManager.h"
 #include "AccessManager.h"
 
 using namespace std;

@@ -5,7 +5,7 @@
 #ifndef MOBILE_BANKING_APP_PERSONALAREAVIEW_H
 #define MOBILE_BANKING_APP_PERSONALAREAVIEW_H
 
-#include "../InputManager.h"
+#include "../general_purpose_classes/InputManager.h"
 #include "../reminder_classes/RemindersManagerView.h"
 #include "../alert_classes/AlertsManagerView.h"
 #include "../profile_classes/ProfileManagerView.h"

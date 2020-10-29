@@ -8,7 +8,7 @@
 #include <iostream>
 #include <algorithm>
 
-#include "../utilityFunctions.h"
+#include "../general_purpose_classes/utilityFunctions.h"
 
 using namespace std;
 using namespace utilityFunctions;
