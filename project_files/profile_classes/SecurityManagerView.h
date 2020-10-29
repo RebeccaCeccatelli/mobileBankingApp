@@ -14,6 +14,8 @@ using namespace std;
 
 class SecurityManagerView : public InputManager {
 public:
+    virtual ~SecurityManagerView() = default;
+
     void serialize(const string& name) const;
     SecurityManagerView deserialize(const string& extractedPath);
 

@@ -16,8 +16,12 @@ using namespace std;
 class AlertsManager {
 public:
     void setClientName(const string& cname);
+
     void pullFromServer();
     void updateServer() const;
+
+    bool saveAsFile(const string& object);
+    bool setRead(const string& object);
 
     vector<string> returnAll() const;
     vector<string> returnGeneral() const;
@@ -25,8 +29,7 @@ public:
     vector<string> returnUnread() const;
     pair<bool,const Alert*> returnSpecific(const string& object) const;
 
-    bool saveAsFile(const string& object);
-    bool setRead(const string& object);
+
 
     //method added to facilitate unit-testing
     void addAlert(const string& object, const string& message, bool r, bool pers, const string& date);
@@ -34,6 +37,7 @@ public:
 private:
     //attributes
     map<const string,Alert> alerts;
+
     string clientName;
 };
 

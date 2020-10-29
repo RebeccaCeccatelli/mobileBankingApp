@@ -27,6 +27,10 @@ void DateSetter::setDate(string settedDate, char mode) {
     }
 }
 
+const string &DateSetter::getDate() const {
+    return date.second;
+}
+
 string DateSetter::convertDateToString() const {
     char buffer[80];
     strftime(buffer, 80, "%x %X", &date.first);
@@ -48,6 +52,3 @@ tm DateSetter::convertDateToTm() const {
     return tmDate;
 }
 
-const string &DateSetter::getStringDate() const {
-    return date.second;
-}

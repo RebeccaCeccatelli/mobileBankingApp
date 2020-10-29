@@ -64,12 +64,12 @@ bool SecurityManager::checkAnswer(const string& answer) const {
     return correct;
 }
 
-void SecurityManager::changeDigitalKey() {
-    digitalKey = !digitalKey;
-}
-
 bool SecurityManager::isDigitalKey() const {
     return digitalKey;
+}
+
+void SecurityManager::changeDigitalKey() {
+    digitalKey = !digitalKey;
 }
 
 void SecurityManager::changeSecurityQuestion(string question, string answer) {

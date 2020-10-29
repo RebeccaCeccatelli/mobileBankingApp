@@ -28,7 +28,6 @@ void AlertsManagerView::setClientName(const string &cname) {
     alertsManager.setClientName(cname);
 }
 
-
 void AlertsManagerView::pullFromServer() {
     alertsManager.pullFromServer();
 }
@@ -84,6 +83,12 @@ bool AlertsManagerView::isCorrectInput(const string &input) {
     return correct;
 }
 
+void AlertsManagerView::showList(const vector<string>& selectedAlerts) {
+
+    for (const auto& object : selectedAlerts)
+        cout << "- " << object << endl;
+}
+
 void AlertsManagerView::showSpecificAlert(const string &object) {
     pair<bool,const Alert*> searchResult = alertsManager.returnSpecific(object);
 
@@ -114,6 +119,14 @@ bool AlertsManagerView::wantToSaveAsFile() const {
     }
 }
 
+void AlertsManagerView::saveAsFile(const string &object) {
+    if (alertsManager.saveAsFile(object)) {
+        cout << "Saving " << object << " as file in directory alerts... " << endl;
+    }
+    else
+        cout << "Alert" << object << " not found. " << endl;
+}
+
 bool AlertsManagerView::wantToSetAsRead() const {
     cout << "Do you want to set it as read?" << endl;
     string input = getStringInput();
@@ -128,19 +141,6 @@ bool AlertsManagerView::wantToSetAsRead() const {
     }
 }
 
-void AlertsManagerView::saveAsFile(const string &object) {
-    if (alertsManager.saveAsFile(object)) {
-        cout << "Saving " << object << " as file in directory alerts... " << endl;
-    }
-    else
-        cout << "Alert" << object << " not found. " << endl;
-}
-
-string AlertsManagerView::insertObject() {
-    cout << "Insert alert's object: (type '/' to confirm: " << endl;
-    return getLineInput();
-}
-
 void AlertsManagerView::setAsRead(const string &object) {
     if (alertsManager.setRead(object))
         cout << "Setting alert " << object << " as read..." << endl;
@@ -151,7 +151,7 @@ void AlertsManagerView::setAsRead(const string &object) {
 void AlertsManagerView::displayAlert(const Alert* alert) {
     cout << "-Title: " << alert->object << endl;
     cout << "-Message: " << alert->message << endl;
-    cout << "-Arrival date: " << alert->dateSetter.getStringDate() << endl;
+    cout << "-Arrival date: " << alert->dateSetter.getDate() << endl;
     cout << "-Read: ";
     if (alert->isRead())
         cout << "yes" << endl;
@@ -164,10 +164,7 @@ void AlertsManagerView::displayAlert(const Alert* alert) {
         cout << "no" << endl;
 }
 
-void AlertsManagerView::showList(const vector<string>& selectedAlerts) {
-
-    for (const auto& object : selectedAlerts)
-        cout << "- " << object << endl;
+string AlertsManagerView::insertObject() {
+    cout << "Insert alert's object: (type '/' to confirm: " << endl;
+    return getLineInput();
 }
-
-

@@ -20,7 +20,7 @@ void Alert::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Object: " << object;
     oFile << "\n\n-Message: " << message;
-    oFile << "\n\n-Arrival date: " << dateSetter.getStringDate();
+    oFile << "\n\n-Arrival date: " << dateSetter.getDate();
     oFile << "\n\n-Read: ";
     if (isRead())
         oFile << "yes";

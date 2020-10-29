@@ -15,6 +15,9 @@ public:
     Profile(string name, string addr, string mail, string num, bool news) : cname{move(name)},
         residentialAddress{move(addr)}, email{move(mail)}, telephoneNumber{move(num)}, newsletter{news} {}
 
+    void serialize(const string &name) const;
+    static Profile deserialize(const string& extractedPath);
+
     void setClientName(string name);
     const string& getName() const;
     void setResidentialAddress(string address);
@@ -23,11 +26,10 @@ public:
     const string& getEmail() const;
     void setTelephoneNumber(string number);
     const string& getTelephoneNumber() const;
+
     void changeNewsletterSettings();
     bool isNewsletter();
 
-    void serialize(const string &name) const;
-    static Profile deserialize(const string& extractedPath);
 
 private:
     string cname {"client"};

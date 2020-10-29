@@ -23,7 +23,7 @@ Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit
 void Reminder::display() {
     cout << "-Title: " << title << endl;
     cout << "-Text: " << text << endl;
-    cout << "-Last update: " << dateSetter.getStringDate() << endl;
+    cout << "-Last update: " << dateSetter.getDate() << endl;
     cout << "-Saved: ";
     if (isSaved())
         cout << "yes";
@@ -49,7 +49,7 @@ void Reminder::serialize(const string &cname, string mainDirectory) const {
 
     oFile << "-Title: " << title;
     oFile << "\n\n-Text: " << text;
-    oFile << "\n\n-Last update: " << dateSetter.getStringDate();
+    oFile << "\n\n-Last update: " << dateSetter.getDate();
     oFile << "\n\n-Saved: ";
     if (isSaved())
         oFile << "yes";

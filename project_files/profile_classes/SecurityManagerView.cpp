@@ -16,6 +16,10 @@ const string DIGITAL_KEY = "1";
 const string SECURITY_QUESTION = "2";
 const string BACK = "0";
 
+void SecurityManagerView::serialize(const string &name) const {
+    securityManager.serialize(name);
+}
+
 SecurityManagerView SecurityManagerView::deserialize(const string &extractedPath) {
     securityManager = SecurityManager::deserialize(extractedPath);
     return *this;
@@ -82,8 +86,4 @@ void SecurityManagerView::changeSecurityQuestion() {
         securityManager.changeSecurityQuestion(newQuestion, newAnswer);
         cout << "Setted. " << endl;
     }
-}
-
-void SecurityManagerView::serialize(const string &name) const {
-    securityManager.serialize(name);
 }

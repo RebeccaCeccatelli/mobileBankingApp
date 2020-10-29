@@ -25,6 +25,9 @@ private:
     static void exit();
 
     AccessManagerView accessManagerView;
+
+    static const string LOGIN;
+    static const string EXIT;
 };
 
 #endif //MOBILE_BANKING_APP_WELCOMEPAGE_H

@@ -46,6 +46,25 @@ bool AlertsManager::setRead(const string &object) {
     return found;
 }
 
+vector<string> AlertsManager::returnAll() const {
+    vector<string> all;
+
+    for (const auto& alert : alerts)
+        all.push_back(alert.first);
+
+    return all;
+}
+
+vector<string> AlertsManager::returnGeneral() const {
+    vector<string> general;
+
+    for (const auto& alert : alerts) {
+        if (!alert.second.isPersonal())
+            general.push_back(alert.first);
+    }
+    return general;
+}
+
 vector<string> AlertsManager::returnPersonal() const {
     vector<string> personal;
 
@@ -78,25 +97,6 @@ pair<bool,const Alert*> AlertsManager::returnSpecific(const string& object) cons
     }
 
     return make_pair(found,alert);
-}
-
-vector<string> AlertsManager::returnAll() const {
-    vector<string> all;
-
-    for (const auto& alert : alerts)
-        all.push_back(alert.first);
-
-    return all;
-}
-
-vector<string> AlertsManager::returnGeneral() const {
-    vector<string> general;
-
-    for (const auto& alert : alerts) {
-        if (!alert.second.isPersonal())
-            general.push_back(alert.first);
-    }
-    return general;
 }
 
 void AlertsManager::addAlert(const string& object, const string& message, bool r, bool pers, const string& date) {

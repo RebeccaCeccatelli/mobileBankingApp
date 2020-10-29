@@ -19,6 +19,7 @@ const string BACK = "0";
 void ProfileManagerView::setClientName(const string &cname) {
     clientName = cname;
 }
+
 void ProfileManagerView::pullFromServer() {
     if (first) {
         string directoryPath = "../server/" + clientName + "/profile/";

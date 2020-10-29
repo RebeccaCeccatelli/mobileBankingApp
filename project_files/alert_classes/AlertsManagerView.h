@@ -14,6 +14,8 @@ using namespace std;
 
 class AlertsManagerView : public InputManager {
 public:
+    virtual ~AlertsManagerView() = default;
+
     void setClientName(const string &cname);
 
 private:

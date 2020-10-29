@@ -15,6 +15,8 @@ using namespace std;
 
 class ProfileView : public InputManager {
 public:
+    virtual ~ProfileView() = default;
+
     void serialize(const string &name) const;
     ProfileView deserialize(const string& extractedPath);
 
@@ -22,6 +24,7 @@ private:
     void display() override;
     bool isCorrectInput(const string &input) override;
 
+    //attribute
     Profile profile;
 };
 

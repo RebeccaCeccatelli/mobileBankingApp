@@ -16,6 +16,8 @@ using namespace std;
 
 class ProfileManagerView : public InputManager {
 public:
+    virtual ~ProfileManagerView() = default;
+
     void setClientName(const string& cname);
 
 private:
@@ -23,7 +25,6 @@ private:
     void updateServer();
 
     void display() override;
-
     bool isCorrectInput(const string &input) override;
 
     //attributes

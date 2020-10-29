@@ -14,6 +14,7 @@ using namespace std;
 
 class Alert {
     friend class AlertsManagerView;
+
 public:
     Alert(string obj, string mex, bool r, bool pers, string date);
 
@@ -25,10 +26,12 @@ public:
     bool isPersonal() const;
 
 private:
+    //attributes
     string object;
     string message;
     bool read;
     bool personal;
+
     DateSetter dateSetter;
 };
 

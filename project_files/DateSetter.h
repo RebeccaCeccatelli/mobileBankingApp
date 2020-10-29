@@ -12,7 +12,8 @@ using namespace std;
 class DateSetter {
 public:
     void setDate(string settedDate = "", char mode = 0);
-    const string& getStringDate() const;
+
+    const string& getDate() const;
 private:
     string convertDateToString() const;
     tm convertDateToTm() const;
