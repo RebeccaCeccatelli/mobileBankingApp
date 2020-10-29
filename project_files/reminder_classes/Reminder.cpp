@@ -10,29 +10,12 @@
 
 using namespace std;
 
-Reminder::Reminder() {
-    setUserTitle();
-    setUserText();
+Reminder::Reminder(const string &tit, string tex) : title{tit}, text{move(tex)}{
     dateSetter.setDate();
 }
 
 Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit)}, text{move(tex)}, saved{s} {
     dateSetter.setDate(move(date), 1);
-}
-
-void Reminder::display() {
-    cout << "-Title: " << title << endl;
-    cout << "-Text: " << text << endl;
-    cout << "-Last update: " << dateSetter.getDate() << endl;
-    cout << "-Saved: ";
-    if (isSaved())
-        cout << "yes";
-    else
-        cout << "no";
-}
-
-const string &Reminder::getTitle() const {
-    return title;
 }
 
 bool Reminder::isSaved() const {
@@ -60,30 +43,30 @@ void Reminder::serialize(const string &cname, string mainDirectory) const {
 }
 
 pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
-    ifstream iFile (extractedPath);
+    ifstream iFile(extractedPath);
 
     string line, title, text, lastUpdate;
     bool saved{false};
 
     int it = 0;
-    while (getline(iFile, line,'-') && it <=4) {
+    while (getline(iFile, line, '-') && it <= 4) {
         if (it == 1) {
             line.erase(0, 7);
             line.erase(line.end() - 2, line.end());
             title = line;
         }
-        if (it == 2 ){
-            line.erase(0,6);
-            line.erase(line.end()-2,line.end());
+        if (it == 2) {
+            line.erase(0, 6);
+            line.erase(line.end() - 2, line.end());
             text = line;
         }
-        if (it == 3){
+        if (it == 3) {
             line.erase(0, 13);
-            line.erase(line.end()-2,line.end());
+            line.erase(line.end() - 2, line.end());
             lastUpdate = line;
         }
-        if (it == 4){
-            line.erase(0,7);
+        if (it == 4) {
+            line.erase(0, 7);
             if (line == "yes")
                 saved = true;
         }
@@ -92,18 +75,6 @@ pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
     iFile.close();
 
     return make_pair(title, Reminder(title, text, lastUpdate, saved));
-}
-
-void Reminder::setUserTitle() {
-    cout << "Insert title (type '/' to confirm): " << endl;
-    cin.ignore();
-    getline(cin,title,'/');
-}
-
-void Reminder::setUserText() {
-    cout << "Insert text (type '/' to confirm): " << endl;
-    cin.ignore();
-    getline(cin,text,'/');
 }
 
 

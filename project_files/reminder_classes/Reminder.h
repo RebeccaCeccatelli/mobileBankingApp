@@ -8,31 +8,28 @@
 #include <string>
 #include <ctime>
 
-#include "DateSetter.h"
+#include "../DateSetter.h"
 
 using namespace std;
 
 class Reminder {
+    friend class RemindersManagerView;
 public:
-    Reminder();
+    Reminder(const string &tit, string tex);
     Reminder(string tit, string tex, string date, bool s);
-
-    void display();
-
-    const string& getTitle() const;
-    void setSaved();
-    bool isSaved() const;
 
     void serialize(const string &cname, string mainDirectory = "../my_files/") const;
     static pair<string, Reminder> deserialize(const string& extractedPath);
 
-private:
-    void setUserTitle();
-    void setUserText();
+    void setSaved();
+    bool isSaved() const;
 
+private:
+    //attributes
     string title{"unknown"};
     string text{"empty"};
     bool saved{false};
+
     DateSetter dateSetter;
 };
 

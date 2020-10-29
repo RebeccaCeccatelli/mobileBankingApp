@@ -17,9 +17,7 @@ void DateSetter::setDate(string settedDate, char mode) {
         time_t rawTime;
         time(&rawTime);
         date.first = *localtime(&rawTime);
-
         date.second = convertDateToString();
-        cout << "Setting date automatically... " << endl;
     }
     if (mode == 1) {
         date.second = move(settedDate);

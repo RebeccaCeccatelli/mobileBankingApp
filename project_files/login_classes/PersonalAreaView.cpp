@@ -47,8 +47,8 @@ bool PersonalAreaView::isCorrectInput(const string &input) {
         alertsManagerView.displayUserInterface();
     }
     else if (input == REMINDERS) {
-        remindersManager.setClientName(clientName);
-        remindersManager.displayUserInterface();
+        remindersManagerView.setClientName(clientName);
+        remindersManagerView.displayUserInterface();
     }
     else if (input == LOGOUT)
         setGoBack(true);

@@ -4,8 +4,11 @@
 
 #include "gtest/gtest.h"
 #include <vector>
+#include <algorithm>
 
 #include "../project_files/alert_classes/AlertsManager.h"
+
+using namespace std;
 
 class AlertsManagerSuite : public testing::Test {
 protected:
