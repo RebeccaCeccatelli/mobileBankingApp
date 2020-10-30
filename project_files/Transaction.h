@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class Transaction : public DateSetter {
+class Transaction {
 public:
     virtual void display() = 0;
     virtual void setAmount(int amount) = 0;
@@ -23,6 +23,8 @@ private:
     string description{"unknown"};
     bool processed{false};
     int amountToTransfer;
+
+    DateSetter dateSetter;
 };
 
 

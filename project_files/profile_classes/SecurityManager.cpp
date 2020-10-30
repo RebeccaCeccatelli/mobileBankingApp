@@ -6,6 +6,8 @@
 
 #include <fstream>
 
+const string SecurityManager::YES = "yes";
+
 SecurityManager::SecurityManager(string question, string answer, bool digKey) : digitalKey{digKey} {
     securityQuestion = make_pair(move(question),move(answer));
 }
@@ -45,7 +47,7 @@ SecurityManager SecurityManager::deserialize(const string &extractedPath) {
         }
         if (it == 3) {
             line.erase(0, 23);
-            if (line == "yes")
+            if (line == YES)
                 digKey = true;
         }
         it++;

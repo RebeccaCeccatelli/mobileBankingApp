@@ -27,6 +27,10 @@ private:
 
     //SmartLockView DOES NOT own this object
    SmartLock* smartLock;
+
+   //class constants
+   static const string YES ;
+   static const string NO;
 };
 
 #endif //MOBILE_BANKING_APP_SMARTLOCKVIEW_H

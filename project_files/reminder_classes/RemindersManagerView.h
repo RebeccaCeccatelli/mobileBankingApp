@@ -25,21 +25,30 @@ private:
     void display() override;
     bool isCorrectInput(const string &input) override;
 
-    static void showList(const vector<string>& selectedReminders);
-    void showSpecificReminder(const string& title);
-
     void createReminder();
     void removeReminder(const string& title);
 
+    static void showList(const vector<string>& selectedReminders);
+    void showSpecificReminder(const string& title);
+
     bool wantToSaveAsFile();
     void saveAsFile(const string &title);
-
     static void displayReminder(const Reminder* reminder);
+
     static string insertTitle();
     static string insertText();
 
     //attribute
     RemindersManager remindersManager;
+
+    //class constants
+    static const string DISPLAY_ALL;
+    static const string DISPLAY_SPECIFIC;
+    static const string CREATE;
+    static const string REMOVE;
+    static const string BACK;
+    static const string YES;
+    static const string NO;
 };
 
 #endif //MOBILE_BANKING_APP_REMINDERSMANAGERVIEW_H

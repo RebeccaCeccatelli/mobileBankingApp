@@ -22,6 +22,10 @@ void RemindersManager::updateServer() const {
         reminder.second.serialize(clientName,"../server/");
 }
 
+void RemindersManager::createReminder(const string &title, string text) {
+    reminders.emplace(title,Reminder(title,move(text)));
+}
+
 bool RemindersManager::removeReminder(const string &title) {
     bool found{false};
 
@@ -34,10 +38,6 @@ bool RemindersManager::removeReminder(const string &title) {
         found = true;
     }
     return found;
-}
-
-void RemindersManager::createReminder(const string &title, string text) {
-    reminders.emplace(title,Reminder(title,move(text)));
 }
 
 vector<string> RemindersManager::returnAll() const {

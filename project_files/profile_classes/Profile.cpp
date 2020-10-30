@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const string Profile::YES = "yes";
+
 void Profile::serialize(const string &name) const {
     string path = "../server/" + name + "/profile/personal_informations";
     ofstream oFile (path);
@@ -56,7 +58,7 @@ Profile Profile::deserialize(const string &extractedPath) {
         }
         if (it == 5){
             line.erase(0,25);
-            if (line == "yes")
+            if (line == YES)
                 news = true;
         }
         it++;

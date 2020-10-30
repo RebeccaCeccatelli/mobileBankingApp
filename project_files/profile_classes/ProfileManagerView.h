@@ -34,6 +34,13 @@ private:
 
     string clientName;
     bool first{true};    //rendere più chiaro l'uso di questo booleano FIXME
+
+    //class constants
+    static const string PROFILE;
+    static const string PRODUCTS;
+    static const string SECURITY_SETTINGS;
+    static const string BANK_BRANCH;
+    static const string BACK;
 };
 
 

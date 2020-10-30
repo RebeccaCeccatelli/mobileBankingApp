@@ -11,8 +11,8 @@
 using namespace std;
 using namespace utilityFunctions;
 
-const string YES = "yes";
-const string NO = "no";
+const string AccountsManagerView::YES = "yes";
+const string AccountsManagerView::NO = "no";
 
 bool AccountsManagerView::wantToSwitchAccount() {
     cout << "Do you want to switch account?" << endl;

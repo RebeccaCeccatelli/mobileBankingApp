@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const unsigned int MAX_ATTEMPTS = 5;
+const unsigned int InputManager::MAX_ATTEMPTS = 5;
 
 void InputManager::manageInput(const string &input) {
     if (!isCorrectInput(input)) {

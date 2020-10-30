@@ -27,6 +27,9 @@ public:
 private:
     bool digitalKey{false};
     pair<string,string> securityQuestion{make_pair("none", "none")};
+
+    //constant
+    static const string YES;
 };
 
 

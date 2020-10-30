@@ -10,11 +10,11 @@
 using namespace utilityFunctions;
 using namespace std;
 
-const string PROFILE = "1";
-const string PRODUCTS = "2";
-const string SECURITY_SETTINGS = "3";
-const string BANK_BRANCH = "4";
-const string BACK = "0";
+const string ProfileManagerView::PROFILE = "1";
+const string ProfileManagerView::PRODUCTS = "2";
+const string ProfileManagerView::SECURITY_SETTINGS = "3";
+const string ProfileManagerView::BANK_BRANCH = "4";
+const string ProfileManagerView::BACK = "0";
 
 void ProfileManagerView::setClientName(const string &cname) {
     clientName = cname;

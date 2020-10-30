@@ -11,11 +11,11 @@
 using namespace std;
 using namespace utilityFunctions;
 
-const string BANKING_ACCOUNTS = "1";
-const string PROFILE = "2";
-const string ALERTS = "3";
-const string REMINDERS = "4";
-const string LOGOUT = "0";
+const string PersonalAreaView::BANKING_ACCOUNTS = "1";
+const string PersonalAreaView::PROFILE = "2";
+const string PersonalAreaView::ALERTS = "3";
+const string PersonalAreaView::REMINDERS = "4";
+const string PersonalAreaView::LOGOUT = "0";
 
 void PersonalAreaView::setClientName(const string &cname) {
     clientName = cname;

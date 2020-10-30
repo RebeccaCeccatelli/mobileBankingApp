@@ -20,7 +20,6 @@ public:
     void pullFromServer();
     void updateServer() const;
 
-    bool saveAsFile(const string& title);
 
     void createReminder(const string& title, string text);
     bool removeReminder(const string& title);
@@ -28,12 +27,12 @@ public:
     vector<string> returnAll() const;
     pair<bool,const Reminder*> returnSpecific(const string& title) const;
 
+    bool saveAsFile(const string& title);
+
 private:
     //attributes
     map<string,Reminder> reminders;
-
     string clientName{"client"};
-
 };
 
 

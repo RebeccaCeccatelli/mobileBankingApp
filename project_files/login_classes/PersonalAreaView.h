@@ -26,6 +26,13 @@ private:
     //BankingAccountsManager banking;
 
     string clientName{"client"};
+
+    //class constants
+    static const string BANKING_ACCOUNTS;
+    static const string PROFILE;
+    static const string ALERTS;
+    static const string REMINDERS;
+    static const string LOGOUT;
 };
 
 

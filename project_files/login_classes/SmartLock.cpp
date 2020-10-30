@@ -9,7 +9,7 @@
 
 using namespace std;
 
-const string YES = "yes";
+const string SmartLock::YES = "yes";
 
 void SmartLock::setRemembered(bool rem) {
     remembered = rem;

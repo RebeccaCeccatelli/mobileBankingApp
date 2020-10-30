@@ -39,6 +39,18 @@ private:
 
     //attribute
     AlertsManager alertsManager;
+
+    //class constants
+    static const string DISPLAY_ALL;
+    static const string DISPLAY_GENERAL;
+    static const string DISPLAY_PERSONAL;
+    static const string DISPLAY_UNREAD;
+    static const string DISPLAY_SPECIFIC;
+    static const string SAVE;
+    static const string SET_READ;
+    static const string BACK;
+    static const string YES;
+    static const string NO;
 };
 
 

@@ -18,6 +18,10 @@ private:
     void display() override;
 
     bool answer{false};
+
+    //class constants
+    static const string YES;
+    static const string NO;
 };
 
 #endif //MOBILE_BANKING_APP_ACCOUNTSMANAGERVIEW_H

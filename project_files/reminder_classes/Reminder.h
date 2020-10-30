@@ -31,6 +31,9 @@ private:
     bool saved{false};
 
     DateSetter dateSetter;
+
+    //constant
+    static const string YES;
 };
 
 

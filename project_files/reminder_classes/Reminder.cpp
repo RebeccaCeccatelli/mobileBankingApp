@@ -10,20 +10,14 @@
 
 using namespace std;
 
+const string Reminder::YES = "yes";
+
 Reminder::Reminder(const string &tit, string tex) : title{tit}, text{move(tex)}{
     dateSetter.setDate();
 }
 
 Reminder::Reminder(string tit, string tex, string date, bool s) : title{move(tit)}, text{move(tex)}, saved{s} {
     dateSetter.setDate(move(date), 1);
-}
-
-bool Reminder::isSaved() const {
-    return saved;
-}
-
-void Reminder::setSaved() {
-    saved = true;
 }
 
 void Reminder::serialize(const string &cname, string mainDirectory) const {
@@ -67,7 +61,7 @@ pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
         }
         if (it == 4) {
             line.erase(0, 7);
-            if (line == "yes")
+            if (line == YES)
                 saved = true;
         }
         it++;
@@ -75,6 +69,14 @@ pair<string,Reminder> Reminder::deserialize(const string &extractedPath) {
     iFile.close();
 
     return make_pair(title, Reminder(title, text, lastUpdate, saved));
+}
+
+bool Reminder::isSaved() const {
+    return saved;
+}
+
+void Reminder::setSaved() {
+    saved = true;
 }
 
 

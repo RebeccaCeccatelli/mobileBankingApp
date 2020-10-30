@@ -13,13 +13,13 @@
 using namespace std;
 using namespace utilityFunctions;
 
-const string DISPLAY_ALL = "1";
-const string DISPLAY_SPECIFIC = "2";
-const string CREATE = "3";
-const string REMOVE = "4";
-const string BACK = "0";
-const string YES = "yes";
-const string NO = "no";
+const string RemindersManagerView::DISPLAY_ALL = "1";
+const string RemindersManagerView::DISPLAY_SPECIFIC = "2";
+const string RemindersManagerView::CREATE = "3";
+const string RemindersManagerView::REMOVE = "4";
+const string RemindersManagerView::BACK = "0";
+const string RemindersManagerView::YES = "yes";
+const string RemindersManagerView::NO = "no";
 
 void RemindersManagerView::setClientName(const string &cname) {
     remindersManager.setClientName(cname);
@@ -45,6 +45,7 @@ void RemindersManagerView::display() {
 
     manageInput(getStringInput());
 }
+
 bool RemindersManagerView::isCorrectInput(const string &input) {
     bool correct = true;
 
@@ -68,33 +69,6 @@ bool RemindersManagerView::isCorrectInput(const string &input) {
     return correct;
 }
 
-void RemindersManagerView::showSpecificReminder(const string& title) {
-    pair<bool,const Reminder*> searchResult = remindersManager.returnSpecific(title);
-
-    if (searchResult.first) {
-        if (wantToSaveAsFile())
-            saveAsFile(title);
-
-        displayReminder(searchResult.second);
-    }
-    else
-        cout << "Reminder " << title << "not found. " << endl;
-}
-
-bool RemindersManagerView::wantToSaveAsFile() {
-    cout << "This reminder is not saved yet. Do you want to save it as a file?" << endl;
-    string input = getStringInput();
-
-    if (input == YES)
-        return true;
-    if (input == NO)
-        return false;
-    else {
-        cout << "Your input is not correct. Try again. " << endl;
-        return wantToSaveAsFile();
-    }
-}
-
 void RemindersManagerView::createReminder() {
     cout << "Creating new reminder... " << endl;
 
@@ -112,20 +86,37 @@ void RemindersManagerView::removeReminder(const string& title) {
         cout << "Reminder not found." << endl;
 }
 
-string RemindersManagerView::insertTitle() {
-    cout << "Insert reminder's title: (type '/' to confirm): " << endl;
-    return getLineInput();
-}
-
-string RemindersManagerView::insertText() {
-    cout << "Insert reminder's title: (type '/' to confirm): " << endl;
-    return getLineInput();
-}
-
 void RemindersManagerView::showList(const vector<string> & selectedReminders) {
 
     for (const auto& title : selectedReminders)
         cout << "- " << title << endl;
+}
+
+void RemindersManagerView::showSpecificReminder(const string& title) {
+    pair<bool,const Reminder*> searchResult = remindersManager.returnSpecific(title);
+
+    if (searchResult.first) {
+        if (wantToSaveAsFile())
+            saveAsFile(title);
+
+        displayReminder(searchResult.second);
+    }
+    else
+        cout << "Reminder " << title << " not found. " << endl;
+}
+
+bool RemindersManagerView::wantToSaveAsFile() {
+    cout << "This reminder is not saved yet. Do you want to save it as a file?" << endl;
+    string input = getStringInput();
+
+    if (input == YES)
+        return true;
+    if (input == NO)
+        return false;
+    else {
+        cout << "Your input is not correct. Try again. " << endl;
+        return wantToSaveAsFile();
+    }
 }
 
 void RemindersManagerView::saveAsFile(const string &title) {
@@ -146,3 +137,14 @@ void RemindersManagerView::displayReminder(const Reminder *reminder) {
     else
         cout << "no";
 }
+
+string RemindersManagerView::insertTitle() {
+    cout << "Insert reminder's title: (type '/' to confirm): " << endl;
+    return getLineInput();
+}
+
+string RemindersManagerView::insertText() {
+    cout << "Insert reminder's title: (type '/' to confirm): " << endl;
+    return getLineInput();
+}
+

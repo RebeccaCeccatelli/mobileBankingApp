@@ -37,6 +37,9 @@ private:
     string email {"unknown"};
     string telephoneNumber{"unknown"};
     bool newsletter {true};
+
+    //constant
+    static const string YES;
 };
 
 

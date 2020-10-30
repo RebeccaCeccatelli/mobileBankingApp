@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const string Alert::YES = "yes";
+
 Alert::Alert(string obj, string mex, bool r, bool pers, string date) : object{move(obj)}, message{move(mex)},
     read{r}, personal{pers} {
     dateSetter.setDate(move(date),1);
@@ -61,12 +63,12 @@ pair<string, Alert> Alert::deserialize(const string& extractedPath) {
         if (it == 4){
             line.erase(0,6);
             line.erase(line.end()-2,line.end());
-            if (line == "yes")
+            if (line == YES)
                 r = true;
         }
         if (it == 5){
             line.erase(0,10);
-            if (line == "yes")
+            if (line == YES)
                 pers = true;
         }
         it++;

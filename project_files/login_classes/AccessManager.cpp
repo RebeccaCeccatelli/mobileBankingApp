@@ -10,6 +10,8 @@
 
 using namespace std;
 
+const string AccessManager::NO = "no";
+
 void AccessManager::setPIN(string pin) {
     PIN = move(pin);
 }
@@ -35,7 +37,7 @@ bool AccessManager::deserialize() {
     string line;
     getline(iFile,line);
     line.erase(0,13);
-    if (line == "no")
+    if (line == NO)
         firstLogin = false;
 
     iFile.close();

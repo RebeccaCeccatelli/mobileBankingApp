@@ -33,6 +33,9 @@ private:
     bool personal;
 
     DateSetter dateSetter;
+
+    //constant
+    static const string YES;
 };
 
 #endif //MOBILE_BANKING_APP_ALERT_H

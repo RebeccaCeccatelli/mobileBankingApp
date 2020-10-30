@@ -29,6 +29,11 @@ private:
 
     //attribute
     SecurityManager securityManager;
+
+    //class constants
+    static const string DIGITAL_KEY;
+    static const string SECURITY_QUESTION;
+    static const string BACK;
 };
 
 

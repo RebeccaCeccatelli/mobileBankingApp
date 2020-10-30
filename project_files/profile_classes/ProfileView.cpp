@@ -12,12 +12,12 @@
 using namespace utilityFunctions;
 using namespace std;
 
-const string NAME = "1";
-const string ADDRESS = "2";
-const string EMAIL = "3";
-const string TEL_NUMBER = "4";
-const string NEWSLETTER = "5";
-const string BACK = "0";
+const string ProfileView::NAME = "1";
+const string ProfileView::ADDRESS = "2";
+const string ProfileView::EMAIL = "3";
+const string ProfileView::TEL_NUMBER = "4";
+const string ProfileView::NEWSLETTER = "5";
+const string ProfileView::BACK = "0";
 
 void ProfileView::serialize(const string &name) const {
     profile.serialize(name);

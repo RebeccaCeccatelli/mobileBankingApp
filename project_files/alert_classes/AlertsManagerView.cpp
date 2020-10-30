@@ -13,16 +13,16 @@ using namespace std;
 using namespace utilityFunctions;
 namespace fs = std::filesystem;
 
-const string DISPLAY_ALL = "1";
-const string DISPLAY_GENERAL = "2";
-const string DISPLAY_PERSONAL = "3";
-const string DISPLAY_UNREAD = "4";
-const string DISPLAY_SPECIFIC = "5";
-const string SAVE = "6";
-const string SET_READ = "7";
-const string BACK = "0";
-const string YES = "yes";
-const string NO = "no";
+const string AlertsManagerView::DISPLAY_ALL = "1";
+const string AlertsManagerView::DISPLAY_GENERAL = "2";
+const string AlertsManagerView::DISPLAY_PERSONAL = "3";
+const string AlertsManagerView::DISPLAY_UNREAD = "4";
+const string AlertsManagerView::DISPLAY_SPECIFIC = "5";
+const string AlertsManagerView::SAVE = "6";
+const string AlertsManagerView::SET_READ = "7";
+const string AlertsManagerView::BACK = "0";
+const string AlertsManagerView::YES = "yes";
+const string AlertsManagerView::NO = "no";
 
 void AlertsManagerView::setClientName(const string &cname) {
     alertsManager.setClientName(cname);
@@ -102,7 +102,7 @@ void AlertsManagerView::showSpecificAlert(const string &object) {
         displayAlert(searchResult.second);
     }
     else
-        cout << "Alert " << object << "not found. " << endl;
+        cout << "Alert " << object << " not found. " << endl;
 }
 
 bool AlertsManagerView::wantToSaveAsFile() const {
@@ -165,6 +165,6 @@ void AlertsManagerView::displayAlert(const Alert* alert) {
 }
 
 string AlertsManagerView::insertObject() {
-    cout << "Insert alert's object: (type '/' to confirm: " << endl;
+    cout << "Insert alert's object: (type '/' to confirm): " << endl;
     return getLineInput();
 }

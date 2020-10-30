@@ -34,7 +34,7 @@ public:
 private:
     static bool deserialize();
 
-//attributes
+    //attributes
     list<Account> accounts;
 
     string PIN;
@@ -42,6 +42,9 @@ private:
 
     bool firstLogin;
     Account* currentAccount{nullptr};
+
+    //class constant
+    static const string NO;
 };
 
 

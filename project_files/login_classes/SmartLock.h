@@ -32,6 +32,9 @@ private:
     string titolarCode{"0"};
     string clientNickname{"client"};
     bool remembered{false};
+
+    //class constant
+    static const string YES;
 };
 
 

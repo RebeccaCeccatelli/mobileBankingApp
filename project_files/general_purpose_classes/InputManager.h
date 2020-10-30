@@ -24,6 +24,9 @@ protected:
 
 private:
     int attempts{1};
+
+    //constant
+    static const unsigned int MAX_ATTEMPTS;
 };
 
 #endif //MOBILE_BANKING_APP_INPUTMANAGER_H
