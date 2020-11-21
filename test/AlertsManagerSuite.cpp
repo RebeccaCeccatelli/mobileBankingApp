@@ -26,16 +26,16 @@ protected:
 
 TEST_F(AlertsManagerSuite, returnAllTest) {
 
-    auto vector = alertsManager.returnAll();
+    auto vector = alertsManager.returnSelected(requestedAlerts::all);
     EXPECT_EQ(vector.size(),6);
 
     alertsManager.addAlert("alert7","message7",false,false,"everyday");
-    vector = alertsManager.returnAll();
+    vector = alertsManager.returnSelected(requestedAlerts::all);
     EXPECT_EQ(vector.size(),7);
 }
 
 TEST_F(AlertsManagerSuite, returnGeneralTest) {
-    auto vector = alertsManager.returnGeneral();
+    auto vector = alertsManager.returnSelected(requestedAlerts::general);
 
     EXPECT_EQ(vector.size(),3);
 
@@ -47,7 +47,7 @@ TEST_F(AlertsManagerSuite, returnGeneralTest) {
 }
 
 TEST_F(AlertsManagerSuite, returnPersonalTest) {
-    auto vector = alertsManager.returnPersonal();
+    auto vector = alertsManager.returnSelected(requestedAlerts::personal);
 
     EXPECT_EQ(vector.size(),3);
 
@@ -56,7 +56,7 @@ TEST_F(AlertsManagerSuite, returnPersonalTest) {
 }
 
 TEST_F(AlertsManagerSuite, returnUnreadTest) {
-    auto vector = alertsManager.returnUnread();
+    auto vector = alertsManager.returnSelected(requestedAlerts::unread);
 
     ASSERT_EQ(vector.size(),4);
 
@@ -68,7 +68,9 @@ TEST_F(AlertsManagerSuite, returnUnreadTest) {
 }
 
 TEST_F(AlertsManagerSuite, setReadTest) {
-    auto vector = alertsManager.returnUnread();
+    requestedAlerts request = requestedAlerts::unread;
+
+    auto vector = alertsManager.returnSelected(request);
     //verify initial conditions
     ASSERT_EQ(vector.size(),4);
     bool found = any_of(vector.begin(),vector.end(),[](const string& alert){return alert == "alert5";});
@@ -77,14 +79,14 @@ TEST_F(AlertsManagerSuite, setReadTest) {
     //act
     alertsManager.setRead("alert5");
 
-    vector = alertsManager.returnUnread();
+    vector = alertsManager.returnSelected(request);
     found = any_of(vector.begin(),vector.end(),[](const string& alert){return alert == "alert5";});
     //assert
     ASSERT_FALSE(found);
 
     //act
     alertsManager.setRead("alert1");
-    vector = alertsManager.returnUnread();
+    vector = alertsManager.returnSelected(request);
     //assert
     ASSERT_EQ(vector.size(),2);
 }

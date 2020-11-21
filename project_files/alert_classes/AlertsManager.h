@@ -13,6 +13,13 @@
 
 using namespace std;
 
+enum class requestedAlerts {
+    all,
+    general,
+    personal,
+    unread
+};
+
 class AlertsManager {
 public:
     void setClientName(const string& cname);
@@ -23,13 +30,8 @@ public:
     bool saveAsFile(const string& object);
     bool setRead(const string& object);
 
-    vector<string> returnAll() const;
-    vector<string> returnGeneral() const;
-    vector<string> returnPersonal() const;
-    vector<string> returnUnread() const;
+    vector<string> returnSelected (requestedAlerts request) const;
     pair<bool,const Alert*> returnSpecific(const string& object) const;
-
-
 
     //method added to facilitate unit-testing
     void addAlert(const string& object, const string& message, bool r, bool pers, const string& date);

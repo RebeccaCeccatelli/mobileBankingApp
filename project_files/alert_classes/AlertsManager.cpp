@@ -46,43 +46,27 @@ bool AlertsManager::setRead(const string &object) {
     return found;
 }
 
-vector<string> AlertsManager::returnAll() const {
-    vector<string> all;
-
-    for (const auto& alert : alerts)
-        all.push_back(alert.first);
-
-    return all;
-}
-
-vector<string> AlertsManager::returnGeneral() const {
-    vector<string> general;
+vector<string> AlertsManager::returnSelected(requestedAlerts request) const {
+    vector<string> list;
 
     for (const auto& alert : alerts) {
-        if (!alert.second.isPersonal())
-            general.push_back(alert.first);
+        if (request == requestedAlerts::all)
+            list.push_back(alert.first);
+
+        else if (request == requestedAlerts::general) {
+            if (!alert.second.isPersonal())
+                list.push_back(alert.first);
+        }
+        else if (request == requestedAlerts::personal) {
+            if (alert.second.isPersonal())
+                list.push_back(alert.first);
+        }
+        else if (request == requestedAlerts::unread) {
+            if (!alert.second.isRead())
+                list.push_back(alert.first);
+        }
     }
-    return general;
-}
-
-vector<string> AlertsManager::returnPersonal() const {
-    vector<string> personal;
-
-    for (const auto& alert : alerts) {
-        if (alert.second.isPersonal())
-            personal.push_back(alert.first);
-    }
-    return personal;
-}
-
-vector<string> AlertsManager::returnUnread() const {
-    vector<string> unread;
-
-    for (const auto& alert : alerts) {
-        if (!alert.second.isRead())
-            unread.push_back(alert.first);
-    }
-    return unread;
+    return list;
 }
 
 pair<bool,const Alert*> AlertsManager::returnSpecific(const string& object) const {
@@ -102,3 +86,4 @@ pair<bool,const Alert*> AlertsManager::returnSpecific(const string& object) cons
 void AlertsManager::addAlert(const string& object, const string& message, bool r, bool pers, const string& date) {
     alerts.emplace(object, Alert(object,message,r,pers,date));
 }
+
