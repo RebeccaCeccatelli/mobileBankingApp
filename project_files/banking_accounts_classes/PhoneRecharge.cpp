@@ -5,5 +5,13 @@
 #include "PhoneRecharge.h"
 
 void PhoneRecharge::setRecipient(string mobOperator, string num) {
+    mobileOperator = move(mobOperator);
+    telephoneNumber = move(num);
+}
 
+template<typename Archive>
+void PhoneRecharge::serialize(Archive &ar, const unsigned int version) {
+    ar & boost::serialization::base_object<Transaction>(*this);
+    ar & mobileOperator;
+    ar & telephoneNumber;
 }

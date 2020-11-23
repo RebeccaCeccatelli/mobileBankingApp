@@ -3,3 +3,11 @@
 //
 
 #include "CardTransaction.h"
+
+template<typename Archive>
+void CardTransaction::serialize(Archive &ar, const unsigned int version) {
+    ar & boost::serialization::base_object<Transaction>(*this);
+    ar & cardNumber;
+    ar & detectedLocation;
+    ar & categorization; //controllare che lavori correttamente con enum class TODO
+}
