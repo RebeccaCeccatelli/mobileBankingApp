@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#include <sstream>
 #include <locale>
 
 using namespace std;
@@ -27,6 +26,17 @@ void DateSetter::setDate(string settedDate, char mode) {
 
 const string &DateSetter::getDate() const {
     return date.second;
+}
+
+template<typename Archive>
+void DateSetter::save(Archive &ar, const unsigned int version) const {
+    ar & date.second;
+}
+
+template<typename Archive>
+void DateSetter::load(Archive &ar, const unsigned int version) {
+    ar & date.second;
+    date.first = convertDateToTm();
 }
 
 string DateSetter::convertDateToString() const {
