@@ -13,11 +13,6 @@ using namespace std;
 
 class PhoneRecharge : public Transaction {
 public:
-    void display() override;
-
-    void setAmount(int amount) override;
-
-    void setProcessed(bool rec) override;
 
     void setRecipient(string mobOperator, string num);
 private:

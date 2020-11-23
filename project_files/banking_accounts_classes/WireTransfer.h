@@ -13,14 +13,8 @@ using namespace std;
 
 class WireTransfer : public Transaction {
 public:
-    void display() override;
-
-    void setAmount(int amount) override;
-
-    void setProcessed(bool rec) override;
-
     void setRecipient (string name, string IBAN);
-    //...
+    //getMaximum amount...
 
 private:
     pair <string,string> sender;

@@ -7,19 +7,18 @@
 
 #include "Transaction.h"
 
+enum class Categorization {
+    withdrawal,
+    payment
+};
+
 class CardTransaction : public Transaction {
 public:
-    void display() override;
 
-    void setAmount(int amount) override;
-
-    void setProcessed(bool rec) override;
-
-    //...
 private:
     string cardNumber;
-    string tipology; //forse enum, withdrawal or payment
     string detectedLocation;
+    Categorization categorization;
 };
 
 

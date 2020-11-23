@@ -4,18 +4,6 @@
 
 #include "PhoneRecharge.h"
 
-void PhoneRecharge::display() {
-
-}
-
-void PhoneRecharge::setAmount(int amount) {
-
-}
-
-void PhoneRecharge::setProcessed(bool rec) {
-
-}
-
 void PhoneRecharge::setRecipient(string mobOperator, string num) {
 
 }

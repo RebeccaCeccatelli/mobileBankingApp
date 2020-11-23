@@ -9,6 +9,7 @@
 #include "../reminder_classes/RemindersManagerView.h"
 #include "../alert_classes/AlertsManagerView.h"
 #include "../profile_classes/ProfileManagerView.h"
+#include "../banking_accounts_classes/BankingAccountsManagerView.h"
 
 class PersonalAreaView : public InputManager {
 public:
@@ -23,7 +24,7 @@ private:
     RemindersManagerView remindersManagerView;
     AlertsManagerView alertsManagerView;
     ProfileManagerView profileManagerView;
-    //BankingAccountsManager banking;
+    BankingAccountsManagerView bankingAccountsManagerView;
 
     string clientName{"client"};
 
