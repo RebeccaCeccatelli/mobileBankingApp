@@ -11,3 +11,8 @@ bool ChargeCardView::isCorrectInput(const string &input) {
 void ChargeCardView::display() {
 
 }
+
+template<typename Archive>
+void ChargeCardView::serialize(Archive &ar, const unsigned int version) {
+    ar & chargeCards;
+}

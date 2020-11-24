@@ -7,8 +7,8 @@
 template<typename Archive>
 void ChargeCard::serialize(Archive &ar, const unsigned int version) {
     ar & cardNumber;
-    ar & cardType;  //controllare che lavori correttamente con enum class TODO
+    ar & cardType;
     ar & active;
     ar & monthlyLimit;
-    ar & relatedCardTransactions;  //controllare che lavori correttamente con list TODO
+    ar & relatedCardTransactions;
 }
