@@ -3,3 +3,8 @@
 //
 
 #include "BankingAccountsManagerView.h"
+
+template<typename Archive>
+void BankingAccountsManagerView::serialize(Archive &ar, const unsigned int version) {
+    ar & bankingAccounts;
+}
