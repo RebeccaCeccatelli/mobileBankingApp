@@ -11,3 +11,6 @@ void CardTransaction::serialize(Archive &ar, const unsigned int version) {
     ar & detectedLocation;
     ar & categorization;
 }
+
+BOOST_CLASS_EXPORT_GUID(CardTransaction, "CardTransaction"); //controllare che polimorfismo funzioni TODO
+

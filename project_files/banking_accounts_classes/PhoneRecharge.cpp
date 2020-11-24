@@ -15,3 +15,6 @@ void PhoneRecharge::serialize(Archive &ar, const unsigned int version) {
     ar & mobileOperator;
     ar & telephoneNumber;
 }
+
+BOOST_CLASS_EXPORT_GUID(PhoneRecharge, "PhoneRecharge"); //controllare che polimorfismo funzioni TODO
+

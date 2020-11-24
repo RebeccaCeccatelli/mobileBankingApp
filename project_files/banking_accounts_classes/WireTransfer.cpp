@@ -17,3 +17,6 @@ void WireTransfer::serialize(Archive &ar, const unsigned int version) {
     ar & recipient.first, ar & recipient.second;
     ar & reasonOfPayment;
 }
+
+BOOST_CLASS_EXPORT_GUID(WireTransfer, "WireTransfer"); //controllare che polimorfismo funzioni TODO
+
