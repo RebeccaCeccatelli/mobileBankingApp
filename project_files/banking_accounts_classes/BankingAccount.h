@@ -21,7 +21,7 @@ using namespace boost::archive;
 
 class BankingAccount {
 public:
-
+    pair<string,int> getMainInformations() const;
 private:
     friend class boost::serialization::access;
 
@@ -36,7 +36,5 @@ private:
     map<string,Transaction*> transactions;
     ChargeCardView chargeCardView;
 };
-
-
 
 #endif //MOBILE_BANKING_APP_BANKINGACCOUNT_H

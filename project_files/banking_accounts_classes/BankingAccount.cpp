@@ -13,3 +13,7 @@ void BankingAccount::serialize(Archive &ar, const unsigned int version) {
     ar & transactions;
     ar & chargeCardView;
 }
+
+pair<string, int> BankingAccount::getMainInformations() const{
+    return make_pair(IBAN,totalDepositAmount);
+}

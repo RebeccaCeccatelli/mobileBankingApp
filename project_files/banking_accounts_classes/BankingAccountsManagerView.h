@@ -5,10 +5,10 @@
 #ifndef MOBILE_BANKING_APP_BANKINGACCOUNTSMANAGERVIEW_H
 #define MOBILE_BANKING_APP_BANKINGACCOUNTSMANAGERVIEW_H
 
-#include <list>
+#include <map>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
-#include <boost/serialization/list.hpp>
+#include <boost/serialization/map.hpp>
 
 #include "../general_purpose_classes/InputManager.h"
 #include "BankingAccount.h"
@@ -26,12 +26,14 @@ private:
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    void display() override{}
-    bool isCorrectInput(const string &input) override{}
+    void display() override;
+    bool isCorrectInput(const string &input) override;
 
     //attributes
-    list<BankingAccount> bankingAccounts;
-    BankingAccountView bankingAccountView{nullptr};
+    map<string,BankingAccount> bankingAccounts;
+
+    //class constant
+    static const string BACK;
 };
 
 

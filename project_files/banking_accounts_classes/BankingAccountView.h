@@ -19,7 +19,7 @@ private:
     bool isCorrectInput(const string &input) override{}
 
     //attribute
-    BankingAccount* bankingAccount;
+    BankingAccount* bankingAccount{nullptr};
 };
 
 

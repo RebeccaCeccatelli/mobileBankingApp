@@ -32,12 +32,13 @@ void PersonalAreaView::display() {
     manageInput(getStringInput());
 }
 
-
 bool PersonalAreaView::isCorrectInput(const string &input) {
     bool correct = true;
 
-    if (input == BANKING_ACCOUNTS)
-        cout << "Not implemented yet - banking accounts." << endl;
+    if (input == BANKING_ACCOUNTS) {
+        bankingAccountsManagerView.displayUserInterface();
+        //setClientName() da valutare TODO
+    }
     else if (input == PROFILE) {
         profileManagerView.setClientName(clientName);
         profileManagerView.displayUserInterface();
