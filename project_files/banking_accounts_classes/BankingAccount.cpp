@@ -11,9 +11,19 @@ void BankingAccount::serialize(Archive &ar, const unsigned int version) {
     ar & accountHolder;
     ar & totalDepositAmount;
     ar & transactions;
-    ar & chargeCardView;
+    ar & chargeCards;
 }
 
-pair<string, int> BankingAccount::getMainInformations() const{
+pair<string, int> BankingAccount::getIbanAndDeposit() const{
     return make_pair(IBAN,totalDepositAmount);
+}
+
+map<string,ChargeCard> *BankingAccount::getChargeCardsList() {
+    return &chargeCards;
+}
+
+tuple<string, string, int> BankingAccount::getDetailedInformations() const {
+    int numberOfCards = chargeCards.size();
+    string creationDate = dateSetter.getDate();
+    return make_tuple(accountHolder,move(creationDate),numberOfCards);
 }

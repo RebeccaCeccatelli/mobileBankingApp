@@ -4,6 +4,8 @@
 
 #include "ChargeCard.h"
 
+const int ChargeCard::MAX_LIMIT = 10.000;
+
 template<typename Archive>
 void ChargeCard::serialize(Archive &ar, const unsigned int version) {
     ar & cardNumber;
@@ -11,4 +13,30 @@ void ChargeCard::serialize(Archive &ar, const unsigned int version) {
     ar & active;
     ar & monthlyLimit;
     ar & relatedCardTransactions;
+}
+
+pair<string, CardType> ChargeCard::getNumberAndType() const {
+    return make_pair(cardNumber,cardType);
+}
+
+bool ChargeCard::isActive() const {
+    return active;
+}
+
+pair<int, int> ChargeCard::getLimits() const {
+    return make_pair(monthlyLimit,MAX_LIMIT);
+}
+
+bool ChargeCard::setLimit(int newLimit) {
+    bool acceptable = false;
+
+    if(newLimit <= MAX_LIMIT){
+        monthlyLimit = newLimit;
+        acceptable = true;
+    }
+    return acceptable;
+}
+
+void ChargeCard::changeState() {
+    active = !active;
 }

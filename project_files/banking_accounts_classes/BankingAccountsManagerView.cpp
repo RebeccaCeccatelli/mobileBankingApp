@@ -24,7 +24,7 @@ void BankingAccountsManagerView::display() {
         cout << "Empty. " << endl;
     else {
         for (const auto& bankingAccount : bankingAccounts){
-            auto mainInformations = bankingAccount.second.getMainInformations();
+            auto mainInformations = bankingAccount.second.getIbanAndDeposit();
             cout << bankingAccount.first << ") IBAN: " << mainInformations.first << ", total deposit: "
                 << mainInformations.second << endl;
         }

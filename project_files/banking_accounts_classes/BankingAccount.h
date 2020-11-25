@@ -13,7 +13,8 @@
 #include <boost/serialization/map.hpp>
 
 #include "Transaction.h"
-#include "ChargeCardView.h"
+#include "ChargeCardManagerView.h"
+#include "ChargeCard.h"
 #include "../general_purpose_classes/DateSetter.h"
 
 using namespace std;
@@ -21,20 +22,24 @@ using namespace boost::archive;
 
 class BankingAccount {
 public:
-    pair<string,int> getMainInformations() const;
+    pair<string,int> getIbanAndDeposit() const;
+    tuple<string,string,int> getDetailedInformations() const; //valutare se aggiungere data dell'ultima transazione se ci si riesce TODO
+
+    map<string,ChargeCard>* getChargeCardsList();
+
 private:
     friend class boost::serialization::access;
 
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    DateSetter dateSetter;
     string IBAN;
-    string accountHolder;
     int totalDepositAmount;
+    string accountHolder;
+    DateSetter dateSetter;
 
     map<string,Transaction*> transactions;
-    ChargeCardView chargeCardView;
+    map<string, ChargeCard> chargeCards;
 };
 
 #endif //MOBILE_BANKING_APP_BANKINGACCOUNT_H

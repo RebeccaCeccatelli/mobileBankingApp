@@ -24,7 +24,11 @@ enum class CardType {
 
 class ChargeCard {
 public:
-
+    pair<string,CardType> getNumberAndType() const;
+    bool isActive() const;
+    pair<int, int> getLimits() const;
+    bool setLimit(int newLimit);
+    void changeState();
 private:
     friend class boost::serialization::access;
 
@@ -37,6 +41,9 @@ private:
     int monthlyLimit{500};
 
     list<CardTransaction> relatedCardTransactions;
+
+    //class constant
+    static const int MAX_LIMIT;
 };
 
 

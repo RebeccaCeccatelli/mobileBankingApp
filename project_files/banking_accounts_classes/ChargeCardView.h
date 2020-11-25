@@ -1,35 +1,38 @@
 //
-// Created by rebecca on 11/21/20.
+// Created by rebecca on 11/25/20.
 //
 
 #ifndef MOBILE_BANKING_APP_CHARGECARDVIEW_H
 #define MOBILE_BANKING_APP_CHARGECARDVIEW_H
 
-#include <list>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/serialization/list.hpp>
-
 #include "../general_purpose_classes/InputManager.h"
 #include "ChargeCard.h"
 
 using namespace std;
-using namespace boost::archive;
 
 class ChargeCardView : public InputManager {
 public:
-    virtual ~ChargeCardView() = default;
+    explicit ChargeCardView(ChargeCard* card) : chargeCard{card} {}
+    ~ChargeCardView() override = default;
 
 private:
-    friend class boost::serialization::access;
-
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
-
     void display() override;
     bool isCorrectInput(const string &input) override;
 
-    list<ChargeCard> chargeCards;
+    //helper methods
+    void displayDetailedInformations() const;
+    void displayTransactions() const;
+    void modifyMaximumLimit();
+    void changeCardState();
+
+    //attribute
+    ChargeCard* chargeCard{nullptr};
+    //class constants
+    static const string BACK;
+    static const string INFOS;
+    static const string TRANSACTIONS;
+    static const string LIMIT;
+    static const string STATE;
 };
 
 

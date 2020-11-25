@@ -24,7 +24,7 @@ void PersonalAreaView::setClientName(const string &cname) {
 void PersonalAreaView::display() {
     cout << endl << "*** Hi, " << clientName << "! This is your personal area. ***" << endl
         << "What would you like to do?" << endl;
-    cout << "1) Banking accounts. (not implemented yet) " << endl << "2) My Profile."
+    cout << "1) Banking accounts. " << endl << "2) My Profile."
          << endl << "3) Alerts. " << endl << "4) Reminders. " << endl << "0) logout. " << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
