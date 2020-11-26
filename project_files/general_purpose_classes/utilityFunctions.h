@@ -14,7 +14,7 @@ using namespace std;
 namespace utilityFunctions {
 
     string getStringInput();
-    unsigned int getNumInput();
+    int getNumInput();
     string getLineInput();
 }
 

@@ -18,7 +18,7 @@ public:
     Reminder(const string &tit, string tex);
     Reminder(string tit, string tex, string date, bool s);
 
-    void serialize(const string &cname, string mainDirectory = "../my_files/") const;
+    void serialize(const string &cname, string mainDirectory = "../saved_files/") const;
     static pair<string, Reminder> deserialize(const string& extractedPath);
 
     void setSaved();

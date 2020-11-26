@@ -19,14 +19,22 @@ using namespace boost::archive;
 
 class PhoneRecharge : public Transaction {
 public:
-    void setRecipient(string mobOperator, string num);
+    explicit PhoneRecharge(tuple<string,string,int> userInformations) :
+        Transaction(get<2>(userInformations), "phone recharge", "telephony") {
+
+        setRecipient(get<0>(userInformations),get<1>(userInformations));
+    }
+    PhoneRecharge() = default;
+
 
 private:
     friend class boost::serialization::access;
-
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
+    void setRecipient(string mobOperator, string num);
+
+    //attributes
     string mobileOperator;
     string telephoneNumber;
 };

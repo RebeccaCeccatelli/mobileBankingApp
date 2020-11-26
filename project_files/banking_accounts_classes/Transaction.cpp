@@ -11,11 +11,8 @@ void Transaction::setAmount(int amount) {
     amountToTransfer = amount;
 }
 
-template<typename Archive>
-void Transaction::serialize(Archive &ar, const unsigned int version) {
-    ar & category;
-    ar & description;
-    ar & processed;
-    ar & amountToTransfer;
-    ar & dateSetter;
+const string &Transaction::getDate() const {
+    return dateSetter.getDate();
 }
+
+

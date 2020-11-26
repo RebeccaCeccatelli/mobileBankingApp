@@ -21,12 +21,13 @@ private:
 
     //helper methods
     void displayDetailedInformations() const;
-    void displayTransactions() const;
+    void displayTransactions() const; //TODO
     void modifyMaximumLimit();
     void changeCardState();
 
     //attribute
     ChargeCard* chargeCard{nullptr};
+
     //class constants
     static const string BACK;
     static const string INFOS;

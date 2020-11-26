@@ -33,7 +33,7 @@ bool RemindersManager::removeReminder(const string &title) {
     if (it != reminders.end()) {
         reminders.erase(it);
 
-        fs::remove("../my_files/" + clientName + "/reminders/" + title);
+        fs::remove("../saved_files/" + clientName + "/reminders/" + title);
         fs::remove("../server/" + clientName + "/reminders/" + title);
         found = true;
     }

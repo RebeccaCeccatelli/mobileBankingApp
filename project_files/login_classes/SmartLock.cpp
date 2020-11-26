@@ -16,7 +16,7 @@ void SmartLock::setRemembered(bool rem) {
 }
 
 void SmartLock::serialize() const {
-    string path = "../my_files/smart_lock";
+    string path = "../saved_files/smart_lock";
     ofstream oFile (path);
 
     oFile << "-Titolar code: " << titolarCode;
@@ -31,7 +31,7 @@ void SmartLock::serialize() const {
 }
 
 SmartLock SmartLock::deserialize() {
-    ifstream iFile("../my_files/smart_lock");
+    ifstream iFile("../saved_files/smart_lock");
 
     string line, clientNickname, titolarCode;
     bool remembered {false};
@@ -71,7 +71,7 @@ void SmartLock::reset() {
     }
     titolarCode = "0";
 
-    ofstream oFile("../my_files/smart_lock", ofstream::trunc);
+    ofstream oFile("../saved_files/smart_lock", ofstream::trunc);
     oFile.close();
 }
 

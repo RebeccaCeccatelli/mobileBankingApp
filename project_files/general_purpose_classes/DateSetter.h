@@ -21,11 +21,18 @@ private:
     friend class boost::serialization::access;
     BOOST_SERIALIZATION_SPLIT_MEMBER();
 
-    template <typename Archive>
-    void save (Archive &ar, const unsigned int version) const;
 
-    template <typename Archive>
-    void load (Archive &ar, const unsigned int version);
+    template<typename Archive>
+    void save(Archive &ar, const unsigned int version) const {
+        ar & date.second;
+    }
+
+    template<typename Archive>
+    void load(Archive &ar, const unsigned int version) {
+        ar & date.second;
+        date.first = convertDateToTm();
+    }
+
 
     string convertDateToString() const;
     tm convertDateToTm() const;

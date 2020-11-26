@@ -28,17 +28,6 @@ const string &DateSetter::getDate() const {
     return date.second;
 }
 
-template<typename Archive>
-void DateSetter::save(Archive &ar, const unsigned int version) const {
-    ar & date.second;
-}
-
-template<typename Archive>
-void DateSetter::load(Archive &ar, const unsigned int version) {
-    ar & date.second;
-    date.first = convertDateToTm();
-}
-
 string DateSetter::convertDateToString() const {
     char buffer[80];
     strftime(buffer, 80, "%x %X", &date.first);

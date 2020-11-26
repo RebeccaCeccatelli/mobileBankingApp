@@ -18,7 +18,7 @@ class Alert {
 public:
     Alert(string obj, string mex, bool r, bool pers, string date);
 
-    void serialize(const string &cname, string mainDirectory = "../my_files/") const;
+    void serialize(const string &cname, string mainDirectory = "../saved_files/") const;
     static pair<string, Alert> deserialize(const string& extractedPath);
 
     void setRead();

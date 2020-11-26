@@ -17,23 +17,33 @@ using namespace boost::archive;
 
 class Transaction {
 public:
-    Transaction() {
+    explicit Transaction(int amount,string descr = "not specified", string cat = "general",  bool p = false) :
+        amountToTransfer{amount}, category{move(cat)}, description{move(descr)}, processed{p} {
         dateSetter.setDate();
     }
+    Transaction() = default;
     virtual ~Transaction() = default;
 
     virtual void setAmount(int amount);
 
+    const string& getDate() const;
+
 private:
     friend class boost::serialization::access;
 
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & category;
+        ar & description;
+        ar & processed;
+        ar & amountToTransfer;
+        ar & dateSetter;
+    }
 
-    string category{"general"};
-    string description{"not specified"};
-    bool processed{false};
     int amountToTransfer;
+    string category;
+    string description;
+    bool processed;
 
     DateSetter dateSetter;
 };

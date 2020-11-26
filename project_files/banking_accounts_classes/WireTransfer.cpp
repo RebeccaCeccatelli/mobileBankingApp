@@ -4,7 +4,6 @@
 
 #include "WireTransfer.h"
 
-
 void WireTransfer::setRecipient(string name, string IBAN) {
     recipient.first = move(name);
     recipient.second = move(IBAN);
@@ -16,6 +15,11 @@ void WireTransfer::serialize(Archive &ar, const unsigned int version) {
     ar & sender.first, ar & sender.second;
     ar & recipient.first, ar & recipient.second;
     ar & reasonOfPayment;
+}
+
+void WireTransfer::setSender(string name, string IBAN) {
+    sender.first = move(name);
+    sender.second = move(IBAN);
 }
 
 BOOST_CLASS_EXPORT_GUID(WireTransfer, "WireTransfer"); //controllare che polimorfismo funzioni TODO

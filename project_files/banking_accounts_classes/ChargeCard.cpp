@@ -12,7 +12,7 @@ void ChargeCard::serialize(Archive &ar, const unsigned int version) {
     ar & cardType;
     ar & active;
     ar & monthlyLimit;
-    ar & relatedCardTransactions;
+    ar & relatedCardTransactions; //verificare che deserializzi anche le chiavi TODO
 }
 
 pair<string, CardType> ChargeCard::getNumberAndType() const {
@@ -39,4 +39,8 @@ bool ChargeCard::setLimit(int newLimit) {
 
 void ChargeCard::changeState() {
     active = !active;
+}
+
+const string &ChargeCard::getLatestTransaction() const {
+    return relatedCardTransactions.crbegin()->first;
 }

@@ -14,8 +14,8 @@ string utilityFunctions::getStringInput() {
     return input;
 }
 
-unsigned int utilityFunctions::getNumInput() {
-    unsigned int num;
+int utilityFunctions::getNumInput() {
+    int num;
     cin.ignore();
     cin >> num;
     return num;

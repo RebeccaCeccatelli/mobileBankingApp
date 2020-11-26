@@ -56,6 +56,7 @@ void ChargeCardView::displayDetailedInformations() const {
         cout << "debit " << endl;
     else
         cout << "credit " << endl;
+    cout << "- Latest transaction made on: " << chargeCard->getLatestTransaction() << endl;
     cout << "- Monthly limit: " << chargeCard->getLimits().first << endl << "- State: ";
     if (chargeCard->isActive())
         cout << "active " << endl;
@@ -64,7 +65,8 @@ void ChargeCardView::displayDetailedInformations() const {
 }
 
 void ChargeCardView::displayTransactions() const {
-//todo
+//aggiungere possibilità di 1.vedere tutte(data implicito),
+//2.vedere per giorno, 3.vedere per tipologia
 }
 
 void ChargeCardView::modifyMaximumLimit() {

@@ -19,18 +19,20 @@ using namespace boost::archive;
 
 class WireTransfer : public Transaction {
 public:
+    explicit WireTransfer(int amount) :
+        Transaction(amount, "wire transfer") {}
+    WireTransfer() = default;
     void setRecipient (string name, string IBAN);
-    //getMaximum amount...
+    void setSender(string name, string IBAN);
 
 private:
     friend class boost::serialization::access;
-
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    pair <string,string> sender;
-    pair <string,string> recipient;
-    string reasonOfPayment;
+    pair <string,string> sender{"",""};
+    pair <string,string> recipient{"",""};
+    string reasonOfPayment{""};
 };
 
 

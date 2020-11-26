@@ -21,7 +21,7 @@ void AccessManager::setTitolarCode(string titCode) {
 }
 
 void AccessManager::serialize() const {
-    ofstream oFile("../my_files/first_login");
+    ofstream oFile("../saved_files/first_login");
 
     oFile << "First login: ";
     if (firstLogin)
@@ -32,7 +32,7 @@ void AccessManager::serialize() const {
 
 bool AccessManager::deserialize() {
     bool firstLogin = true;
-    ifstream iFile("../my_files/first_login");
+    ifstream iFile("../saved_files/first_login");
 
     string line;
     getline(iFile,line);

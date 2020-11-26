@@ -6,13 +6,14 @@
 #define MOBILE_BANKING_APP_CHARGECARD_H
 
 #include <string>
-#include <list>
+#include <map>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
-#include <boost/serialization/list.hpp>
+#include <boost/serialization/map.hpp>
 
 #include "CardTransaction.h"
+#include "Compare.h"
 
 using namespace std;
 using namespace boost::archive;
@@ -27,6 +28,7 @@ public:
     pair<string,CardType> getNumberAndType() const;
     bool isActive() const;
     pair<int, int> getLimits() const;
+    const string& getLatestTransaction() const;
     bool setLimit(int newLimit);
     void changeState();
 private:
@@ -40,7 +42,7 @@ private:
     bool active{true};
     int monthlyLimit{500};
 
-    list<CardTransaction> relatedCardTransactions;
+    map<string,CardTransaction,Compare> relatedCardTransactions;
 
     //class constant
     static const int MAX_LIMIT;
