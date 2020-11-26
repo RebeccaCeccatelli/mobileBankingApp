@@ -19,10 +19,14 @@ private:
     bool isCorrectInput(const string &input) override;
 
     //helper methods
-    void displayDetailedInformations() const;//aggiungere anche numero carte e data ultima transazione TODO
-    void displayTransactions() const{}//aggiungere possibilità di 1.vedere tutte(data implicito), 2.vedere per giorno, 3.vedere per tipologia TODO
-    void createTransaction(){} //vedi remindersmanagerview createReminder() //TODO
-
+    void displayDetailedInformations() const;
+    void displayTransactions() const; //TODO
+    void createTransaction();
+    void createWireTransfer(); // dare la possibilità di salvare TODO
+    void createPhoneRecharge(); // dare la possibilità di salvare TODO
+    void notifyIfLowDeposit();
+    static tuple<string,string,int> gatherPhoneRechargeInfo();
+    static tuple<string,string,string,int> gatherWireTransferInfo();
     //attribute
     BankingAccount* bankingAccount{nullptr};
 
@@ -32,6 +36,8 @@ private:
     static const string TRANSACTIONS;
     static const string NEW;
     static const string BACK;
+    static const string WIRE_TRANSFER;
+    static const string RECHARGE;
 };
 
 

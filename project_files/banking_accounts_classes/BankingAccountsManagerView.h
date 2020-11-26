@@ -19,7 +19,9 @@ using namespace boost::archive;
 
 class BankingAccountsManagerView : public InputManager {
 public:
-
+    BankingAccountsManagerView() {
+        bankingAccounts.emplace("1",BankingAccount());
+    }
     virtual ~BankingAccountsManagerView() = default;
 private:
     friend class boost::serialization::access;
