@@ -13,7 +13,7 @@
 
 using namespace std;
 
-enum class requestedAlerts {
+enum class RequestedAlerts {
     all,
     general,
     personal,
@@ -30,7 +30,7 @@ public:
     bool saveAsFile(const string& object);
     bool setRead(const string& object);
 
-    vector<string> returnSelected (requestedAlerts request) const;
+    vector<string> returnSelected (RequestedAlerts request) const;
     pair<bool,const Alert*> returnSpecific(const string& object) const;
 
     //method added to facilitate unit-testing

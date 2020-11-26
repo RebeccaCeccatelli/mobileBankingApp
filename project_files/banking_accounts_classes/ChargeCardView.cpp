@@ -14,6 +14,9 @@ const string ChargeCardView::INFOS = "1";
 const string ChargeCardView::TRANSACTIONS = "2";
 const string ChargeCardView::LIMIT = "3";
 const string ChargeCardView::STATE = "4";
+const string ChargeCardView::SORT_BY_DATE = "sd";
+const string ChargeCardView::FILTER_DATE = "fd";
+const string ChargeCardView::FILTER_CATEGORY = "fc";
 
 void ChargeCardView::display() {
     cout << endl << "*** Card number: " << chargeCard->getNumberAndType().first
@@ -65,10 +68,37 @@ void ChargeCardView::displayDetailedInformations() const {
 }
 
 void ChargeCardView::displayTransactions() const {
-//aggiungere possibilità di 1.vedere tutte(data implicito),
-//2.vedere per giorno, 3.vedere per tipologia
+    string input = decideSortingLogic();
+
+    if (input == BACK){
+        return;
+    }
+    else if (input == SORT_BY_DATE){
+        auto list = chargeCard->returnSelected(RequestedTransactions::all);
+        showList(list);
+    }
+    else if (input == FILTER_DATE){
+        auto list = chargeCard->returnSelected(RequestedTransactions::specificDate, insertFilter(input));
+       showList(list);
+    }
+    else if (input == FILTER_CATEGORY) {
+        auto list = chargeCard->returnSelected(RequestedTransactions::specificCategory,insertFilter(input));
+        showList(list);
+    }
+    else{
+        cout << "Your input is uncorrect. Try again. " << endl;
+        displayTransactions();
+    }
 }
 
+void ChargeCardView::showList(const vector<const CardTransaction *> &selectedTransactions) {
+    if (selectedTransactions.empty())
+        cout << "The list is empty. " << endl;
+    else {
+        for (auto cardTransaction : selectedTransactions)
+            showSpecificTransaction(cardTransaction);
+    }
+}
 void ChargeCardView::modifyMaximumLimit() {
     cout << "Your actual limit: " << chargeCard->getLimits().first << ". Maximum acceptable limit: " <<
     chargeCard->getLimits().second << "." << endl;
@@ -86,4 +116,36 @@ void ChargeCardView::changeCardState() {
         cout << "Card activated. " << endl;
 
     chargeCard->changeState();
+}
+
+void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransaction){
+    cout << "- ";
+    if (cardTransaction->categorization == Categorization::payment)
+        cout << "Payment of ";
+    else
+        cout << "Withdrawal of ";
+    cout << cardTransaction->getAmount() << " || Time: " << cardTransaction->getDate() << ", place: "
+        << cardTransaction->detectedLocation << " || " << cardTransaction->getCategory() << " || ";
+    if (cardTransaction->isProcessed())
+        cout << " processed " << endl;
+    else
+        cout << "still not processed " << endl;
+}
+
+string ChargeCardView::insertFilter(const string& request) {
+    if (request == FILTER_DATE)
+        cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
+    else if (request == FILTER_CATEGORY)
+        cout << "Please, insert a category between '...', '...': " << endl; //inserire categorie alla fine FIXME
+    auto filter = getLineInput();
+
+    return filter;
+}
+
+string ChargeCardView::decideSortingLogic() {
+    cout << endl << "- Sort all by date (sd). "  << endl << "- Filter by requested date (fd). " << endl <<
+         "- Filter by category (fc). " << endl << "- Go back (0). " << endl;
+    string input = getStringInput();
+
+    return input;
 }

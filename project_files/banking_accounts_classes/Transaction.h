@@ -24,9 +24,14 @@ public:
     Transaction() = default;
     virtual ~Transaction() = default;
 
+    int getAmount() const;
+    const string& getCategory() const;
+    bool isProcessed() const;
     virtual void setAmount(int amount);
 
     const string& getDate() const;
+    bool isSpecificCategory(const string& filter) const;
+    bool isSpecificDate(const string& filter) const;
 
 private:
     friend class boost::serialization::access;

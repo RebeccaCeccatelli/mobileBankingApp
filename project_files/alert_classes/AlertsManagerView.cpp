@@ -54,16 +54,16 @@ bool AlertsManagerView::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == DISPLAY_ALL){
-        showList(alertsManager.returnSelected(requestedAlerts::all));
+        showList(alertsManager.returnSelected(RequestedAlerts::all));
     }
     else if (input == DISPLAY_GENERAL){
-        showList(alertsManager.returnSelected(requestedAlerts::general));
+        showList(alertsManager.returnSelected(RequestedAlerts::general));
     }
     else if (input == DISPLAY_PERSONAL){
-        showList(alertsManager.returnSelected(requestedAlerts::personal));
+        showList(alertsManager.returnSelected(RequestedAlerts::personal));
     }
     else if (input == DISPLAY_UNREAD){
-        showList(alertsManager.returnSelected(requestedAlerts::unread));
+        showList(alertsManager.returnSelected(RequestedAlerts::unread));
     }
     else if (input == DISPLAY_SPECIFIC){
         showSpecificAlert(insertObject());

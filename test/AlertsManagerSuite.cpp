@@ -26,16 +26,16 @@ protected:
 
 TEST_F(AlertsManagerSuite, returnAllTest) {
 
-    auto vector = alertsManager.returnSelected(requestedAlerts::all);
+    auto vector = alertsManager.returnSelected(RequestedAlerts::all);
     EXPECT_EQ(vector.size(),6);
 
     alertsManager.addAlert("alert7","message7",false,false,"everyday");
-    vector = alertsManager.returnSelected(requestedAlerts::all);
+    vector = alertsManager.returnSelected(RequestedAlerts::all);
     EXPECT_EQ(vector.size(),7);
 }
 
 TEST_F(AlertsManagerSuite, returnGeneralTest) {
-    auto vector = alertsManager.returnSelected(requestedAlerts::general);
+    auto vector = alertsManager.returnSelected(RequestedAlerts::general);
 
     EXPECT_EQ(vector.size(),3);
 
@@ -47,7 +47,7 @@ TEST_F(AlertsManagerSuite, returnGeneralTest) {
 }
 
 TEST_F(AlertsManagerSuite, returnPersonalTest) {
-    auto vector = alertsManager.returnSelected(requestedAlerts::personal);
+    auto vector = alertsManager.returnSelected(RequestedAlerts::personal);
 
     EXPECT_EQ(vector.size(),3);
 
@@ -56,7 +56,7 @@ TEST_F(AlertsManagerSuite, returnPersonalTest) {
 }
 
 TEST_F(AlertsManagerSuite, returnUnreadTest) {
-    auto vector = alertsManager.returnSelected(requestedAlerts::unread);
+    auto vector = alertsManager.returnSelected(RequestedAlerts::unread);
 
     ASSERT_EQ(vector.size(),4);
 
@@ -68,7 +68,7 @@ TEST_F(AlertsManagerSuite, returnUnreadTest) {
 }
 
 TEST_F(AlertsManagerSuite, setReadTest) {
-    requestedAlerts request = requestedAlerts::unread;
+    RequestedAlerts request = RequestedAlerts::unread;
 
     auto vector = alertsManager.returnSelected(request);
     //verify initial conditions

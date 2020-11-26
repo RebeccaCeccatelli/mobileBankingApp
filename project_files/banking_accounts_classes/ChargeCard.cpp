@@ -44,3 +44,22 @@ void ChargeCard::changeState() {
 const string &ChargeCard::getLatestTransaction() const {
     return relatedCardTransactions.crbegin()->first;
 }
+
+vector<const CardTransaction *> ChargeCard::returnSelected(RequestedTransactions request, const string& filter) {
+    vector<const CardTransaction*> list;
+
+    for (const auto& transaction : relatedCardTransactions){
+        if (request == RequestedTransactions::all)
+            list.push_back(&transaction.second);
+        else if (request == RequestedTransactions::specificDate){
+            if (transaction.second.isSpecificDate(filter))
+                list.push_back(&transaction.second);
+        }
+        else if (request == RequestedTransactions::specificCategory){
+            if (transaction.second.isSpecificCategory(filter))
+                list.push_back(&transaction.second);
+        }
+    }
+
+    return list;
+}

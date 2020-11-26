@@ -24,7 +24,7 @@ enum class Categorization {
 
 class CardTransaction : public Transaction {
 public:
-
+    friend class ChargeCardView;
 private:
     friend class boost::serialization::access;
 

@@ -1,3 +1,4 @@
+
 //
 // Created by rebecca on 10/28/20.
 //
@@ -46,22 +47,22 @@ bool AlertsManager::setRead(const string &object) {
     return found;
 }
 
-vector<string> AlertsManager::returnSelected(requestedAlerts request) const {
+vector<string> AlertsManager::returnSelected(RequestedAlerts request) const {
     vector<string> list;
 
     for (const auto& alert : alerts) {
-        if (request == requestedAlerts::all)
+        if (request == RequestedAlerts::all)
             list.push_back(alert.first);
 
-        else if (request == requestedAlerts::general) {
+        else if (request == RequestedAlerts::general) {
             if (!alert.second.isPersonal())
                 list.push_back(alert.first);
         }
-        else if (request == requestedAlerts::personal) {
+        else if (request == RequestedAlerts::personal) {
             if (alert.second.isPersonal())
                 list.push_back(alert.first);
         }
-        else if (request == requestedAlerts::unread) {
+        else if (request == RequestedAlerts::unread) {
             if (!alert.second.isRead())
                 list.push_back(alert.first);
         }

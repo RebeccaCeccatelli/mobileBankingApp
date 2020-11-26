@@ -21,9 +21,13 @@ private:
 
     //helper methods
     void displayDetailedInformations() const;
-    void displayTransactions() const; //TODO
+    void displayTransactions() const;
     void modifyMaximumLimit();
     void changeCardState();
+    static void showList(const vector<const CardTransaction *> &selectedTransactions);
+    static void showSpecificTransaction(const CardTransaction* cardTransaction);
+    static string insertFilter(const string& request);
+    static string decideSortingLogic();
 
     //attribute
     ChargeCard* chargeCard{nullptr};
@@ -34,6 +38,9 @@ private:
     static const string TRANSACTIONS;
     static const string LIMIT;
     static const string STATE;
+    static const string SORT_BY_DATE;
+    static const string FILTER_DATE;
+    static const string FILTER_CATEGORY;
 };
 
 

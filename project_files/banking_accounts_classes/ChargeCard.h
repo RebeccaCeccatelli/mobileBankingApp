@@ -7,6 +7,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
@@ -23,6 +24,12 @@ enum class CardType {
     debit
 };
 
+enum class RequestedTransactions {
+    all,
+    specificDate,
+    specificCategory
+};
+
 class ChargeCard {
 public:
     pair<string,CardType> getNumberAndType() const;
@@ -31,6 +38,8 @@ public:
     const string& getLatestTransaction() const;
     bool setLimit(int newLimit);
     void changeState();
+
+    vector<const CardTransaction*> returnSelected(RequestedTransactions request, const string& filter = "");
 private:
     friend class boost::serialization::access;
 
