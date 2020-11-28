@@ -23,17 +23,26 @@ public:
         bankingAccounts.emplace("1",BankingAccount());
     }
     virtual ~BankingAccountsManagerView() = default;
+
+    void setClientName(const string& cname);
 private:
     friend class boost::serialization::access;
 
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & bankingAccounts;
+    }
 
     void display() override;
     bool isCorrectInput(const string &input) override;
 
+    void pullFromServer();
+    void updateServer() const;
+
     //attributes
     map<string,BankingAccount> bankingAccounts;
+
+    string clientName;
 
     //class constant
     static const string BACK;

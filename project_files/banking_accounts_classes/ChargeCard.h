@@ -44,7 +44,13 @@ private:
     friend class boost::serialization::access;
 
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & cardNumber;
+        ar & cardType;
+        ar & active;
+        ar & monthlyLimit;
+        ar & relatedCardTransactions;
+    }
 
     string cardNumber;
     CardType cardType;

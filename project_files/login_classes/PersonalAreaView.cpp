@@ -36,8 +36,8 @@ bool PersonalAreaView::isCorrectInput(const string &input) {
     bool correct = true;
 
     if (input == BANKING_ACCOUNTS) {
+        bankingAccountsManagerView.setClientName(clientName);
         bankingAccountsManagerView.displayUserInterface();
-        //setClientName() da valutare TODO
     }
     else if (input == PROFILE) {
         profileManagerView.setClientName(clientName);

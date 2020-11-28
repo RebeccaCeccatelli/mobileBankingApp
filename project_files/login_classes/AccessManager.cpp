@@ -12,6 +12,15 @@ using namespace std;
 
 const string AccessManager::NO = "no";
 
+AccessManager::AccessManager() {
+    ifstream iFile("../server/existing_accounts");
+    text_iarchive ia(iFile);
+    ia >> *this;
+    iFile.close();
+
+    firstLogin = deserializeFirstLogin();
+}
+
 void AccessManager::setPIN(string pin) {
     PIN = move(pin);
 }
@@ -20,7 +29,7 @@ void AccessManager::setTitolarCode(string titCode) {
     titolarCode = move(titCode);
 }
 
-void AccessManager::serialize() const {
+void AccessManager::serializeFirstLogin() const {
     ofstream oFile("../saved_files/first_login");
 
     oFile << "First login: ";
@@ -30,7 +39,7 @@ void AccessManager::serialize() const {
         oFile << "no";
 }
 
-bool AccessManager::deserialize() {
+bool AccessManager::deserializeFirstLogin() {
     bool firstLogin = true;
     ifstream iFile("../saved_files/first_login");
 
@@ -55,17 +64,6 @@ void AccessManager::resetPIN() {
 
 void AccessManager::setFirstLogin(bool login) {
     firstLogin = login;
-}
-
-AccessManager::AccessManager() {
-    accounts.emplace_back("1234567","12345","mario_rossi");
-    accounts.emplace_back("1111111","11111","elisabetta_fellini");
-    accounts.emplace_back("7654321","76543","lorenzo_cappelli");
-    accounts.emplace_back("7777777","77777","eleonora_frangetti");
-    accounts.emplace_back("1000000","10000","rebecca_ceccatelli");
-
-    firstLogin = deserialize();
-
 }
 
 bool AccessManager::checkCredentials() {

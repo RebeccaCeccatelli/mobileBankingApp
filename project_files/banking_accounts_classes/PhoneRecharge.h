@@ -30,7 +30,11 @@ public:
 private:
     friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & boost::serialization::base_object<Transaction>(*this);
+        ar & mobileOperator;
+        ar & telephoneNumber;
+    }
 
     void setRecipient(string mobOperator, string num);
 

@@ -6,15 +6,6 @@
 
 const int ChargeCard::MAX_LIMIT = 10.000;
 
-template<typename Archive>
-void ChargeCard::serialize(Archive &ar, const unsigned int version) {
-    ar & cardNumber;
-    ar & cardType;
-    ar & active;
-    ar & monthlyLimit;
-    ar & relatedCardTransactions; //verificare che deserializzi anche le chiavi TODO
-}
-
 pair<string, CardType> ChargeCard::getNumberAndType() const {
     return make_pair(cardNumber,cardType);
 }

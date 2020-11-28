@@ -20,7 +20,7 @@ const string ChargeCardView::FILTER_CATEGORY = "fc";
 
 void ChargeCardView::display() {
     cout << endl << "*** Card number: " << chargeCard->getNumberAndType().first
-        << ". What would you like to do? ***" << endl;
+        << ". ***" << endl << "What would you like to do?" << endl;
     cout << "1) Card's detailed informations. " << endl << "2) List of associated transactions. " << endl
     << "3) Modify maximum monthly limit. " << endl << "4) Activate/Deactivate card. " << endl << "0) Go back. " << endl;
 
@@ -86,7 +86,7 @@ void ChargeCardView::displayTransactions() const {
         showList(list);
     }
     else{
-        cout << "Your input is uncorrect. Try again. " << endl;
+        cout << "Your input is not correct. Try again. " << endl;
         displayTransactions();
     }
 }
@@ -119,12 +119,12 @@ void ChargeCardView::changeCardState() {
 }
 
 void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransaction){
-    cout << "- ";
+    cout << "- Amount: " << cardTransaction->getAmount() << " euros || ";
     if (cardTransaction->categorization == Categorization::payment)
-        cout << "Payment of ";
+        cout << "Payment || ";
     else
-        cout << "Withdrawal of ";
-    cout << cardTransaction->getAmount() << " || Time: " << cardTransaction->getDate() << ", place: "
+        cout << "Withdrawal || ";
+    cout << "Time: " << cardTransaction->getDate() << ", Place: "
         << cardTransaction->detectedLocation << " || " << cardTransaction->getCategory() << " || ";
     if (cardTransaction->isProcessed())
         cout << " processed " << endl;
@@ -137,7 +137,7 @@ string ChargeCardView::insertFilter(const string& request) {
         cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
     else if (request == FILTER_CATEGORY)
         cout << "Please, insert a category between '...', '...': " << endl; //inserire categorie alla fine FIXME
-    auto filter = getLineInput();
+    auto filter = getStringInput();
 
     return filter;
 }

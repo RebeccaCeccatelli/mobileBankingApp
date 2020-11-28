@@ -9,16 +9,6 @@
 const int BankingAccount::THRESHOLD = 50;
 const int BankingAccount::COMMISSIONS = 2;
 
-template<typename Archive>
-void BankingAccount::serialize(Archive &ar, const unsigned int version) {
-    ar & dateSetter;
-    ar & IBAN;
-    ar & accountHolder;
-    ar & totalDepositAmount;
-    ar & transactions; //verificare che deserializzi correttamente anche le chiavi TODO
-    ar & chargeCards;
-}
-
 map<string,ChargeCard> *BankingAccount::getChargeCardsList() {
     return &chargeCards;
 }

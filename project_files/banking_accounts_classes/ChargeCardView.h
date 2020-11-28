@@ -5,6 +5,8 @@
 #ifndef MOBILE_BANKING_APP_CHARGECARDVIEW_H
 #define MOBILE_BANKING_APP_CHARGECARDVIEW_H
 
+#include <string>
+
 #include "../general_purpose_classes/InputManager.h"
 #include "ChargeCard.h"
 

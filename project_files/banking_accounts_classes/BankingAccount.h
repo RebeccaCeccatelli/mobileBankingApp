@@ -36,7 +36,14 @@ private:
     friend class boost::serialization::access;
 
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & dateSetter;
+        ar & IBAN;
+        ar & accountHolder;
+        ar & totalDepositAmount;
+        ar & transactions; //verificare che deserializzi correttamente anche le chiavi TODO
+        ar & chargeCards;
+    }
 
     //helper methods
     bool subtractAmount(int amount, bool commissions = false);

@@ -5,6 +5,7 @@
 #include "BankingAccountsManagerView.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "../general_purpose_classes/utilityFunctions.h"
 
@@ -13,12 +14,9 @@ using namespace utilityFunctions;
 
 const string BankingAccountsManagerView::BACK = "0";
 
-template<typename Archive>
-void BankingAccountsManagerView::serialize(Archive &ar, const unsigned int version) {
-    ar & bankingAccounts;
-}
-
 void BankingAccountsManagerView::display() {
+    pullFromServer();
+
     cout << endl << "*** This is the list of your banking accounts. ***" << endl;
     if (bankingAccounts.empty())
         cout << "Empty. " << endl;
@@ -35,8 +33,10 @@ void BankingAccountsManagerView::display() {
 
 bool BankingAccountsManagerView::isCorrectInput(const string &input) {
     bool correct = true;
-    if (input == BACK)
+    if (input == BACK) {
+        updateServer();
         setGoBack(true);
+    }
     else {
         auto it = bankingAccounts.find(input);
         if (it != bankingAccounts.end()){
@@ -48,4 +48,23 @@ bool BankingAccountsManagerView::isCorrectInput(const string &input) {
     }
 
     return correct;
+}
+
+void BankingAccountsManagerView::pullFromServer() {
+    ifstream iFile("../server/" + clientName + "/banking_accounts");
+    text_iarchive ia(iFile);
+    ia >> *this;
+    iFile.close();
+}
+
+void BankingAccountsManagerView::setClientName(const string &cname) {
+    clientName = cname;
+}
+
+void BankingAccountsManagerView::updateServer() const {
+    cout << "Updating server... " << endl;
+    ofstream oFile("../server/" + clientName + "/banking_accounts");
+    text_oarchive oa(oFile);
+    oa << *this;
+    oFile.close();
 }

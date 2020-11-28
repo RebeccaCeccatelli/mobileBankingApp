@@ -9,12 +9,5 @@ void PhoneRecharge::setRecipient(string mobOperator, string num) {
     telephoneNumber = move(num);
 }
 
-template<typename Archive>
-void PhoneRecharge::serialize(Archive &ar, const unsigned int version) {
-    ar & boost::serialization::base_object<Transaction>(*this);
-    ar & mobileOperator;
-    ar & telephoneNumber;
-}
-
 BOOST_CLASS_EXPORT_GUID(PhoneRecharge, "PhoneRecharge"); //controllare che polimorfismo funzioni TODO
 

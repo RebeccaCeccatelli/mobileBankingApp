@@ -28,7 +28,12 @@ public:
 private:
     friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & boost::serialization::base_object<Transaction>(*this);
+        ar & sender.first, ar & sender.second;
+        ar & recipient.first, ar & recipient.second;
+        ar & reasonOfPayment;
+    }
 
     pair <string,string> sender{"",""};
     pair <string,string> recipient{"",""};

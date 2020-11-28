@@ -58,7 +58,7 @@ bool AccessManagerView::isCorrectInput(const string &input) {
             SmartLockView smartLockView(&smartLock);
             accessManager.setFirstLogin(smartLockView.wantToRemember(accessManager.getTitolarCode()));
 
-            accessManager.serialize();
+            accessManager.serializeFirstLogin();
         }
         accessManager.enter();
 

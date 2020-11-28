@@ -7,10 +7,14 @@
 
 #include <string>
 #include <list>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/list.hpp>
 
 #include "Account.h"
 
 using namespace std;
+using namespace boost::archive;
 
 class AccessManager {
 public:
@@ -26,13 +30,20 @@ public:
     void setFirstLogin(bool login);
     bool isFirstLogin() const;
 
-    void serialize() const;
+    void serializeFirstLogin() const;
 
     //method added to facilitate unit-testing
     void addAccount(const string& titCode, const string& pin, string clientName);
 
 private:
-    static bool deserialize();
+    friend class boost::serialization::access;
+
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version){
+        ar & accounts;
+    }
+
+    static bool deserializeFirstLogin();
 
     //attributes
     list<Account> accounts;

@@ -25,11 +25,16 @@ enum class Categorization {
 class CardTransaction : public Transaction {
 public:
     friend class ChargeCardView;
-private:
     friend class boost::serialization::access;
 
+private:
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
+    void serialize(Archive &ar, const unsigned int version){
+        ar & boost::serialization::base_object<Transaction>(*this);
+        ar & cardNumber;
+        ar & detectedLocation;
+        ar & categorization;
+    }
 
     string cardNumber;
     string detectedLocation;
