@@ -4,7 +4,9 @@
 
 #include "ChargeCard.h"
 
-const int ChargeCard::MAX_LIMIT = 10.000;
+#include <fstream>
+
+const int ChargeCard::MAX_LIMIT = 10000;
 
 pair<string, CardType> ChargeCard::getNumberAndType() const {
     return make_pair(cardNumber,cardType);
@@ -53,4 +55,28 @@ vector<const CardTransaction *> ChargeCard::returnSelected(RequestedTransactions
     }
 
     return list;
+}
+
+pair<string, string> ChargeCard::getAssociatedBankingAccount() const {
+    return associatedBankingAccount;
+}
+
+void ChargeCard::serializeInReadableFormat() const {
+    string path = "../saved_files/" + associatedBankingAccount.first + "/banking_accounts/b_account"
+        + associatedBankingAccount.second + "charge_cards/info_card" + cardNumber;
+    fstream oFile(path);
+
+    oFile << "- Card number: " << cardNumber << "\n- Type: ";
+    if(cardType == CardType::debit)
+        oFile << "debit";
+    else
+        oFile << "credit";
+    oFile << "\n- Associated banking account: " << associatedBankingAccount.first << ", " << associatedBankingAccount.second;
+    oFile << "\n- Latest transaction made on: " << relatedCardTransactions.crbegin()->first << "\n- Monthly limit: "
+        << monthlyLimit << "\n- State: ";
+    if (active)
+        oFile << "active";
+    else
+        oFile << "deactived";
+    oFile.close();
 }

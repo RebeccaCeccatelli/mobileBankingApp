@@ -10,7 +10,7 @@
 
 class BankingAccountView : public InputManager {
 public:
-    explicit BankingAccountView(BankingAccount *bAccount) : bankingAccount{bAccount} {}
+    BankingAccountView(BankingAccount *bAccount) : bankingAccount{bAccount} {}
 
     virtual ~BankingAccountView() = default;
 
@@ -22,11 +22,13 @@ private:
     void displayDetailedInformations() const;
     void displayTransactions() const; //TODO
     void createTransaction();
-    void createWireTransfer(); // dare la possibilità di salvare TODO
-    void createPhoneRecharge(); // dare la possibilità di salvare TODO
+    void createWireTransfer();
+    void createPhoneRecharge();
     void notifyIfLowDeposit();
     static tuple<string,string,int> gatherPhoneRechargeInfo();
     static tuple<string,string,string,int> gatherWireTransferInfo();
+
+    static bool wantToSaveAsFile();
     //attribute
     BankingAccount* bankingAccount{nullptr};
 
@@ -38,6 +40,8 @@ private:
     static const string BACK;
     static const string WIRE_TRANSFER;
     static const string RECHARGE;
+    static const string YES;
+    static const string NO;
 };
 
 

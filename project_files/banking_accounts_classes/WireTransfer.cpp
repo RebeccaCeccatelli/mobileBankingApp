@@ -4,6 +4,8 @@
 
 #include "WireTransfer.h"
 
+#include <fstream>
+
 void WireTransfer::setRecipient(string name, string IBAN) {
     recipient.first = move(name);
     recipient.second = move(IBAN);
@@ -14,5 +16,14 @@ void WireTransfer::setSender(string name, string IBAN) {
     sender.second = move(IBAN);
 }
 
-BOOST_CLASS_EXPORT_GUID(WireTransfer, "WireTransfer"); //controllare che polimorfismo funzioni TODO
+void WireTransfer::serializeInReadableFormat(const string &cname) const {
+    string path = "../saved_files/" + cname + "/banking_accounts/b_account" + sender.second
+            + "/transactions/w_transfer" + getDate();
+
+    ofstream oFile(path);
+    oFile << "*** Wire transfer *** " << "\n\n- Amount: " << getAmount() << "\n- Sender: " << sender.first
+        << ", " << sender.second << "\n- Recipient: " << recipient.first << ", " << recipient.second
+        << "\n- Reason of payment: " << reasonOfPayment << "\n- Date: " << getDate();
+    oFile.close();
+}
 

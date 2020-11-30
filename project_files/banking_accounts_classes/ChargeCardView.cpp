@@ -17,6 +17,8 @@ const string ChargeCardView::STATE = "4";
 const string ChargeCardView::SORT_BY_DATE = "sd";
 const string ChargeCardView::FILTER_DATE = "fd";
 const string ChargeCardView::FILTER_CATEGORY = "fc";
+const string ChargeCardView::YES = "yes";
+const string ChargeCardView::NO = "no";
 
 void ChargeCardView::display() {
     cout << endl << "*** Card number: " << chargeCard->getNumberAndType().first
@@ -51,20 +53,26 @@ bool ChargeCardView::isCorrectInput(const string &input) {
 }
 
 void ChargeCardView::displayDetailedInformations() const {
-    auto NumberAndType = chargeCard->getNumberAndType();
-
+    auto numberAndType = chargeCard->getNumberAndType();
+    auto bankingAccount = chargeCard->getAssociatedBankingAccount();
     cout << endl << "*** Detailed informations. *** " << endl;
-    cout << "- Number: " << NumberAndType.first << endl << "- Type: ";
-    if (NumberAndType.second == CardType::debit)
+    cout << "- Number: " << numberAndType.first << endl << "- Type: ";
+    if (numberAndType.second == CardType::debit)
         cout << "debit " << endl;
     else
         cout << "credit " << endl;
+    cout << "- Associated banking account: " << bankingAccount.first << ", " << bankingAccount.second << endl;
     cout << "- Latest transaction made on: " << chargeCard->getLatestTransaction() << endl;
     cout << "- Monthly limit: " << chargeCard->getLimits().first << endl << "- State: ";
     if (chargeCard->isActive())
         cout << "active " << endl;
     else
         cout << "deactivated " << endl;
+
+    if(wantToSaveAsFile()){
+        chargeCard->serializeInReadableFormat();
+        cout << "Saved. " << endl;
+    }
 }
 
 void ChargeCardView::displayTransactions() const {
@@ -148,4 +156,18 @@ string ChargeCardView::decideSortingLogic() {
     string input = getStringInput();
 
     return input;
+}
+
+bool ChargeCardView::wantToSaveAsFile() {
+    cout << "Do you want to save these informations in a readable format in your saved files?" << endl;
+    string input = getStringInput();
+
+    if (input == YES)
+        return true;
+    if (input == NO)
+        return false;
+    else {
+        cout << "Your input is not correct. Try again. " << endl;
+        return wantToSaveAsFile();
+    }
 }

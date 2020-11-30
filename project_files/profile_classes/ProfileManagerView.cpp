@@ -11,9 +11,8 @@ using namespace utilityFunctions;
 using namespace std;
 
 const string ProfileManagerView::PROFILE = "1";
-const string ProfileManagerView::PRODUCTS = "2";
-const string ProfileManagerView::SECURITY_SETTINGS = "3";
-const string ProfileManagerView::BANK_BRANCH = "4";
+const string ProfileManagerView::SECURITY_SETTINGS = "2";
+const string ProfileManagerView::BANK_BRANCH = "3";
 const string ProfileManagerView::BACK = "0";
 
 void ProfileManagerView::setClientName(const string &cname) {
@@ -44,8 +43,8 @@ void ProfileManagerView::display() {
     pullFromServer();
 
     cout << endl << "*** Profile area. ***" << endl << "What would you like to do?" << endl;
-    cout << "1) My profile." << endl << "2) My products." << endl << "3) My security settings."
-        << endl << "4) My bank branch. " << endl << "0) Go back. " << endl;
+    cout << "1) My profile." << endl << "2) My security settings."
+        << endl << "3) My bank branch. " << endl << "0) Go back. " << endl;
 
     cout << "Choose action (enter the corresponding number): " << endl;
 
@@ -57,8 +56,6 @@ bool ProfileManagerView::isCorrectInput(const string &input) {
 
     if (input == PROFILE)
         profileView.displayUserInterface();
-    else if (input == PRODUCTS)
-        cout << "to implement - my products. "; //TODO
     else if (input == SECURITY_SETTINGS)
         securityManagerView.displayUserInterface();
     else if (input == BANK_BRANCH)

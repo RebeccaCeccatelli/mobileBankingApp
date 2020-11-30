@@ -10,7 +10,6 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/base_object.hpp>
-#include <boost/serialization/export.hpp>
 
 #include "Transaction.h"
 
@@ -22,9 +21,11 @@ public:
     explicit WireTransfer(int amount) :
         Transaction(amount, "wire transfer") {}
     WireTransfer() = default;
+
     void setRecipient (string name, string IBAN);
     void setSender(string name, string IBAN);
 
+    void serializeInReadableFormat(const string &cname) const;
 private:
     friend class boost::serialization::access;
     template <typename Archive>

@@ -15,6 +15,8 @@
 #include "Transaction.h"
 #include "ChargeCardManagerView.h"
 #include "ChargeCard.h"
+#include "WireTransfer.h"
+#include "PhoneRecharge.h"
 #include "Compare.h"
 #include "../general_purpose_classes/DateSetter.h"
 
@@ -28,10 +30,15 @@ public:
     tuple<string,string,int,string> getDetailedInformations() const;
     map<string,ChargeCard>* getChargeCardsList();
 
-    bool createPhoneRecharge(const tuple<string,string,int> &userInformations);
-    bool createWireTransfer(const tuple<string,string,string,int>& userInformations);
+    bool createPhoneRecharge(const tuple<string, string, int> &userInformations);
+    bool createWireTransfer(const tuple<string, string, string, int> &userInformations);
     bool isLowDeposit() const;
 
+    void serializeInReadableFormat() const;
+
+    void addTransaction(Transaction* trans){
+        transactions.emplace(trans->getDate(),trans);
+    }
 private:
     friend class boost::serialization::access;
 
@@ -41,14 +48,19 @@ private:
         ar & IBAN;
         ar & accountHolder;
         ar & totalDepositAmount;
-        ar & transactions; //verificare che deserializzi correttamente anche le chiavi TODO
         ar & chargeCards;
+
+        ar.template register_type<CardTransaction>(); //explicit registration of derived classes
+        ar.template register_type<WireTransfer>();
+        ar.template register_type<PhoneRecharge>();
+
+        ar & transactions;
     }
 
     //helper methods
     bool subtractAmount(int amount, bool commissions = false);
-    void addPhoneRechargeToTransactions(const tuple<string,string,int>& userInformations);
-    void addWireTransferToTransactions(const tuple<string,string,string,int>& userInformations);
+    void addPhoneRechargeToTransactions(const tuple<string, string, int> &userInformations);
+    void addWireTransferToTransactions(const tuple<string, string, string, int> &userInformations);
 
     string IBAN;
     int totalDepositAmount;

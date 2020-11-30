@@ -17,6 +17,8 @@ const string BankingAccountView::NEW = "4";
 const string BankingAccountView::BACK = "0";
 const string BankingAccountView::WIRE_TRANSFER = "t";
 const string BankingAccountView::RECHARGE = "r";
+const string BankingAccountView::YES = "yes";
+const string BankingAccountView::NO = "no";
 
 void BankingAccountView::display() {
     cout << endl << "*** Banking account " << bankingAccount->getIban()
@@ -60,6 +62,11 @@ void BankingAccountView::displayDetailedInformations() const {
     cout << "- IBAN: " << IBAN << endl << "- Total deposit available: " << deposit
         << endl << "- Account holder: " << get<0>(details) << endl << "- Creation date: " << get<1>(details) << endl
         << "- Number of associated cards: " << get<2>(details) << endl << "- Latest transaction made on: " << get<3>(details) << endl;
+
+    if(wantToSaveAsFile()) {
+        bankingAccount->serializeInReadableFormat();
+        cout << "Saved. " << endl;
+    }
 }
 
 void BankingAccountView::displayTransactions() const {
@@ -84,7 +91,7 @@ void BankingAccountView::createWireTransfer() {
     auto userInformations = gatherWireTransferInfo();
 
     if(bankingAccount->createWireTransfer(userInformations)){
-        cout << "Wire transfer successfully received. " << endl << "Your banking account deposit now is: "
+        cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
         << bankingAccount->getDeposit() << ". " << endl;
         notifyIfLowDeposit();
     }
@@ -100,7 +107,7 @@ void BankingAccountView::createPhoneRecharge() {
     auto userInformations = gatherPhoneRechargeInfo();
 
     if(bankingAccount->createPhoneRecharge(userInformations)){
-        cout << "Phone recharge successfully received." << endl << "Your banking account deposit now is: "
+        cout << "Phone recharge successfully received and saved." << endl << "Your banking account deposit now is: "
         << bankingAccount->getDeposit() << "." << endl;
         notifyIfLowDeposit();
     }
@@ -144,6 +151,20 @@ tuple<string, string, string, int> BankingAccountView::gatherWireTransferInfo() 
     get<3>(userInformations) = getNumInput();
 
     return userInformations;
+}
+
+bool BankingAccountView::wantToSaveAsFile() {
+    cout << "Do you want to save these informations in a readable format in your saved files?" << endl;
+    string input = getStringInput();
+
+    if (input == YES)
+        return true;
+    if (input == NO)
+        return false;
+    else {
+        cout << "Your input is not correct. Try again. " << endl;
+        return wantToSaveAsFile();
+    }
 }
 
 

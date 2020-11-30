@@ -2,6 +2,8 @@
 // Created by rebecca on 11/21/20.
 //
 
+#include <fstream>
+
 #include "BankingAccount.h"
 #include "PhoneRecharge.h"
 #include "WireTransfer.h"
@@ -20,7 +22,7 @@ tuple<string, string, int,string> BankingAccount::getDetailedInformations() cons
     return make_tuple(accountHolder,move(creationDate),numberOfCards,move(latestTransaction));
 }
 
-bool BankingAccount::createPhoneRecharge(const tuple<string,string,int> &userInformations) {
+bool BankingAccount::createPhoneRecharge(const tuple<string, string, int> &userInformations) {
     bool accepted = false;
     if (subtractAmount(get<2>(userInformations))){
         accepted = true;
@@ -42,8 +44,9 @@ bool BankingAccount::subtractAmount(int amount, bool commissions) {
 
 void BankingAccount::addPhoneRechargeToTransactions(const tuple<string, string, int> &userInformations) {
     auto phoneRecharge = new PhoneRecharge(userInformations);
-
     transactions.emplace(phoneRecharge->getDate(),phoneRecharge);
+
+    phoneRecharge->serializeInReadableFormat(accountHolder + "/banking_accounts/b_account" + IBAN);
 }
 
 bool BankingAccount::isLowDeposit() const {
@@ -61,7 +64,8 @@ int BankingAccount::getDeposit() const {
     return totalDepositAmount;
 }
 
-bool BankingAccount::createWireTransfer(const tuple<string, string, string, int> &userInformations) {
+bool
+BankingAccount::createWireTransfer(const tuple<string, string, string, int> &userInformations) {
     bool accepted = false;
     if(subtractAmount(get<3>(userInformations),true)){
         accepted = true;
@@ -76,4 +80,18 @@ void BankingAccount::addWireTransferToTransactions(const tuple<string, string, s
     wireTransfer->setRecipient(get<1>(userInformations),get<0>(userInformations));
 
     transactions.emplace(wireTransfer->getDate(),wireTransfer);
+
+    wireTransfer->serializeInReadableFormat(accountHolder);
+}
+
+void BankingAccount::serializeInReadableFormat() const {
+    string path = "../saved_files/" + accountHolder + "/banking_accounts/b_account" + IBAN + "/account_info.txt";
+    ofstream oFile(path);
+
+    oFile << "*** Detailed informations. ***";
+    oFile << "\n\n- IBAN: " << IBAN << "\n- Total deposit available: "
+        << totalDepositAmount << "\n- Account holder: " << accountHolder << "\n- Creation date: "
+        << dateSetter.getDate() << "\n- Number of associated cards: " << chargeCards.size()
+        << "\n- Latest transaction made on: " << transactions.crbegin()->first;
+    oFile.close();
 }

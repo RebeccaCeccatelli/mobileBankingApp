@@ -35,9 +35,12 @@ public:
     pair<string,CardType> getNumberAndType() const;
     bool isActive() const;
     pair<int, int> getLimits() const;
+    pair<string,string> getAssociatedBankingAccount() const;
     const string& getLatestTransaction() const;
     bool setLimit(int newLimit);
     void changeState();
+
+    void serializeInReadableFormat() const;
 
     vector<const CardTransaction*> returnSelected(RequestedTransactions request, const string& filter = "");
 private:
@@ -50,12 +53,15 @@ private:
         ar & active;
         ar & monthlyLimit;
         ar & relatedCardTransactions;
+        ar & associatedBankingAccount.first;
+        ar & associatedBankingAccount.second;
     }
 
     string cardNumber;
     CardType cardType;
     bool active{true};
     int monthlyLimit{500};
+    pair<string,string> associatedBankingAccount; //first name, second iban
 
     map<string,CardTransaction,Compare> relatedCardTransactions;
 

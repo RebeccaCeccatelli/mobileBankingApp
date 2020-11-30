@@ -31,6 +31,8 @@ private:
     static string insertFilter(const string& request);
     static string decideSortingLogic();
 
+    static bool wantToSaveAsFile();
+
     //attribute
     ChargeCard* chargeCard{nullptr};
 
@@ -43,6 +45,8 @@ private:
     static const string SORT_BY_DATE;
     static const string FILTER_DATE;
     static const string FILTER_CATEGORY;
+    static const string YES;
+    static const string NO;
 };
 
 
