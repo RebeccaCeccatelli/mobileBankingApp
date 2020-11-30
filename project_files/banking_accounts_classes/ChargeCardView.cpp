@@ -107,6 +107,7 @@ void ChargeCardView::showList(const vector<const CardTransaction *> &selectedTra
             showSpecificTransaction(cardTransaction);
     }
 }
+
 void ChargeCardView::modifyMaximumLimit() {
     cout << "Your actual limit: " << chargeCard->getLimits().first << ". Maximum acceptable limit: " <<
     chargeCard->getLimits().second << "." << endl;

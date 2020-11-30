@@ -5,6 +5,8 @@
 #include "BankingAccountView.h"
 
 #include <iostream>
+#include <cmath>
+
 #include "../general_purpose_classes/utilityFunctions.h"
 
 using namespace utilityFunctions;
@@ -19,6 +21,9 @@ const string BankingAccountView::WIRE_TRANSFER = "t";
 const string BankingAccountView::RECHARGE = "r";
 const string BankingAccountView::YES = "yes";
 const string BankingAccountView::NO = "no";
+const string BankingAccountView::SORT_BY_DATE = "sd";
+const string BankingAccountView::FILTER_DATE = "fd";
+const string BankingAccountView::FILTER_CATEGORY = "fc";
 
 void BankingAccountView::display() {
     cout << endl << "*** Banking account " << bankingAccount->getIban()
@@ -70,8 +75,27 @@ void BankingAccountView::displayDetailedInformations() const {
 }
 
 void BankingAccountView::displayTransactions() const {
-//aggiungere possibilità di 1.vedere tutte(data implicito),
-//2.vedere per giorno, 3.vedere per tipologia
+    string input = decideSortingLogic();
+
+    if (input == BACK){
+        return;
+    }
+    else if (input == SORT_BY_DATE){
+        const auto list = bankingAccount->returnSelected(RequestedTransactions::all);
+        showList(list);
+    }
+    else if (input == FILTER_DATE){
+        const auto list = bankingAccount->returnSelected(RequestedTransactions::specificDate, insertFilter(input));
+        showList(list);
+    }
+    else if (input == FILTER_CATEGORY) {
+        const auto list = bankingAccount->returnSelected(RequestedTransactions::specificCategory,insertFilter(input));
+        showList(list);
+    }
+    else{
+        cout << "Your input is not correct. Try again. " << endl;
+        displayTransactions();
+    }
 }
 
 void BankingAccountView::createTransaction() {
@@ -167,4 +191,72 @@ bool BankingAccountView::wantToSaveAsFile() {
     }
 }
 
+string BankingAccountView::decideSortingLogic() {
+    cout << endl << "- Sort all by date (sd). "  << endl << "- Filter by requested date (fd). " << endl <<
+         "- Filter by category (fc). " << endl << "- Go back (0). " << endl;
+    string input = getStringInput();
 
+    return input;
+}
+
+string BankingAccountView::insertFilter(const string& request) {
+    if (request == FILTER_DATE)
+        cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
+    else if (request == FILTER_CATEGORY)
+        cout << "Please, insert a category between '...', '...': " << endl; //inserire categorie alla fine FIXME
+    auto filter = getStringInput();
+
+    return filter;
+}
+
+void BankingAccountView::showList(const vector<Transaction *> &selectedTransactions) {
+    if (selectedTransactions.empty())
+        cout << "The list is empty. " << endl;
+    else {
+        int count = 0;
+        for (auto transaction : selectedTransactions) {
+            cout << ++count << ") ";
+            showTransactionGeneralities(transaction);
+        }
+        int requested = goForFurtherDetails(count);
+        if (requested == -1)
+            return;
+        else
+            showTransactionDetails(selectedTransactions[requested]);
+    }
+}
+
+void BankingAccountView::showTransactionGeneralities(const Transaction *transaction) {
+    cout << " Amount: " << transaction->getAmount();
+    if (signbit(transaction->getAmount()))
+        cout << " (outflow) ";
+    else
+        cout << " (income)";
+    cout << " || Type: " << transaction->getDescription() << " || Date: " << transaction->getDate()
+        << " || Category: " << transaction->getCategory() << " || ";
+    if (transaction->isProcessed())
+        cout << " processed. " << endl;
+    else
+        cout << " still not processed " << endl;
+}
+
+int BankingAccountView::goForFurtherDetails(int count) {
+    cout << endl << "Enter the corresponding number to see further details, (0) to go back. " << endl;
+    string input = getStringInput();
+
+    if (input == BACK )
+        return -1;
+    else if (stoi(input) > count){
+        cout << "Your input is not correct. Try again. " << endl;
+        return goForFurtherDetails(count);
+    }
+    else
+        return stoi(input)-1;
+}
+
+void BankingAccountView::showTransactionDetails(const Transaction *transaction) {
+    showTransactionGeneralities(transaction);
+
+    //metodo getDetails virtuale per tutti i tipi di transazioni con covarianza del tipo di ritorno
+    //oppure viewer per transazioni con viewer specializzati TODO
+}

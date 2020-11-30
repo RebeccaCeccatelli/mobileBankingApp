@@ -26,6 +26,7 @@ public:
 
     int getAmount() const;
     const string& getCategory() const;
+    const string& getDescription() const;
     bool isProcessed() const;
     virtual void setAmount(int amount);
 

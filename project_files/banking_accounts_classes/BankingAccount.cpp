@@ -95,3 +95,22 @@ void BankingAccount::serializeInReadableFormat() const {
         << "\n- Latest transaction made on: " << transactions.crbegin()->first;
     oFile.close();
 }
+
+vector<Transaction *> BankingAccount::returnSelected(RequestedTransactions request, const string &filter) const{
+    vector<Transaction*> list;
+
+    for (const auto& transaction : transactions){
+        if (request == RequestedTransactions::all)
+            list.push_back(transaction.second);
+        else if (request == RequestedTransactions::specificDate){
+            if (transaction.second->isSpecificDate(filter))
+                list.push_back(transaction.second);
+        }
+        else if (request == RequestedTransactions::specificCategory){
+            if (transaction.second->isSpecificCategory(filter))
+                list.push_back(transaction.second);
+        }
+    }
+
+    return list;
+}

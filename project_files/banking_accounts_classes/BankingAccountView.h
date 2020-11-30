@@ -29,6 +29,15 @@ private:
     static tuple<string,string,string,int> gatherWireTransferInfo();
 
     static bool wantToSaveAsFile();
+    static string decideSortingLogic();
+    static string insertFilter(const string& request);
+    static void showList(const vector<Transaction *> &selectedTransactions);
+    static void showTransactionGeneralities(const Transaction* transaction);
+    static void showTransactionDetails(const Transaction* transaction);
+    static int goForFurtherDetails(int count);
+
+
+
     //attribute
     BankingAccount* bankingAccount{nullptr};
 
@@ -42,6 +51,9 @@ private:
     static const string RECHARGE;
     static const string YES;
     static const string NO;
+    static const string SORT_BY_DATE;
+    static const string FILTER_DATE;
+    static const string FILTER_CATEGORY;
 };
 
 

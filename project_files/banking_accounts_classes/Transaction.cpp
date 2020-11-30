@@ -41,4 +41,8 @@ bool Transaction::isSpecificDate(const string &filter) const {
         return false;
 }
 
+const string &Transaction::getDescription() const {
+    return description;
+}
+
 

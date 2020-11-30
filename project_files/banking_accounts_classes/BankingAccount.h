@@ -36,9 +36,8 @@ public:
 
     void serializeInReadableFormat() const;
 
-    void addTransaction(Transaction* trans){
-        transactions.emplace(trans->getDate(),trans);
-    }
+    vector<Transaction*> returnSelected(RequestedTransactions request, const string& filter = "") const;
+
 private:
     friend class boost::serialization::access;
 
