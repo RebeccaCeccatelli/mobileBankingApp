@@ -24,6 +24,7 @@ public:
 
     void setRecipient (string name, string IBAN);
     void setSender(string name, string IBAN);
+    void setReasonOfPayment(string reason);
     const pair<string,string>& getRecipient() const;
     const pair<string,string>& getSender() const;
     const string& getReasonOfPayment() const;

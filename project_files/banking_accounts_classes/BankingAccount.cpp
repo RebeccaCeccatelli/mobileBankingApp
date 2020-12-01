@@ -78,6 +78,7 @@ void BankingAccount::addWireTransferToTransactions(const tuple<string, string, s
     auto wireTransfer = new WireTransfer(get<3>(userInformations));
     wireTransfer->setSender(accountHolder,IBAN);
     wireTransfer->setRecipient(get<1>(userInformations),get<0>(userInformations));
+    wireTransfer->setReasonOfPayment(get<2>(userInformations));
 
     transactions.emplace(wireTransfer->getDate(),wireTransfer);
 

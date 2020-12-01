@@ -39,3 +39,7 @@ const string &WireTransfer::getReasonOfPayment() const {
     return reasonOfPayment;
 }
 
+void WireTransfer::setReasonOfPayment(string reason) {
+    reasonOfPayment = move(reason);
+}
+
