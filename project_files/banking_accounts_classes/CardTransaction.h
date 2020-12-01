@@ -27,6 +27,10 @@ public:
     friend class ChargeCardView;
     friend class boost::serialization::access;
 
+    const string& getCardNumber() const;
+    const string& getLocation() const;
+    string getCategorization() const;
+
 private:
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version){

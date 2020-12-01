@@ -27,3 +27,15 @@ void WireTransfer::serializeInReadableFormat(const string &cname) const {
     oFile.close();
 }
 
+const pair<string, string> &WireTransfer::getRecipient() const {
+    return recipient;
+}
+
+const pair<string, string> &WireTransfer::getSender() const {
+    return sender;
+}
+
+const string &WireTransfer::getReasonOfPayment() const {
+    return reasonOfPayment;
+}
+

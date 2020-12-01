@@ -20,7 +20,7 @@ private:
 
     //helper methods
     void displayDetailedInformations() const;
-    void displayTransactions() const; //TODO
+    void displayTransactions() const;
     void createTransaction();
     void createWireTransfer();
     void createPhoneRecharge();

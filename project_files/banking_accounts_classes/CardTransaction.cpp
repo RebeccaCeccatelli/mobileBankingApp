@@ -4,5 +4,19 @@
 
 #include "CardTransaction.h"
 
-BOOST_CLASS_EXPORT_GUID(CardTransaction, "CardTransaction"); //controllare che polimorfismo funzioni TODO
+const string &CardTransaction::getCardNumber() const {
+    return cardNumber;
+}
 
+const string &CardTransaction::getLocation() const {
+    return detectedLocation;
+}
+
+string CardTransaction::getCategorization() const {
+    string cat;
+    if (categorization == Categorization::withdrawal)
+        cat = "withdrawal ";
+    else
+        cat = "payment";
+    return cat;
+}

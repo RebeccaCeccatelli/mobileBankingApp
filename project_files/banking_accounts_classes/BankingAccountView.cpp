@@ -229,7 +229,7 @@ void BankingAccountView::showList(const vector<Transaction *> &selectedTransacti
 void BankingAccountView::showTransactionGeneralities(const Transaction *transaction) {
     cout << " Amount: " << transaction->getAmount();
     if (signbit(transaction->getAmount()))
-        cout << " (outflow) ";
+        cout << " (outflow)";
     else
         cout << " (income)";
     cout << " || Type: " << transaction->getDescription() << " || Date: " << transaction->getDate()
@@ -257,6 +257,24 @@ int BankingAccountView::goForFurtherDetails(int count) {
 void BankingAccountView::showTransactionDetails(const Transaction *transaction) {
     showTransactionGeneralities(transaction);
 
-    //metodo getDetails virtuale per tutti i tipi di transazioni con covarianza del tipo di ritorno
-    //oppure viewer per transazioni con viewer specializzati TODO
+    if (typeid(transaction) == typeid(Transaction*))
+        cout << "Nothing more to show." << endl;
+    else if (typeid(transaction) == typeid(PhoneRecharge*)) {
+        auto phoneRecharge = dynamic_cast<const PhoneRecharge *>(transaction);
+        cout << "- Mobile operator: " << phoneRecharge->getRecipient().first << endl;
+        cout << "- Telephone number: " << phoneRecharge->getRecipient().second << endl;
+    }
+    else if (typeid(transaction) == typeid(CardTransaction*)) {
+        auto cardTransaction = dynamic_cast<const CardTransaction*>(transaction);
+        cout << "- Card number: " << cardTransaction->getCardNumber() << endl;
+        cout << "- Detected location: " << cardTransaction->getLocation() << endl;
+        cout << "- Categorization: " << cardTransaction->getCategorization() << endl;
+    }
+    else if (typeid(transaction) == typeid(WireTransfer*)) {
+        auto wireTransfer = dynamic_cast<const WireTransfer*>(transaction);
+        cout << "- Recipient: " << wireTransfer->getRecipient().first << ", " << wireTransfer->getRecipient().second << endl;
+        cout << "- Sender: " << wireTransfer->getSender().first << ", " << wireTransfer->getSender().second << endl;
+        cout << "- Reason of payment: " << wireTransfer->getReasonOfPayment() << endl;
+    }
+
 }

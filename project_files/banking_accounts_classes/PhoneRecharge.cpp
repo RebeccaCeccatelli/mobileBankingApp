@@ -20,3 +20,7 @@ void PhoneRecharge::serializeInReadableFormat(const string &pathInfo) const {
     oFile.close();
 }
 
+pair<string, string> PhoneRecharge::getRecipient() const {
+    return make_pair(mobileOperator,telephoneNumber);
+}
+

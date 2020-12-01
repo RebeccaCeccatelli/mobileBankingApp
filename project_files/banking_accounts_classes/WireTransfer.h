@@ -24,6 +24,9 @@ public:
 
     void setRecipient (string name, string IBAN);
     void setSender(string name, string IBAN);
+    const pair<string,string>& getRecipient() const;
+    const pair<string,string>& getSender() const;
+    const string& getReasonOfPayment() const;
 
     void serializeInReadableFormat(const string &cname) const;
 private:
@@ -38,7 +41,7 @@ private:
 
     pair <string,string> sender{"",""};
     pair <string,string> recipient{"",""};
-    string reasonOfPayment{""};
+    string reasonOfPayment;
 };
 
 

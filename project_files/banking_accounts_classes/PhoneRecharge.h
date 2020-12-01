@@ -23,7 +23,10 @@ public:
 
         setRecipient(get<0>(userInformations),get<1>(userInformations));
     }
+
     PhoneRecharge() = default;
+
+    pair<string,string> getRecipient() const;
 
     void serializeInReadableFormat(const string& pathInfo) const;
 private:

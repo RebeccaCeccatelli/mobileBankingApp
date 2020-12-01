@@ -5,6 +5,8 @@
 #include "ChargeCardView.h"
 
 #include <iostream>
+#include <cmath>
+
 #include "../general_purpose_classes/utilityFunctions.h"
 
 using namespace utilityFunctions;
@@ -128,11 +130,15 @@ void ChargeCardView::changeCardState() {
 }
 
 void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransaction){
-    cout << "- Amount: " << cardTransaction->getAmount() << " euros || ";
-    if (cardTransaction->categorization == Categorization::payment)
-        cout << "Payment || ";
+    cout << "- Amount: " << cardTransaction->getAmount() << " euros ";
+    if (signbit(cardTransaction->getAmount()))
+        cout << " (outflow)";
     else
-        cout << "Withdrawal || ";
+        cout << " (income)";
+    if (cardTransaction->categorization == Categorization::payment)
+        cout << " || Payment || ";
+    else
+        cout << " || Withdrawal || ";
     cout << "Time: " << cardTransaction->getDate() << ", Place: "
         << cardTransaction->detectedLocation << " || " << cardTransaction->getCategory() << " || ";
     if (cardTransaction->isProcessed())
