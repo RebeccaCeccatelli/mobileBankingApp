@@ -34,7 +34,6 @@ void BankingAccountsManagerView::display() {
 bool BankingAccountsManagerView::isCorrectInput(const string &input) {
     bool correct = true;
     if (input == BACK) {
-        updateServer();
         setGoBack(true);
     }
     else {
@@ -46,6 +45,7 @@ bool BankingAccountsManagerView::isCorrectInput(const string &input) {
         else
             correct = false;
     }
+    updateServer();
 
     return correct;
 }

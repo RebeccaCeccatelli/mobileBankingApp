@@ -116,7 +116,7 @@ void BankingAccountView::createWireTransfer() {
 
     if(bankingAccount->createWireTransfer(userInformations)){
         cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
-        << bankingAccount->getDeposit() << ". " << endl;
+        << bankingAccount->getDeposit() << " (2 euros of commissions). " << endl;
         notifyIfLowDeposit();
     }
     else{
@@ -156,7 +156,7 @@ tuple<string, string, int> BankingAccountView::gatherPhoneRechargeInfo() {
     cout << "Insert telephone number to recharge (type '/' to confirm): " << endl;
     get<1>(userInformations) = getLineInput();
     cout << "Insert amount to recharge: " << endl;
-    get<2>(userInformations) = getNumInput();
+    get<2>(userInformations) = -getNumInput();
 
     return userInformations;
 }
@@ -172,7 +172,7 @@ tuple<string, string, string, int> BankingAccountView::gatherWireTransferInfo() 
     cout << "Insert reason of payment (type '/' to confirm): " << endl;
     get<2>(userInformations) = getLineInput();
     cout << "Insert amount to transfer: " << endl;
-    get<3>(userInformations) = getNumInput();
+    get<3>(userInformations) = -getNumInput();
 
     return userInformations;
 }
@@ -203,7 +203,7 @@ string BankingAccountView::insertFilter(const string& request) {
     if (request == FILTER_DATE)
         cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
     else if (request == FILTER_CATEGORY)
-        cout << "Please, insert a category between '...', '...': " << endl; //inserire categorie alla fine FIXME
+        cout << "Please, insert a category between:\ntransports, food, telephony, fuel, taxes, general, clothing, sports, health, restaurants, freetime. " << endl;
     auto filter = getStringInput();
 
     return filter;
@@ -257,24 +257,24 @@ int BankingAccountView::goForFurtherDetails(int count) {
 void BankingAccountView::showTransactionDetails(const Transaction *transaction) {
     showTransactionGeneralities(transaction);
 
-    if (typeid(transaction) == typeid(Transaction*))
-        cout << "Nothing more to show." << endl;
-    else if (typeid(transaction) == typeid(PhoneRecharge*)) {
+    if (typeid(*transaction) == typeid(PhoneRecharge)) {
         auto phoneRecharge = dynamic_cast<const PhoneRecharge *>(transaction);
         cout << "- Mobile operator: " << phoneRecharge->getRecipient().first << endl;
         cout << "- Telephone number: " << phoneRecharge->getRecipient().second << endl;
     }
-    else if (typeid(transaction) == typeid(CardTransaction*)) {
+    else if (typeid(*transaction) == typeid(CardTransaction)) {
         auto cardTransaction = dynamic_cast<const CardTransaction*>(transaction);
         cout << "- Card number: " << cardTransaction->getCardNumber() << endl;
         cout << "- Detected location: " << cardTransaction->getLocation() << endl;
         cout << "- Categorization: " << cardTransaction->getCategorization() << endl;
     }
-    else if (typeid(transaction) == typeid(WireTransfer*)) {
+    else if (typeid(*transaction) == typeid(WireTransfer)) {
         auto wireTransfer = dynamic_cast<const WireTransfer*>(transaction);
         cout << "- Recipient: " << wireTransfer->getRecipient().first << ", " << wireTransfer->getRecipient().second << endl;
         cout << "- Sender: " << wireTransfer->getSender().first << ", " << wireTransfer->getSender().second << endl;
         cout << "- Reason of payment: " << wireTransfer->getReasonOfPayment() << endl;
     }
+    else if (typeid(*transaction) == typeid(Transaction))
+        cout << "Nothing more to show." << endl;
 
 }

@@ -93,8 +93,10 @@ void AlertsManagerView::showSpecificAlert(const string &object) {
     pair<bool,const Alert*> searchResult = alertsManager.returnSpecific(object);
 
     if (searchResult.first) {
-        if (wantToSetAsRead())
-            setAsRead(object);
+        if (!searchResult.second->isRead()) {
+            if (wantToSetAsRead())
+                setAsRead(object);
+        }
 
         if (wantToSaveAsFile())
             saveAsFile(object);

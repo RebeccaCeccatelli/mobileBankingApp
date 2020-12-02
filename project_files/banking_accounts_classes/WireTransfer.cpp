@@ -5,6 +5,7 @@
 #include "WireTransfer.h"
 
 #include <fstream>
+#include <algorithm>
 
 void WireTransfer::setRecipient(string name, string IBAN) {
     recipient.first = move(name);
@@ -17,8 +18,13 @@ void WireTransfer::setSender(string name, string IBAN) {
 }
 
 void WireTransfer::serializeInReadableFormat(const string &cname) const {
+    string date = getDate();
+    replace(date.begin(),date.end(),*" ",*"_");
+    auto newEnd = remove_if(date.begin(),date.end(),[](char c){return (c == '/'|| c == ':');});
+    date.erase(newEnd,date.end());
+
     string path = "../saved_files/" + cname + "/banking_accounts/b_account" + sender.second
-            + "/transactions/w_transfer" + getDate();
+            + "/transactions/w_transfer" + date;
 
     ofstream oFile(path);
     oFile << "*** Wire transfer *** " << "\n\n- Amount: " << getAmount() << "\n- Sender: " << sender.first

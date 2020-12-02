@@ -10,7 +10,7 @@
 
 class BankingAccountView : public InputManager {
 public:
-    BankingAccountView(BankingAccount *bAccount) : bankingAccount{bAccount} {}
+    explicit BankingAccountView(BankingAccount* bAccount) : bankingAccount{bAccount} {}
 
     virtual ~BankingAccountView() = default;
 

@@ -151,7 +151,7 @@ string ChargeCardView::insertFilter(const string& request) {
     if (request == FILTER_DATE)
         cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
     else if (request == FILTER_CATEGORY)
-        cout << "Please, insert a category between '...', '...': " << endl; //inserire categorie alla fine FIXME
+        cout << "Please, insert a category between:\ntransports, food, telephony, fuel, taxes, general, clothing, sports, health, restaurants, freetime. " << endl;
     auto filter = getStringInput();
 
     return filter;

@@ -39,9 +39,9 @@ bool BankingAccount::createPhoneRecharge(const tuple<string, string, int> &userI
 bool BankingAccount::subtractAmount(int amount, bool commissions) {
     bool available = false;
     if(commissions)
-        amount += COMMISSIONS;
+        amount -= COMMISSIONS;
     if (amount <= totalDepositAmount) {
-        totalDepositAmount -= amount;
+        totalDepositAmount += amount;
         available = true;
     }
     return available;
@@ -85,9 +85,8 @@ void BankingAccount::addWireTransferToTransactions(const tuple<string, string, s
     wireTransfer->setRecipient(get<1>(userInformations),get<0>(userInformations));
     wireTransfer->setReasonOfPayment(get<2>(userInformations));
 
-    transactions.emplace(wireTransfer->getDate(),wireTransfer);
-
     wireTransfer->serializeInReadableFormat(accountHolder);
+    transactions.emplace(wireTransfer->getDate(),wireTransfer);
 }
 
 void BankingAccount::serializeInReadableFormat() const {
