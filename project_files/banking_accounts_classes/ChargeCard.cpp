@@ -68,8 +68,8 @@ pair<string, string> ChargeCard::getAssociatedBankingAccount() const {
 
 void ChargeCard::serializeInReadableFormat() const {
     string path = "../saved_files/" + associatedBankingAccount.first + "/banking_accounts/b_account"
-        + associatedBankingAccount.second + "charge_cards/info_card" + cardNumber;
-    fstream oFile(path);
+        + associatedBankingAccount.second + "/charge_cards/info_card" + cardNumber;
+    ofstream oFile(path);
 
     oFile << "- Card number: " << cardNumber << "\n- Type: ";
     if(cardType == CardType::debit)
