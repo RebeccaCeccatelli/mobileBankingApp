@@ -36,7 +36,7 @@ public:
     bool isActive() const;
     pair<int, int> getLimits() const;
     pair<string,string> getAssociatedBankingAccount() const;
-    const string& getLatestTransaction() const;
+    string getLatestTransaction() const;
     bool setLimit(int newLimit);
     void changeState();
 

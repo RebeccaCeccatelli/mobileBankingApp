@@ -34,8 +34,13 @@ void ChargeCard::changeState() {
     active = !active;
 }
 
-const string &ChargeCard::getLatestTransaction() const {
-    return relatedCardTransactions.crbegin()->first;
+string ChargeCard::getLatestTransaction() const {
+    string latestTransaction;
+    if (!relatedCardTransactions.empty())
+        latestTransaction = relatedCardTransactions.crbegin()->first;
+    else
+        latestTransaction = "no transactions";
+    return latestTransaction;
 }
 
 vector<const CardTransaction *> ChargeCard::returnSelected(RequestedTransactions request, const string& filter) {

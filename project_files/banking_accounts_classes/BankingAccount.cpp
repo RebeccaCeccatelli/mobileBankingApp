@@ -18,7 +18,12 @@ map<string,ChargeCard> *BankingAccount::getChargeCardsList() {
 tuple<string, string, int,string> BankingAccount::getDetailedInformations() const {
     int numberOfCards = chargeCards.size();
     string creationDate = dateSetter.getDate();
-    string latestTransaction = transactions.crbegin()->first;
+    string latestTransaction;
+    if (!transactions.empty())
+        latestTransaction = transactions.crbegin()->first;
+    else
+        latestTransaction = "no transactions";
+
     return make_tuple(accountHolder,move(creationDate),numberOfCards,move(latestTransaction));
 }
 
