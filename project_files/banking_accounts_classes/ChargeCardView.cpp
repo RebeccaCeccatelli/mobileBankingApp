@@ -11,7 +11,6 @@
 
 using namespace utilityFunctions;
 
-const string ChargeCardView::BACK = "0";
 const string ChargeCardView::INFOS = "1";
 const string ChargeCardView::TRANSACTIONS = "2";
 const string ChargeCardView::LIMIT = "3";

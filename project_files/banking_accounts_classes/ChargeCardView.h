@@ -33,7 +33,6 @@ private:
     ChargeCard* chargeCard{nullptr};
 
     //class constants
-    static const string BACK;
     static const string INFOS;
     static const string TRANSACTIONS;
     static const string LIMIT;

@@ -28,7 +28,6 @@ public:
     const string& getCategory() const;
     const string& getDescription() const;
     bool isProcessed() const;
-    virtual void setAmount(int amount);
 
     const string& getDate() const;
     bool isSpecificCategory(const string& filter) const;

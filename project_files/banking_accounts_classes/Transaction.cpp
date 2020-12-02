@@ -6,11 +6,6 @@
 
 using namespace std;
 
-
-void Transaction::setAmount(int amount) {
-    amountToTransfer = amount;
-}
-
 const string &Transaction::getDate() const {
     return dateSetter.getDate();
 }
@@ -44,5 +39,3 @@ bool Transaction::isSpecificDate(const string &filter) const {
 const string &Transaction::getDescription() const {
     return description;
 }
-
-
