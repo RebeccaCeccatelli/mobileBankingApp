@@ -51,7 +51,7 @@ bool BankingAccountsManagerView::isCorrectInput(const string &input) {
 }
 
 void BankingAccountsManagerView::pullFromServer() {
-    ifstream iFile("../server/" + clientName + "/banking_accounts");
+    ifstream iFile("../server/" + clientName + "/banking_accounts.txt");
     text_iarchive ia(iFile);
     ia >> *this;
     iFile.close();
@@ -63,7 +63,7 @@ void BankingAccountsManagerView::setClientName(const string &cname) {
 
 void BankingAccountsManagerView::updateServer() const {
     cout << "Updating server... " << endl;
-    ofstream oFile("../server/" + clientName + "/banking_accounts");
+    ofstream oFile("../server/" + clientName + "/banking_accounts.txt");
     text_oarchive oa(oFile);
     oa << *this;
     oFile.close();
