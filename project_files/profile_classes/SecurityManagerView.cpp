@@ -14,7 +14,6 @@ using namespace utilityFunctions;
 
 const string SecurityManagerView::DIGITAL_KEY = "1";
 const string SecurityManagerView::SECURITY_QUESTION = "2";
-const string SecurityManagerView::BACK = "0";
 
 void SecurityManagerView::serialize(const string &name) const {
     securityManager.serialize(name);

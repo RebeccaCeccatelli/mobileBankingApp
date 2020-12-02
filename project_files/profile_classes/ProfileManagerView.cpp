@@ -13,7 +13,6 @@ using namespace std;
 const string ProfileManagerView::PROFILE = "1";
 const string ProfileManagerView::SECURITY_SETTINGS = "2";
 const string ProfileManagerView::BANK_BRANCH = "3";
-const string ProfileManagerView::BACK = "0";
 
 void ProfileManagerView::setClientName(const string &cname) {
     clientName = cname;

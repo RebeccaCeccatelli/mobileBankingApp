@@ -17,7 +17,6 @@ const string ProfileView::ADDRESS = "2";
 const string ProfileView::EMAIL = "3";
 const string ProfileView::TEL_NUMBER = "4";
 const string ProfileView::NEWSLETTER = "5";
-const string ProfileView::BACK = "0";
 
 void ProfileView::serialize(const string &name) const {
     profile.serialize(name);

@@ -16,14 +16,8 @@ const string BankingAccountView::INFOS = "1";
 const string BankingAccountView::CARDS = "2";
 const string BankingAccountView::TRANSACTIONS = "3";
 const string BankingAccountView::NEW = "4";
-const string BankingAccountView::BACK = "0";
 const string BankingAccountView::WIRE_TRANSFER = "t";
 const string BankingAccountView::RECHARGE = "r";
-const string BankingAccountView::YES = "yes";
-const string BankingAccountView::NO = "no";
-const string BankingAccountView::SORT_BY_DATE = "sd";
-const string BankingAccountView::FILTER_DATE = "fd";
-const string BankingAccountView::FILTER_CATEGORY = "fc";
 
 void BankingAccountView::display() {
     cout << endl << "*** Banking account " << bankingAccount->getIban()
@@ -175,38 +169,6 @@ tuple<string, string, string, int> BankingAccountView::gatherWireTransferInfo() 
     get<3>(userInformations) = -getNumInput();
 
     return userInformations;
-}
-
-bool BankingAccountView::wantToSaveAsFile() {
-    cout << "Do you want to save these informations in a readable format in your saved files?" << endl;
-    string input = getStringInput();
-
-    if (input == YES)
-        return true;
-    if (input == NO)
-        return false;
-    else {
-        cout << "Your input is not correct. Try again. " << endl;
-        return wantToSaveAsFile();
-    }
-}
-
-string BankingAccountView::decideSortingLogic() {
-    cout << endl << "- Sort all by date (sd). "  << endl << "- Filter by requested date (fd). " << endl <<
-         "- Filter by category (fc). " << endl << "- Go back (0). " << endl;
-    string input = getStringInput();
-
-    return input;
-}
-
-string BankingAccountView::insertFilter(const string& request) {
-    if (request == FILTER_DATE)
-        cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
-    else if (request == FILTER_CATEGORY)
-        cout << "Please, insert a category between:\ntransports, food, telephony, fuel, taxes, general, clothing, sports, health, restaurants, freetime. " << endl;
-    auto filter = getStringInput();
-
-    return filter;
 }
 
 void BankingAccountView::showList(const vector<Transaction *> &selectedTransactions) {

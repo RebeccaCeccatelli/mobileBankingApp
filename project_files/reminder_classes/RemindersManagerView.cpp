@@ -17,9 +17,6 @@ const string RemindersManagerView::DISPLAY_ALL = "1";
 const string RemindersManagerView::DISPLAY_SPECIFIC = "2";
 const string RemindersManagerView::CREATE = "3";
 const string RemindersManagerView::REMOVE = "4";
-const string RemindersManagerView::BACK = "0";
-const string RemindersManagerView::YES = "yes";
-const string RemindersManagerView::NO = "no";
 
 void RemindersManagerView::setClientName(const string &cname) {
     remindersManager.setClientName(cname);

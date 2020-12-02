@@ -12,8 +12,6 @@
 using namespace std;
 using namespace utilityFunctions;
 
-const string BankingAccountsManagerView::BACK = "0";
-
 void BankingAccountsManagerView::display() {
     pullFromServer();
 

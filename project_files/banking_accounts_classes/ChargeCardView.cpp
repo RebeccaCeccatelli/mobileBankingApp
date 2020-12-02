@@ -16,11 +16,6 @@ const string ChargeCardView::INFOS = "1";
 const string ChargeCardView::TRANSACTIONS = "2";
 const string ChargeCardView::LIMIT = "3";
 const string ChargeCardView::STATE = "4";
-const string ChargeCardView::SORT_BY_DATE = "sd";
-const string ChargeCardView::FILTER_DATE = "fd";
-const string ChargeCardView::FILTER_CATEGORY = "fc";
-const string ChargeCardView::YES = "yes";
-const string ChargeCardView::NO = "no";
 
 void ChargeCardView::display() {
     cout << endl << "*** Card number: " << chargeCard->getNumberAndType().first
@@ -147,34 +142,3 @@ void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransact
         cout << "still not processed " << endl;
 }
 
-string ChargeCardView::insertFilter(const string& request) {
-    if (request == FILTER_DATE)
-        cout << "Please, insert a specific date in format mm/dd/yy: " << endl;
-    else if (request == FILTER_CATEGORY)
-        cout << "Please, insert a category between:\ntransports, food, telephony, fuel, taxes, general, clothing, sports, health, restaurants, freetime. " << endl;
-    auto filter = getStringInput();
-
-    return filter;
-}
-
-string ChargeCardView::decideSortingLogic() {
-    cout << endl << "- Sort all by date (sd). "  << endl << "- Filter by requested date (fd). " << endl <<
-         "- Filter by category (fc). " << endl << "- Go back (0). " << endl;
-    string input = getStringInput();
-
-    return input;
-}
-
-bool ChargeCardView::wantToSaveAsFile() {
-    cout << "Do you want to save these informations in a readable format in your saved files?" << endl;
-    string input = getStringInput();
-
-    if (input == YES)
-        return true;
-    if (input == NO)
-        return false;
-    else {
-        cout << "Your input is not correct. Try again. " << endl;
-        return wantToSaveAsFile();
-    }
-}

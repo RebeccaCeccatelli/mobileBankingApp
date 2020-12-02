@@ -16,6 +16,19 @@ namespace utilityFunctions {
     string getStringInput();
     int getNumInput();
     string getLineInput();
+
+    //used by BankingAccountView and ChargeCardView
+    bool wantToSaveAsFile();
+    string decideSortingLogic();
+    string insertFilter(const string& request);
+
+    static const string BACK = "0";
+    static const string YES = "yes";
+    static const string NO = "no";
+    static const string SORT_BY_DATE = "sd";
+    static const string FILTER_DATE = "fd";
+    static const string FILTER_CATEGORY = "fc";
+
 }
 
 #endif //MOBILE_BANKING_APP_UTILITYFUNCTIONS_H

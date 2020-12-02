@@ -39,7 +39,6 @@ private:
     static const string PROFILE;
     static const string SECURITY_SETTINGS;
     static const string BANK_BRANCH;
-    static const string BACK;
 };
 
 

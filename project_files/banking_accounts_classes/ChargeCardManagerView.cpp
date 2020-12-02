@@ -10,8 +10,6 @@
 using namespace utilityFunctions;
 using namespace std;
 
-const string ChargeCardManagerView::BACK = "0";
-
 void ChargeCardManagerView::display() {
     cout << endl << "*** List of associated cards. ***" << endl;
     if (chargeCards->empty())

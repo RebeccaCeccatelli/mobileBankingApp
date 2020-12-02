@@ -40,9 +40,6 @@ private:
     map<string,BankingAccount> bankingAccounts;
 
     string clientName;
-
-    //class constant
-    static const string BACK;
 };
 
 

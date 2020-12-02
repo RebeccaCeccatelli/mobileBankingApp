@@ -48,9 +48,6 @@ private:
     static const string DISPLAY_SPECIFIC;
     static const string SAVE;
     static const string SET_READ;
-    static const string BACK;
-    static const string YES;
-    static const string NO;
 };
 
 

@@ -20,9 +20,6 @@ const string AlertsManagerView::DISPLAY_UNREAD = "4";
 const string AlertsManagerView::DISPLAY_SPECIFIC = "5";
 const string AlertsManagerView::SAVE = "6";
 const string AlertsManagerView::SET_READ = "7";
-const string AlertsManagerView::BACK = "0";
-const string AlertsManagerView::YES = "yes";
-const string AlertsManagerView::NO = "no";
 
 void AlertsManagerView::setClientName(const string &cname) {
     alertsManager.setClientName(cname);

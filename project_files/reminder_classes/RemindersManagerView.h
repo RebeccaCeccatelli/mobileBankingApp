@@ -46,9 +46,6 @@ private:
     static const string DISPLAY_SPECIFIC;
     static const string CREATE;
     static const string REMOVE;
-    static const string BACK;
-    static const string YES;
-    static const string NO;
 };
 
 #endif //MOBILE_BANKING_APP_REMINDERSMANAGERVIEW_H

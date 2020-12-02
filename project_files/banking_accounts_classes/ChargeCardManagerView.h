@@ -26,8 +26,6 @@ private:
 
     //attribute
     map<string,ChargeCard>* chargeCards{nullptr};
-    //class constant
-    static const string BACK;
 };
 
 

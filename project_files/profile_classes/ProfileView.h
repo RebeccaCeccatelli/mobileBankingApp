@@ -33,7 +33,6 @@ private:
     static const string EMAIL;
     static const string TEL_NUMBER;
     static const string NEWSLETTER;
-    static const string BACK;
 };
 
 
