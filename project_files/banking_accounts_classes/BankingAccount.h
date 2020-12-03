@@ -38,6 +38,7 @@ public:
 
     vector<Transaction*> returnSelected(RequestedTransactions request, const string& filter = "") const;
 
+    void setDeposit(int newDeposit); //helper for unit testing
 private:
     friend class boost::serialization::access;
 

@@ -40,7 +40,7 @@ bool BankingAccount::subtractAmount(int amount, bool commissions) {
     bool available = false;
     if(commissions)
         amount -= COMMISSIONS;
-    if (amount <= totalDepositAmount) {
+    if (abs(amount) <= totalDepositAmount) {
         totalDepositAmount += amount;
         available = true;
     }
@@ -118,4 +118,8 @@ vector<Transaction *> BankingAccount::returnSelected(RequestedTransactions reque
     }
 
     return list;
+}
+
+void BankingAccount::setDeposit(int newDeposit) {
+    totalDepositAmount = newDeposit;
 }
