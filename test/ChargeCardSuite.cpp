@@ -12,7 +12,7 @@
 class ChargeCardSuite : public testing::Test{
 protected:
     virtual void SetUp(){
-        ifstream iFile("/home/rebecca/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/test/card");
+        ifstream iFile("/home/rebecca/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/test/files_for_testing/chargeCard.txt");
         text_iarchive ia(iFile);
         ia >> chargeCard;
         iFile.close();
