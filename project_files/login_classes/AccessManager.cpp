@@ -13,7 +13,7 @@ using namespace std;
 const string AccessManager::NO = "no";
 
 AccessManager::AccessManager() {
-    ifstream iFile("../server/existing_accounts");
+    ifstream iFile("/home/rebecca/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/server/existing_accounts");
     text_iarchive ia(iFile);
     ia >> *this;
     iFile.close();
