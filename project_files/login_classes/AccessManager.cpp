@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <boost/archive/text_iarchive.hpp>
 
 using namespace std;
 

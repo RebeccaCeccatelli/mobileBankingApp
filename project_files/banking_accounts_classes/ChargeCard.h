@@ -6,10 +6,8 @@
 #define MOBILE_BANKING_APP_CHARGECARD_H
 
 #include <string>
-#include <map>
 #include <vector>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <map>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/map.hpp>
 
@@ -32,20 +30,21 @@ enum class RequestedTransactions {
 
 class ChargeCard {
 public:
-    pair<string,CardType> getNumberAndType() const;
-    bool isActive() const;
-    pair<int, int> getLimits() const;
-    pair<string,string> getAssociatedBankingAccount() const;
-    string getLatestTransaction() const;
     bool setLimit(int newLimit);
     void changeState();
 
-    void serializeInReadableFormat() const;
+    pair<string,string> getAssociatedBankingAccount() const;
+    pair<string,CardType> getNumberAndType() const;
+    pair<int, int> getLimits() const;
+    string getLatestTransaction() const;
+    bool isActive() const;
 
     vector<const CardTransaction*> returnSelected(RequestedTransactions request, const string& filter = "");
+
+    void serializeInReadableFormat() const;
+
 private:
     friend class boost::serialization::access;
-
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & cardNumber;
@@ -57,17 +56,17 @@ private:
         ar & associatedBankingAccount.second;
     }
 
+    //attributes
     string cardNumber;
     CardType cardType;
     bool active{true};
     int monthlyLimit{500};
-    pair<string,string> associatedBankingAccount; //first name, second iban
+    pair<string,string> associatedBankingAccount; //name,iban
 
     map<string,CardTransaction,Compare> relatedCardTransactions;
 
     //class constant
     static const int MAX_LIMIT;
 };
-
 
 #endif //MOBILE_BANKING_APP_CHARGECARD_H

@@ -7,8 +7,6 @@
 
 #include <list>
 #include <string>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
 
 #include "PersonalAreaView.h"
@@ -27,7 +25,6 @@ public:
 
 private:
     friend class boost::serialization::access;
-
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & acceptableCredentials.first;

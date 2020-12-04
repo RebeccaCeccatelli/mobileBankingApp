@@ -7,9 +7,8 @@
 #include <fstream>
 #include <algorithm>
 
-void PhoneRecharge::setRecipient(string mobOperator, string num) {
-    mobileOperator = move(mobOperator);
-    telephoneNumber = move(num);
+pair<string, string> PhoneRecharge::getRecipient() const {
+    return make_pair(mobileOperator,telephoneNumber);
 }
 
 void PhoneRecharge::serializeInReadableFormat(const string &pathInfo) const {
@@ -26,7 +25,7 @@ void PhoneRecharge::serializeInReadableFormat(const string &pathInfo) const {
     oFile.close();
 }
 
-pair<string, string> PhoneRecharge::getRecipient() const {
-    return make_pair(mobileOperator,telephoneNumber);
+void PhoneRecharge::setRecipient(string mobOperator, string num) {
+    mobileOperator = move(mobOperator);
+    telephoneNumber = move(num);
 }
-

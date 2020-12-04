@@ -33,7 +33,7 @@ private:
     SecurityManagerView securityManagerView;
 
     string clientName;
-    bool first{true};    //rendere più chiaro l'uso di questo booleano FIXME
+    bool firstPull{true};
 
     //class constants
     static const string PROFILE;

@@ -5,7 +5,9 @@
 #include "ChargeCardManagerView.h"
 
 #include <iostream>
+
 #include "../general_purpose_classes/utilityFunctions.h"
+#include "ChargeCardView.h"
 
 using namespace utilityFunctions;
 using namespace std;
@@ -27,6 +29,7 @@ void ChargeCardManagerView::display() {
     cout << "Enter the corresponding number to see further details, (0) to go back: " << endl;
     manageInput(getStringInput());
 }
+
 bool ChargeCardManagerView::isCorrectInput(const string &input) {
     bool correct = true;
     if (input == BACK)
@@ -43,5 +46,3 @@ bool ChargeCardManagerView::isCorrectInput(const string &input) {
 
     return correct;
 }
-
-

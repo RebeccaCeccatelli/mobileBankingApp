@@ -8,18 +8,6 @@
 
 const int ChargeCard::MAX_LIMIT = 10000;
 
-pair<string, CardType> ChargeCard::getNumberAndType() const {
-    return make_pair(cardNumber,cardType);
-}
-
-bool ChargeCard::isActive() const {
-    return active;
-}
-
-pair<int, int> ChargeCard::getLimits() const {
-    return make_pair(monthlyLimit,MAX_LIMIT);
-}
-
 bool ChargeCard::setLimit(int newLimit) {
     bool acceptable = false;
 
@@ -34,6 +22,18 @@ void ChargeCard::changeState() {
     active = !active;
 }
 
+pair<string, string> ChargeCard::getAssociatedBankingAccount() const {
+    return associatedBankingAccount;
+}
+
+pair<string, CardType> ChargeCard::getNumberAndType() const {
+    return make_pair(cardNumber,cardType);
+}
+
+pair<int, int> ChargeCard::getLimits() const {
+    return make_pair(monthlyLimit,MAX_LIMIT);
+}
+
 string ChargeCard::getLatestTransaction() const {
     string latestTransaction;
     if (!relatedCardTransactions.empty())
@@ -41,6 +41,10 @@ string ChargeCard::getLatestTransaction() const {
     else
         latestTransaction = "no transactions";
     return latestTransaction;
+}
+
+bool ChargeCard::isActive() const {
+    return active;
 }
 
 vector<const CardTransaction *> ChargeCard::returnSelected(RequestedTransactions request, const string& filter) {
@@ -60,10 +64,6 @@ vector<const CardTransaction *> ChargeCard::returnSelected(RequestedTransactions
     }
 
     return list;
-}
-
-pair<string, string> ChargeCard::getAssociatedBankingAccount() const {
-    return associatedBankingAccount;
 }
 
 void ChargeCard::serializeInReadableFormat() const {

@@ -7,14 +7,30 @@
 #include <fstream>
 #include <algorithm>
 
+void WireTransfer::setSender(string name, string IBAN) {
+    sender.first = move(name);
+    sender.second = move(IBAN);
+}
+
 void WireTransfer::setRecipient(string name, string IBAN) {
     recipient.first = move(name);
     recipient.second = move(IBAN);
 }
 
-void WireTransfer::setSender(string name, string IBAN) {
-    sender.first = move(name);
-    sender.second = move(IBAN);
+void WireTransfer::setReasonOfPayment(string reason) {
+    reasonOfPayment = move(reason);
+}
+
+const pair<string, string> &WireTransfer::getSender() const {
+    return sender;
+}
+
+const pair<string, string> &WireTransfer::getRecipient() const {
+    return recipient;
+}
+
+const string &WireTransfer::getReasonOfPayment() const {
+    return reasonOfPayment;
 }
 
 void WireTransfer::serializeInReadableFormat(const string &cname) const {
@@ -32,20 +48,3 @@ void WireTransfer::serializeInReadableFormat(const string &cname) const {
         << "\n- Reason of payment: " << reasonOfPayment << "\n- Date: " << getDate();
     oFile.close();
 }
-
-const pair<string, string> &WireTransfer::getRecipient() const {
-    return recipient;
-}
-
-const pair<string, string> &WireTransfer::getSender() const {
-    return sender;
-}
-
-const string &WireTransfer::getReasonOfPayment() const {
-    return reasonOfPayment;
-}
-
-void WireTransfer::setReasonOfPayment(string reason) {
-    reasonOfPayment = move(reason);
-}
-

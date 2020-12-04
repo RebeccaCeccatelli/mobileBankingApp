@@ -19,14 +19,14 @@ void ProfileManagerView::setClientName(const string &cname) {
 }
 
 void ProfileManagerView::pullFromServer() {
-    if (first) {
+    if (firstPull) {
         string directoryPath = "../server/" + clientName + "/profile/";
 
         profileView.deserialize(directoryPath + "personal_informations");
         securityManagerView.deserialize(directoryPath + "security_settings");
         bankBranch = BankBranchView::deserialize(directoryPath + "bank_branch");
 
-        first = false;
+        firstPull = false;
     }
 }
 
@@ -35,7 +35,7 @@ void ProfileManagerView::updateServer(){
     profileView.serialize(clientName);
     securityManagerView.serialize(clientName);
 
-    first = true;
+    firstPull = true;
 }
 
 void ProfileManagerView::display() {

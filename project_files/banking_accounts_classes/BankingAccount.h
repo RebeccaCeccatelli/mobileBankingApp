@@ -5,15 +5,12 @@
 #ifndef MOBILE_BANKING_APP_BANKINGACCOUNT_H
 #define MOBILE_BANKING_APP_BANKINGACCOUNT_H
 
-#include <map>
 #include <string>
+#include <map>
 #include <boost/serialization/string.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/map.hpp>
 
 #include "Transaction.h"
-#include "ChargeCardManagerView.h"
 #include "ChargeCard.h"
 #include "WireTransfer.h"
 #include "PhoneRecharge.h"
@@ -25,23 +22,23 @@ using namespace boost::archive;
 
 class BankingAccount {
 public:
-    const string& getIban() const;
-    int getDeposit() const;
     tuple<string,string,int,string> getDetailedInformations() const;
     map<string,ChargeCard>* getChargeCardsList();
-
-    bool createPhoneRecharge(const tuple<string, string, int> &userInformations);
-    bool createWireTransfer(const tuple<string, string, string, int> &userInformations);
-    bool isLowDeposit() const;
-
-    void serializeInReadableFormat() const;
+    const string& getIban() const;
+    int getDeposit() const;
 
     vector<Transaction*> returnSelected(RequestedTransactions request, const string& filter = "") const;
 
-    void setDeposit(int newDeposit); //helper for unit testing
-private:
-    friend class boost::serialization::access;
+    bool createPhoneRecharge(const tuple<string, string, int> &userInformations);
+    bool createWireTransfer(const tuple<string, string, string, int> &userInformations);
 
+    bool isLowDeposit() const;
+    void serializeInReadableFormat() const;
+
+    void setDeposit(int newDeposit); //method added to facilitate unit testing
+private:
+
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & dateSetter;
@@ -62,6 +59,7 @@ private:
     void addPhoneRechargeToTransactions(const tuple<string, string, int> &userInformations);
     void addWireTransferToTransactions(const tuple<string, string, string, int> &userInformations);
 
+    //attributes
     string IBAN;
     int totalDepositAmount;
     string accountHolder;

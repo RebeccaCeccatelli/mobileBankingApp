@@ -6,11 +6,8 @@
 #define MOBILE_BANKING_APP_CARDTRANSACTION_H
 
 #include <string>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/base_object.hpp>
-#include <boost/serialization/export.hpp>
 
 #include "Transaction.h"
 
@@ -25,21 +22,23 @@ enum class Categorization {
 class CardTransaction : public Transaction {
 public:
     friend class ChargeCardView;
-    friend class boost::serialization::access;
 
     const string& getCardNumber() const;
     const string& getLocation() const;
     string getCategorization() const;
 
 private:
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & boost::serialization::base_object<Transaction>(*this);
+
         ar & cardNumber;
         ar & detectedLocation;
         ar & categorization;
     }
 
+    //attributes
     string cardNumber;
     string detectedLocation;
     Categorization categorization;

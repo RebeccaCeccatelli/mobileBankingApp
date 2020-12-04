@@ -6,19 +6,16 @@
 
 using namespace std;
 
+int Transaction::getAmount() const {
+    return amountToTransfer;
+}
+
 const string &Transaction::getDate() const {
     return dateSetter.getDate();
 }
 
-bool Transaction::isSpecificCategory(const string &filter) const {
-    if (filter == category)
-        return true;
-    else
-        return false;
-}
-
-int Transaction::getAmount() const {
-    return amountToTransfer;
+const string &Transaction::getDescription() const {
+    return description;
 }
 
 const string &Transaction::getCategory() const {
@@ -36,6 +33,9 @@ bool Transaction::isSpecificDate(const string &filter) const {
         return false;
 }
 
-const string &Transaction::getDescription() const {
-    return description;
+bool Transaction::isSpecificCategory(const string &filter) const {
+    if (filter == category)
+        return true;
+    else
+        return false;
 }

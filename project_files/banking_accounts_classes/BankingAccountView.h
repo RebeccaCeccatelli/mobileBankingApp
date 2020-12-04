@@ -11,7 +11,6 @@
 class BankingAccountView : public InputManager {
 public:
     explicit BankingAccountView(BankingAccount* bAccount) : bankingAccount{bAccount} {}
-
     virtual ~BankingAccountView() = default;
 
 private:
@@ -20,20 +19,20 @@ private:
 
     //helper methods
     void displayDetailedInformations() const;
+
     void displayTransactions() const;
+    static void showList(const vector<Transaction *> &selectedTransactions);
+    static void showTransactionGeneralities(const Transaction* transaction);
+    static int goForFurtherDetails(int count);
+    static void showTransactionDetails(const Transaction* transaction);
+
     void createTransaction();
-    void createWireTransfer();
     void createPhoneRecharge();
-    void notifyIfLowDeposit();
+    void createWireTransfer();
     static tuple<string,string,int> gatherPhoneRechargeInfo();
     static tuple<string,string,string,int> gatherWireTransferInfo();
 
-    static void showList(const vector<Transaction *> &selectedTransactions);
-    static void showTransactionGeneralities(const Transaction* transaction);
-    static void showTransactionDetails(const Transaction* transaction);
-    static int goForFurtherDetails(int count);
-
-
+    void notifyIfLowDeposit();
 
     //attribute
     BankingAccount* bankingAccount{nullptr};

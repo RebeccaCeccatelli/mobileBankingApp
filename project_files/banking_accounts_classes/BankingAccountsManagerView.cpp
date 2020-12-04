@@ -6,11 +6,18 @@
 
 #include <iostream>
 #include <fstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 #include "../general_purpose_classes/utilityFunctions.h"
+#include "BankingAccountView.h"
 
 using namespace std;
 using namespace utilityFunctions;
+
+void BankingAccountsManagerView::setClientName(const string &cname) {
+    clientName = cname;
+}
 
 void BankingAccountsManagerView::display() {
     pullFromServer();
@@ -53,10 +60,6 @@ void BankingAccountsManagerView::pullFromServer() {
     text_iarchive ia(iFile);
     ia >> *this;
     iFile.close();
-}
-
-void BankingAccountsManagerView::setClientName(const string &cname) {
-    clientName = cname;
 }
 
 void BankingAccountsManagerView::updateServer() const {

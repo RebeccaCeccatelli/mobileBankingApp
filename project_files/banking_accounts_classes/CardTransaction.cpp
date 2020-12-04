@@ -15,7 +15,7 @@ const string &CardTransaction::getLocation() const {
 string CardTransaction::getCategorization() const {
     string cat;
     if (categorization == Categorization::withdrawal)
-        cat = "withdrawal ";
+        cat = "withdrawal";
     else
         cat = "payment";
     return cat;

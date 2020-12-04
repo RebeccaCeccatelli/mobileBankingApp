@@ -23,11 +23,13 @@ private:
 
     //helper methods
     void displayDetailedInformations() const;
+
     void displayTransactions() const;
-    void modifyMaximumLimit();
-    void changeCardState();
     static void showList(const vector<const CardTransaction *> &selectedTransactions);
     static void showSpecificTransaction(const CardTransaction* cardTransaction);
+
+    void modifyMaximumLimit();
+    void changeCardState();
 
     //attribute
     ChargeCard* chargeCard{nullptr};
@@ -38,6 +40,5 @@ private:
     static const string LIMIT;
     static const string STATE;
 };
-
 
 #endif //MOBILE_BANKING_APP_CHARGECARDVIEW_H

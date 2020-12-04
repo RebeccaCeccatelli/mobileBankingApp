@@ -104,6 +104,24 @@ void ChargeCardView::showList(const vector<const CardTransaction *> &selectedTra
     }
 }
 
+void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransaction){
+    cout << "- Amount: " << cardTransaction->getAmount() << " euros ";
+    if (signbit(cardTransaction->getAmount()))
+        cout << " (outflow)";
+    else
+        cout << " (income)";
+    if (cardTransaction->categorization == Categorization::payment)
+        cout << " || Payment || ";
+    else
+        cout << " || Withdrawal || ";
+    cout << "Time: " << cardTransaction->getDate() << ", Place: "
+         << cardTransaction->detectedLocation << " || " << cardTransaction->getCategory() << " || ";
+    if (cardTransaction->isProcessed())
+        cout << " processed " << endl;
+    else
+        cout << "still not processed " << endl;
+}
+
 void ChargeCardView::modifyMaximumLimit() {
     cout << "Your actual limit: " << chargeCard->getLimits().first << ". Maximum acceptable limit: " <<
     chargeCard->getLimits().second << "." << endl;
@@ -122,22 +140,3 @@ void ChargeCardView::changeCardState() {
 
     chargeCard->changeState();
 }
-
-void ChargeCardView::showSpecificTransaction(const CardTransaction *cardTransaction){
-    cout << "- Amount: " << cardTransaction->getAmount() << " euros ";
-    if (signbit(cardTransaction->getAmount()))
-        cout << " (outflow)";
-    else
-        cout << " (income)";
-    if (cardTransaction->categorization == Categorization::payment)
-        cout << " || Payment || ";
-    else
-        cout << " || Withdrawal || ";
-    cout << "Time: " << cardTransaction->getDate() << ", Place: "
-        << cardTransaction->detectedLocation << " || " << cardTransaction->getCategory() << " || ";
-    if (cardTransaction->isProcessed())
-        cout << " processed " << endl;
-    else
-        cout << "still not processed " << endl;
-}
-

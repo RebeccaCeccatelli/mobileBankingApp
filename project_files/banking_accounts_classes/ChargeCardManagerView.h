@@ -10,14 +10,12 @@
 
 #include "../general_purpose_classes/InputManager.h"
 #include "ChargeCard.h"
-#include "ChargeCardView.h"
 
 using namespace std;
 
 class ChargeCardManagerView : public InputManager {
 public:
     explicit ChargeCardManagerView(map<string,ChargeCard>* cards) : chargeCards{cards} {}
-
     ~ChargeCardManagerView() override = default;
 
 private:

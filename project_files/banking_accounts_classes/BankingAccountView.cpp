@@ -8,6 +8,7 @@
 #include <cmath>
 
 #include "../general_purpose_classes/utilityFunctions.h"
+#include "ChargeCardManagerView.h"
 
 using namespace utilityFunctions;
 using namespace std;
@@ -92,85 +93,6 @@ void BankingAccountView::displayTransactions() const {
     }
 }
 
-void BankingAccountView::createTransaction() {
-    cout << "*** New transaction. ***" << endl << "You can create a wire transfer (t) or a phone recharge (r). Choose one: ";
-    string input = getStringInput();
-    if (input == WIRE_TRANSFER)
-        createWireTransfer();
-    else if(input == RECHARGE)
-        createPhoneRecharge();
-    else{
-        cout << "Your input is not correct. Try again. " << endl;
-        createTransaction();
-    }
-}
-
-void BankingAccountView::createWireTransfer() {
-    auto userInformations = gatherWireTransferInfo();
-
-    if(bankingAccount->createWireTransfer(userInformations)){
-        cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
-        << bankingAccount->getDeposit() << " (2 euros of commissions). " << endl;
-        notifyIfLowDeposit();
-    }
-    else{
-        cout << "Wire transfer negated. You asked to recharge " << get<3>(userInformations)
-             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
-             << " euros. " << endl << "Not sufficient. " << endl;
-    }
-
-}
-
-void BankingAccountView::createPhoneRecharge() {
-    auto userInformations = gatherPhoneRechargeInfo();
-
-    if(bankingAccount->createPhoneRecharge(userInformations)){
-        cout << "Phone recharge successfully received and saved." << endl << "Your banking account deposit now is: "
-        << bankingAccount->getDeposit() << "." << endl;
-        notifyIfLowDeposit();
-    }
-    else {
-        cout << "Phone recharge negated. You asked to recharge " << get<2>(userInformations)
-             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
-             << " euros. " << endl << "Not sufficient. " << endl;
-    }
-}
-
-void BankingAccountView::notifyIfLowDeposit() {
-    if (bankingAccount->isLowDeposit())
-        cout << "Alert! Your deposit is lower than 50 euros now. " << endl;
-}
-
-tuple<string, string, int> BankingAccountView::gatherPhoneRechargeInfo() {
-    cout << "Creating new phone recharge... " << endl;
-    tuple<string, string, int> userInformations;
-
-    cout << "Insert mobile operator (type '/' to confirm): " << endl;
-    get<0>(userInformations) = getLineInput();
-    cout << "Insert telephone number to recharge (type '/' to confirm): " << endl;
-    get<1>(userInformations) = getLineInput();
-    cout << "Insert amount to recharge: " << endl;
-    get<2>(userInformations) = -getNumInput();
-
-    return userInformations;
-}
-
-tuple<string, string, string, int> BankingAccountView::gatherWireTransferInfo() {
-    cout << "Creating new wire transfer... " << endl;
-    tuple<string,string,string,int> userInformations;
-
-    cout << "Insert recipient's IBAN (type '/' to confirm): " << endl;
-    get<0>(userInformations) = getLineInput();
-    cout << "Insert recipient's full name (type '/' to confirm): " << endl;
-    get<1>(userInformations) = getLineInput();
-    cout << "Insert reason of payment (type '/' to confirm): " << endl;
-    get<2>(userInformations) = getLineInput();
-    cout << "Insert amount to transfer: " << endl;
-    get<3>(userInformations) = -getNumInput();
-
-    return userInformations;
-}
-
 void BankingAccountView::showList(const vector<Transaction *> &selectedTransactions) {
     if (selectedTransactions.empty())
         cout << "The list is empty. " << endl;
@@ -195,7 +117,7 @@ void BankingAccountView::showTransactionGeneralities(const Transaction *transact
     else
         cout << " (income)";
     cout << " || Type: " << transaction->getDescription() << " || Date: " << transaction->getDate()
-        << " || Category: " << transaction->getCategory() << " || ";
+         << " || Category: " << transaction->getCategory() << " || ";
     if (transaction->isProcessed())
         cout << " processed. " << endl;
     else
@@ -239,4 +161,83 @@ void BankingAccountView::showTransactionDetails(const Transaction *transaction) 
     else if (typeid(*transaction) == typeid(Transaction))
         cout << "Nothing more to show." << endl;
 
+}
+
+void BankingAccountView::createTransaction() {
+    cout << "*** New transaction. ***" << endl << "You can create a wire transfer (t) or a phone recharge (r). Choose one: ";
+    string input = getStringInput();
+    if (input == WIRE_TRANSFER)
+        createWireTransfer();
+    else if(input == RECHARGE)
+        createPhoneRecharge();
+    else{
+        cout << "Your input is not correct. Try again. " << endl;
+        createTransaction();
+    }
+}
+
+void BankingAccountView::createPhoneRecharge() {
+    auto userInformations = gatherPhoneRechargeInfo();
+
+    if(bankingAccount->createPhoneRecharge(userInformations)){
+        cout << "Phone recharge successfully received and saved." << endl << "Your banking account deposit now is: "
+             << bankingAccount->getDeposit() << "." << endl;
+        notifyIfLowDeposit();
+    }
+    else {
+        cout << "Phone recharge negated. You asked to recharge " << get<2>(userInformations)
+             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
+             << " euros. " << endl << "Not sufficient. " << endl;
+    }
+}
+
+void BankingAccountView::createWireTransfer() {
+    auto userInformations = gatherWireTransferInfo();
+
+    if(bankingAccount->createWireTransfer(userInformations)){
+        cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
+        << bankingAccount->getDeposit() << " (2 euros of commissions). " << endl;
+        notifyIfLowDeposit();
+    }
+    else{
+        cout << "Wire transfer negated. You asked to recharge " << get<3>(userInformations)
+             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
+             << " euros. " << endl << "Not sufficient. " << endl;
+    }
+
+}
+
+tuple<string, string, int> BankingAccountView::gatherPhoneRechargeInfo() {
+    cout << "Creating new phone recharge... " << endl;
+    tuple<string, string, int> userInformations;
+
+    cout << "Insert mobile operator (type '/' to confirm): " << endl;
+    get<0>(userInformations) = getLineInput();
+    cout << "Insert telephone number to recharge (type '/' to confirm): " << endl;
+    get<1>(userInformations) = getLineInput();
+    cout << "Insert amount to recharge: " << endl;
+    get<2>(userInformations) = -getNumInput();
+
+    return userInformations;
+}
+
+tuple<string, string, string, int> BankingAccountView::gatherWireTransferInfo() {
+    cout << "Creating new wire transfer... " << endl;
+    tuple<string,string,string,int> userInformations;
+
+    cout << "Insert recipient's IBAN (type '/' to confirm): " << endl;
+    get<0>(userInformations) = getLineInput();
+    cout << "Insert recipient's full name (type '/' to confirm): " << endl;
+    get<1>(userInformations) = getLineInput();
+    cout << "Insert reason of payment (type '/' to confirm): " << endl;
+    get<2>(userInformations) = getLineInput();
+    cout << "Insert amount to transfer: " << endl;
+    get<3>(userInformations) = -getNumInput();
+
+    return userInformations;
+}
+
+void BankingAccountView::notifyIfLowDeposit() {
+    if (bankingAccount->isLowDeposit())
+        cout << "Alert! Your deposit is lower than 50 euros now. " << endl;
 }

@@ -7,7 +7,6 @@
 #include "gtest/gtest.h"
 
 #include "../project_files/banking_accounts_classes/Transaction.h"
-#include "../project_files/general_purpose_classes/DateSetter.h"
 
 using namespace std;
 
