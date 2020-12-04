@@ -12,7 +12,7 @@
 class BankingAccountSuite : public testing::Test{
 protected:
     virtual void SetUp(){
-        ifstream iFile("/home/rebecca/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/test/files_for_testing/bankingAccount.txt");
+        ifstream iFile("../../test/files_for_testing/bankingAccount.txt");
         text_iarchive ia(iFile);
         ia >> bankingAccount;
         iFile.close();

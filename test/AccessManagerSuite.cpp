@@ -7,7 +7,7 @@
 #include "../project_files/login_classes/AccessManager.h"
 
 TEST(AccessManagerSuite, CheckCredentialsTest){
-    AccessManager accessManager;
+    AccessManager accessManager("yes");
 
     accessManager.setTitolarCode("7777777");
     accessManager.setPIN("77777");

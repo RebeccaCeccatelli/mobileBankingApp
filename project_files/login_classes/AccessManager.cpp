@@ -9,12 +9,18 @@
 #include <string>
 #include <boost/archive/text_iarchive.hpp>
 
+#include "../general_purpose_classes/utilityFunctions.h"
+
 using namespace std;
+using namespace utilityFunctions;
 
-const string AccessManager::NO = "no";
+AccessManager::AccessManager(const string& testing) {
+    ifstream iFile;
+    if (testing == YES)
+        iFile.open("../../server/existing_accounts");
+    else
+        iFile.open("../server/existing_accounts");
 
-AccessManager::AccessManager() {
-    ifstream iFile("/home/rebecca/CLionProjects/Laboratorio_di_programmazione/mobile_banking_app/server/existing_accounts");
     text_iarchive ia(iFile);
     ia >> *this;
     iFile.close();

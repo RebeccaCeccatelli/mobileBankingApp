@@ -16,7 +16,7 @@ using namespace boost::archive;
 
 class AccessManager {
 public:
-    AccessManager();
+    explicit AccessManager(const string& testing = "no");
 
     bool checkCredentials();
     void enter();
@@ -51,9 +51,6 @@ private:
 
     bool firstLogin;
     Account* currentAccount{nullptr};
-
-    //class constant
-    static const string NO;
 };
 
 
