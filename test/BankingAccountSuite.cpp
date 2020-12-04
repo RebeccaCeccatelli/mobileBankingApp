@@ -54,7 +54,39 @@ TEST_F(BankingAccountSuite, isLowDepositTest){
 }
 
 TEST_F(BankingAccountSuite, returnSelectedTest){
-    //simile a quello di ChargeCard TODO
+    //requesting all transactions
+    auto list = bankingAccount.returnSelected(RequestedTransactions::all);
+
+    EXPECT_EQ(list.size(),24);
+    auto firstTransaction = *list.begin();
+    EXPECT_EQ(firstTransaction->getAmount(),-100);
+    EXPECT_EQ(firstTransaction->getDate(),"07/29/20 12:57:23");
+    EXPECT_EQ(firstTransaction->getDescription(),"card transaction");
+    auto casualTransaction = list[19];
+    EXPECT_EQ(casualTransaction->getAmount(),800);
+    EXPECT_EQ(casualTransaction->getDate(),"12/01/20 13:12:44");
+    EXPECT_EQ(casualTransaction->getDescription(),"wire transfer");
+
+    //filtering by date
+    list = bankingAccount.returnSelected(RequestedTransactions::specificDate,"11/18/20");
+    EXPECT_EQ(list.size(),2);
+    EXPECT_EQ(list[0]->getAmount(),-160);
+    EXPECT_EQ(list[1]->getAmount(),-3);
+
+    list = bankingAccount.returnSelected(RequestedTransactions::specificDate,"12/01/20");
+    EXPECT_EQ(list.size(),4);
+    int dailyReport = list[0]->getAmount()+list[1]->getAmount()+list[2]->getAmount()+list[3]->getAmount();
+    EXPECT_EQ(dailyReport,935);
+
+    list = bankingAccount.returnSelected(RequestedTransactions::specificDate,"12/04/20");
+    EXPECT_TRUE(list.empty());
+
+    //filtering by category
+    list = bankingAccount.returnSelected(RequestedTransactions::specificCategory,"general");
+    EXPECT_EQ(list.size(),9);
+    list = bankingAccount.returnSelected(RequestedTransactions::specificCategory,"fuel");
+    EXPECT_EQ(list.size(),1);
+
 }
 
 TEST_F(BankingAccountSuite, createPhoneRechargeTest){
