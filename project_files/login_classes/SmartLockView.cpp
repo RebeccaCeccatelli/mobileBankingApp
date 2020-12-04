@@ -11,7 +11,7 @@
 using namespace std;
 using namespace utilityFunctions;
 
-bool SmartLockView::wantToRemember(const string& titolarCode) {
+bool SmartLockView::wantToRemember() {
     cout << "Do you want your titolar code to be remembered by this App?" << endl;
 
     smartLock->setTitolarCode(titolarCode);
@@ -42,7 +42,7 @@ bool SmartLockView::isCorrectInput(const string &input) {
 }
 
 void SmartLockView::display() {
-    wantToRemember(std::string()); //FIXME
+    wantToRemember();
 }
 
 

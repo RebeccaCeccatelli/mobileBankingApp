@@ -55,8 +55,8 @@ bool AccessManagerView::isCorrectInput(const string &input) {
         cout << "Credentials accepted. Logging in..." << endl;
 
         if (accessManager.isFirstLogin()) {
-            SmartLockView smartLockView(&smartLock);
-            accessManager.setFirstLogin(smartLockView.wantToRemember(accessManager.getTitolarCode()));
+            SmartLockView smartLockView(&smartLock,accessManager.getTitolarCode());
+            accessManager.setFirstLogin(smartLockView.wantToRemember());
 
             accessManager.serializeFirstLogin();
         }
