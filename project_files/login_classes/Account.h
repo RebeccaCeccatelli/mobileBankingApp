@@ -23,6 +23,9 @@ public:
     bool areCorrectCredentials(const string& titCode, const string& pin) const;
     void enter();
 
+    void setPIN(string pin);
+    const string& getPIN() const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -33,7 +36,7 @@ private:
     }
 
     //attributes
-    pair<string, string> acceptableCredentials;
+    pair<string, string> acceptableCredentials; //titCode, PIN
     string clientName;
     PersonalAreaView personalAreaView;
 };

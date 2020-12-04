@@ -13,5 +13,14 @@ bool Account::areCorrectCredentials(const string& titCode, const string& pin) co
 
 void Account::enter() {
     personalAreaView.setClientName(clientName);
+    personalAreaView.setAccountReference(this);
     personalAreaView.displayUserInterface();
+}
+
+void Account::setPIN(string pin) {
+    acceptableCredentials.second = move(pin);
+}
+
+const string &Account::getPIN() const {
+    return acceptableCredentials.second;
 }

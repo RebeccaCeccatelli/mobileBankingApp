@@ -59,3 +59,9 @@ string utilityFunctions::insertFilter(const string &request) {
 
     return filter;
 }
+
+string utilityFunctions::insertCurrentPIN() {
+    cout << "Insert your current PIN: " << endl;
+    string input = getStringInput();
+    return input;
+}

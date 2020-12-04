@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 
 #include "../general_purpose_classes/utilityFunctions.h"
 
@@ -95,6 +96,13 @@ const string &AccessManager::getTitolarCode() const {
 
 void AccessManager::addAccount(const string& titCode, const string& pin, string clientName) {
     accounts.emplace_back(titCode, pin, move(clientName));
+}
+
+AccessManager::~AccessManager() {
+    ofstream oFile("../server/existing_accounts");
+    text_oarchive oa(oFile);
+    oa << *this;
+    oFile.close();
 }
 
 

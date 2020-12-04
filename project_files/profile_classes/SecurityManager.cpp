@@ -6,10 +6,18 @@
 
 #include <fstream>
 
+#include "../login_classes/Account.h"
+
+
 const string SecurityManager::YES = "yes";
 
-SecurityManager::SecurityManager(string question, string answer, bool digKey) : digitalKey{digKey} {
+SecurityManager::SecurityManager(string question, string answer, bool digKey, Account *account) :
+    digitalKey{digKey}, accountReference{account}{
     securityQuestion = make_pair(move(question),move(answer));
+}
+
+void SecurityManager::setAccountReference(Account* account) {
+    accountReference = account;
 }
 
 void SecurityManager::serialize(const string &cname) const {
@@ -52,7 +60,7 @@ SecurityManager SecurityManager::deserialize(const string &extractedPath) {
         }
         it++;
     }
-    return SecurityManager(question, answer, digKey);
+    return SecurityManager(question, answer, digKey, accountReference);
 }
 
 const string &SecurityManager::getQuestion() const {
@@ -77,4 +85,15 @@ void SecurityManager::changeDigitalKey() {
 void SecurityManager::changeSecurityQuestion(string question, string answer) {
     securityQuestion.first = move(question);
     securityQuestion.second = move(answer);
+}
+
+bool SecurityManager::checkCurrentPIN(const string& input) const {
+    bool correct = false;
+    if (accountReference->getPIN() == input)
+        correct = true;
+    return correct;
+}
+
+void SecurityManager::setNewPin(string newPIn){
+    accountReference->setPIN(move(newPIn));
 }

@@ -12,9 +12,15 @@
 
 using namespace std;
 
+class Account;
+
 class SecurityManagerView : public InputManager {
 public:
+    SecurityManagerView() {}
+
     virtual ~SecurityManagerView() = default;
+
+    void setAccountReference(Account* account);
 
     void serialize(const string& name) const;
     SecurityManagerView deserialize(const string& extractedPath);
@@ -24,8 +30,12 @@ private:
     bool isCorrectInput(const string &input) override;
 
     bool askSecurityQuestion() const;
+    bool askPIN() const;
+    pair<bool,string> askNewPINTwice() const;
+
     void changeDigitalKeySetting();
     void changeSecurityQuestion();
+    void changePIN();
 
     //attribute
     SecurityManager securityManager;
@@ -33,6 +43,7 @@ private:
     //class constants
     static const string DIGITAL_KEY;
     static const string SECURITY_QUESTION;
+    static const string PIN;
 };
 
 

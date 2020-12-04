@@ -21,6 +21,10 @@ void PersonalAreaView::setClientName(const string &cname) {
     clientName = cname;
 }
 
+void PersonalAreaView::setAccountReference(Account *account) {
+    profileManagerView.setAccountReference(account);
+}
+
 void PersonalAreaView::display() {
     cout << endl << "*** Hi, " << clientName << "! This is your personal area. ***" << endl
         << "What would you like to do?" << endl;
@@ -38,20 +42,16 @@ bool PersonalAreaView::isCorrectInput(const string &input) {
     if (input == BANKING_ACCOUNTS) {
         bankingAccountsManagerView.setClientName(clientName);
         bankingAccountsManagerView.displayUserInterface();
-    }
-    else if (input == PROFILE) {
+    } else if (input == PROFILE) {
         profileManagerView.setClientName(clientName);
         profileManagerView.displayUserInterface();
-    }
-    else if (input == ALERTS) {
+    } else if (input == ALERTS) {
         alertsManagerView.setClientName(clientName);
         alertsManagerView.displayUserInterface();
-    }
-    else if (input == REMINDERS) {
+    } else if (input == REMINDERS) {
         remindersManagerView.setClientName(clientName);
         remindersManagerView.displayUserInterface();
-    }
-    else if (input == LOGOUT)
+    } else if (input == LOGOUT)
         setGoBack(true);
 
     else

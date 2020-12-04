@@ -10,7 +10,7 @@ class SecurityManagerSuite : public testing::Test {
 
 protected:
     virtual void SetUp(){
-        settedSecurityManager = new SecurityManager("Quanti giorni ha novembre?", "30",false);
+        settedSecurityManager = new SecurityManager("Quanti giorni ha novembre?", "30", false, nullptr);
     }
 
     virtual void TearDown(){

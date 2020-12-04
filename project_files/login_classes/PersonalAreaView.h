@@ -11,10 +11,14 @@
 #include "../profile_classes/ProfileManagerView.h"
 #include "../banking_accounts_classes/BankingAccountsManagerView.h"
 
+class Account;
+
 class PersonalAreaView : public InputManager {
 public:
     virtual ~PersonalAreaView() = default;
+
     void setClientName(const string& cname);
+    void setAccountReference(Account* account);
 
 private:
     void display() override;

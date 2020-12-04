@@ -9,24 +9,32 @@
 
 using namespace std;
 
+class Account;
+
 class SecurityManager {
 public:
+    SecurityManager(string question, string answer, bool digKey, Account *account);
     SecurityManager() = default;
-    SecurityManager(string question, string answer, bool digKey);
+
+    void setAccountReference(Account* account);
 
     void serialize(const string& cname) const;
-    static SecurityManager deserialize(const string& extractedPath);
+    SecurityManager deserialize(const string& extractedPath);
 
     const string& getQuestion() const;
     bool checkAnswer(const string& answer) const;
     bool isDigitalKey() const;
+    bool checkCurrentPIN(const string& input) const;
 
     void changeDigitalKey();
     void changeSecurityQuestion(string question, string answer);
+    void setNewPin(string newPIn);
 
 private:
     bool digitalKey{false};
     pair<string,string> securityQuestion{make_pair("none", "none")};
+
+    Account* accountReference{nullptr};
 
     //constant
     static const string YES;

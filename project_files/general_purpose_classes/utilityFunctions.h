@@ -22,6 +22,8 @@ namespace utilityFunctions {
     string decideSortingLogic();
     string insertFilter(const string& request);
 
+    string insertCurrentPIN();
+
     static const string BACK = "0";
     static const string YES = "yes";
     static const string NO = "no";

@@ -18,6 +18,10 @@ void ProfileManagerView::setClientName(const string &cname) {
     clientName = cname;
 }
 
+void ProfileManagerView::setAccountReference(Account *account) {
+    securityManagerView.setAccountReference(account);
+}
+
 void ProfileManagerView::pullFromServer() {
     if (firstPull) {
         string directoryPath = "../server/" + clientName + "/profile/";

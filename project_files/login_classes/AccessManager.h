@@ -18,6 +18,8 @@ class AccessManager {
 public:
     explicit AccessManager(const string& testing = "no");
 
+    virtual ~AccessManager();
+
     bool checkCredentials();
     void enter();
 

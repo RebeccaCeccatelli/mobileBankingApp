@@ -14,11 +14,14 @@
 
 using namespace std;
 
+class Account;
+
 class ProfileManagerView : public InputManager {
 public:
     virtual ~ProfileManagerView() = default;
 
     void setClientName(const string& cname);
+    void setAccountReference(Account* account);
 
 private:
     void pullFromServer();
