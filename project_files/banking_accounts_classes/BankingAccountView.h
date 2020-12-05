@@ -6,11 +6,13 @@
 #define MOBILE_BANKING_APP_BANKINGACCOUNTVIEW_H
 
 #include "../general_purpose_classes/InputManager.h"
+#include "../profile_classes/SecurityManagerView.h"
 #include "BankingAccount.h"
 
 class BankingAccountView : public InputManager {
 public:
-    explicit BankingAccountView(BankingAccount* bAccount) : bankingAccount{bAccount} {}
+    BankingAccountView(BankingAccount *bAccount, const SecurityManagerView *smView) :
+        bankingAccount{bAccount}, securityManagerView{smView} {}
     virtual ~BankingAccountView() = default;
 
 private:
@@ -34,8 +36,9 @@ private:
 
     void notifyIfLowDeposit();
 
-    //attribute
+    //attributes
     BankingAccount* bankingAccount{nullptr};
+    const SecurityManagerView* securityManagerView{nullptr};
 
     //class constants
     static const string INFOS;

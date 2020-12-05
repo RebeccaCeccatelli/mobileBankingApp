@@ -21,7 +21,9 @@ public:
     virtual ~ProfileManagerView() = default;
 
     void setClientName(const string& cname);
+
     void setAccountReference(Account* account);
+    const SecurityManagerView* getSMViewReference() const;
 
 private:
     void pullFromServer();

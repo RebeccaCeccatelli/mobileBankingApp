@@ -19,6 +19,10 @@ void BankingAccountsManagerView::setClientName(const string &cname) {
     clientName = cname;
 }
 
+void BankingAccountsManagerView::setSMViewReference(const SecurityManagerView *smView) {
+    securityManagerView = smView;
+}
+
 void BankingAccountsManagerView::display() {
     pullFromServer();
 
@@ -44,7 +48,7 @@ bool BankingAccountsManagerView::isCorrectInput(const string &input) {
     else {
         auto it = bankingAccounts.find(input);
         if (it != bankingAccounts.end()){
-            BankingAccountView bankingAccountView(&it->second);
+            BankingAccountView bankingAccountView(&it->second, securityManagerView);
             bankingAccountView.displayUserInterface();
         }
         else
@@ -56,10 +60,14 @@ bool BankingAccountsManagerView::isCorrectInput(const string &input) {
 }
 
 void BankingAccountsManagerView::pullFromServer() {
+    auto temporary = securityManagerView;
+
     ifstream iFile("../server/" + clientName + "/banking_accounts.txt");
     text_iarchive ia(iFile);
     ia >> *this;
     iFile.close();
+
+    this->securityManagerView = temporary;
 }
 
 void BankingAccountsManagerView::updateServer() const {

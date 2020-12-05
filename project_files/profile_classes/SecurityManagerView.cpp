@@ -5,7 +5,6 @@
 #include "SecurityManagerView.h"
 
 #include <iostream>
-#include <fstream>
 
 #include "../general_purpose_classes/utilityFunctions.h"
 
@@ -18,6 +17,10 @@ const string SecurityManagerView::PIN = "3";
 
 void SecurityManagerView::setAccountReference(Account *account) {
     securityManager.setAccountReference(account);
+}
+
+const SecurityManagerView* SecurityManagerView::getReference() const {
+    return this;
 }
 
 void SecurityManagerView::serialize(const string &name) const {
@@ -107,13 +110,21 @@ void SecurityManagerView::changePIN() {
 
 bool SecurityManagerView::askPIN() const {
     bool correct = false;
+    static int attempts{1};
 
     if (securityManager.checkCurrentPIN(insertCurrentPIN())) {
         cout << "Correct. " << endl;
-        correct = true;
+        correct = true, attempts = 1;
     }
-    else
-        cout << "Uncorrect answer. Error. " << endl;
+    else if (attempts <= 5) {
+        cout << "Uncorrect PIN (attempt nr = " << attempts << "). Try Again." << endl;
+        attempts++;
+        return askPIN();
+    }
+    else {
+        cout << "More than five uncorrect inputs. Error. " << endl;
+        attempts = 1;
+    }
 
     return correct;
 }
@@ -139,6 +150,7 @@ pair<bool, string> SecurityManagerView::askNewPINTwice() const {
     }
     else{
         cout << "More than five uncorrect inputs. Negated. " << endl;
+        attempts = 1;
         return make_pair(accepted,"");
     }
 }

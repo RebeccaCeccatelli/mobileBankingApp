@@ -179,32 +179,35 @@ void BankingAccountView::createTransaction() {
 void BankingAccountView::createPhoneRecharge() {
     auto userInformations = gatherPhoneRechargeInfo();
 
-    if(bankingAccount->createPhoneRecharge(userInformations)){
-        cout << "Phone recharge successfully received and saved." << endl << "Your banking account deposit now is: "
-             << bankingAccount->getDeposit() << "." << endl;
-        notifyIfLowDeposit();
-    }
-    else {
-        cout << "Phone recharge negated. You asked to recharge " << get<2>(userInformations)
-             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
-             << " euros. " << endl << "Not sufficient. " << endl;
+    if (securityManagerView->askPIN()) {
+        if (bankingAccount->createPhoneRecharge(userInformations)) {
+            cout << "Phone recharge successfully received and saved." << endl << "Your banking account deposit now is: "
+                 << bankingAccount->getDeposit() << "." << endl;
+            notifyIfLowDeposit();
+        }
+        else {
+            cout << "Phone recharge negated. You asked to recharge " << get<2>(userInformations)
+                 << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
+                 << " euros. " << endl << "Not sufficient. " << endl;
+        }
     }
 }
 
 void BankingAccountView::createWireTransfer() {
     auto userInformations = gatherWireTransferInfo();
 
-    if(bankingAccount->createWireTransfer(userInformations)){
-        cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
-        << bankingAccount->getDeposit() << " (2 euros of commissions). " << endl;
-        notifyIfLowDeposit();
+    if (securityManagerView->askPIN()) {
+        if (bankingAccount->createWireTransfer(userInformations)) {
+            cout << "Wire transfer successfully received and saved. " << endl << "Your banking account deposit now is: "
+                 << bankingAccount->getDeposit() << " (2 euros of commissions). " << endl;
+            notifyIfLowDeposit();
+        }
+        else {
+            cout << "Wire transfer negated. You asked to recharge " << get<3>(userInformations)
+                 << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
+                 << " euros. " << endl << "Not sufficient. " << endl;
+        }
     }
-    else{
-        cout << "Wire transfer negated. You asked to recharge " << get<3>(userInformations)
-             << " euros but your banking account deposit is just " << bankingAccount->getDeposit()
-             << " euros. " << endl << "Not sufficient. " << endl;
-    }
-
 }
 
 tuple<string, string, int> BankingAccountView::gatherPhoneRechargeInfo() {

@@ -41,6 +41,7 @@ bool PersonalAreaView::isCorrectInput(const string &input) {
 
     if (input == BANKING_ACCOUNTS) {
         bankingAccountsManagerView.setClientName(clientName);
+        bankingAccountsManagerView.setSMViewReference(profileManagerView.getSMViewReference());
         bankingAccountsManagerView.displayUserInterface();
     } else if (input == PROFILE) {
         profileManagerView.setClientName(clientName);

@@ -22,6 +22,10 @@ void ProfileManagerView::setAccountReference(Account *account) {
     securityManagerView.setAccountReference(account);
 }
 
+const SecurityManagerView* ProfileManagerView::getSMViewReference() const {
+    return securityManagerView.getReference();
+}
+
 void ProfileManagerView::pullFromServer() {
     if (firstPull) {
         string directoryPath = "../server/" + clientName + "/profile/";

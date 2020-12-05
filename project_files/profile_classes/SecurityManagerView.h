@@ -21,6 +21,9 @@ public:
     virtual ~SecurityManagerView() = default;
 
     void setAccountReference(Account* account);
+    const SecurityManagerView* getReference() const;
+
+    bool askPIN() const;
 
     void serialize(const string& name) const;
     SecurityManagerView deserialize(const string& extractedPath);
@@ -30,7 +33,6 @@ private:
     bool isCorrectInput(const string &input) override;
 
     bool askSecurityQuestion() const;
-    bool askPIN() const;
     pair<bool,string> askNewPINTwice() const;
 
     void changeDigitalKeySetting();

@@ -9,6 +9,7 @@
 #include <boost/serialization/map.hpp>
 
 #include "../general_purpose_classes/InputManager.h"
+#include "../profile_classes/SecurityManagerView.h"
 #include "BankingAccount.h"
 
 using namespace std;
@@ -17,7 +18,9 @@ using namespace boost::archive;
 class BankingAccountsManagerView : public InputManager {
 public:
     virtual ~BankingAccountsManagerView() = default;
+
     void setClientName(const string& cname);
+    void setSMViewReference(const SecurityManagerView* smView);
 
 private:
     friend class boost::serialization::access;
@@ -35,6 +38,7 @@ private:
     //attributes
     map<string,BankingAccount> bankingAccounts;
     string clientName;
+    const SecurityManagerView* securityManagerView{nullptr};
 };
 
 
