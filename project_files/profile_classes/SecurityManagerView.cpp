@@ -116,7 +116,7 @@ bool SecurityManagerView::askPIN() const {
         cout << "Correct. " << endl;
         correct = true, attempts = 1;
     }
-    else if (attempts <= 5) {
+    else if (attempts <= MAX_ATTEMPTS) {
         cout << "Uncorrect PIN (attempt nr = " << attempts << "). Try Again." << endl;
         attempts++;
         return askPIN();
@@ -143,7 +143,7 @@ pair<bool, string> SecurityManagerView::askNewPINTwice() const {
         accepted = true, attempts = 1;
         return make_pair(accepted,firstInput);
     }
-    else if (attempts <= 5){
+    else if (attempts <= MAX_ATTEMPTS){
         cout << "Inserted pins do not coincide (attempt nr = " << attempts << "). Try Again. " << endl;
         attempts++;
         return askNewPINTwice();
